@@ -25,21 +25,21 @@
     }
 }
 
-/* 3. APLICACIÓN AL BODY */
 body {
     margin: 0;
-    /* Usamos padding para el espacio interior */
-    padding: 0 20px; /* 0 arriba/abajo, 20px a los lados (aprox. 5mm) */
-    
+    padding: 0 20px; 
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
     text-align: justify;
-    
-    /* Box-sizing asegura que el padding no estire el ancho total del cuerpo */
     box-sizing: border-box; 
 
-    /* Configuración del Fondo Animado (Sin cambios) */
+    /* --- AJUSTES PARA EL FOOTER PEGAJOSO --- */
+    display: flex;
+    flex-direction: column;
+    /* --------------------------------------- */
+
+    /* Configuración del Fondo Animado */
     background-color: hsla(220, 35%, 15%, 1);
     background-image: 
         radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) 4%, transparent 70%), 
@@ -50,11 +50,19 @@ body {
     background-blend-mode: soft-light;
 }
 
+
+
 /* RECOMENDACIÓN EXTRA: Contenedor Principal */
 /* Para que en pantallas de PC el texto no se estire demasiado a lo ancho */
 main, .container {
     max-width: 1000px; 
     margin: 0 auto; /* Centra el contenido automáticamente */
+    
+    /* --- ESTO ES LO QUE NECESITAMOS AHORA --- */
+    flex: 1;       /* Empuja el footer al fondo si hay poco texto */
+    width: 100%;   /* Asegura que ocupe todo el ancho disponible hasta los 1000px */
+    display: flex;
+    flex-direction: column; /* Permite que el contenido interno también se alinee bien */
 }
 
 /* 4. COMPONENTES INTEGRADOS */
