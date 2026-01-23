@@ -1,0 +1,98 @@
+/* 1. DEFINICIÓN DE PROPIEDADES (Necesario para que la animación funcione) */
+@property --y-0 { syntax: '<percentage>'; inherits: false; initial-value: 58% }
+@property --x-0 { syntax: '<percentage>'; inherits: false; initial-value: 27% }
+@property --c-0 { syntax: '<color>'; inherits: false; initial-value: hsla(210, 30%, 25%, 1) } /* Azul Grisáceo Oscuro */
+
+@property --y-1 { syntax: '<percentage>'; inherits: false; initial-value: 14% }
+@property --x-1 { syntax: '<percentage>'; inherits: false; initial-value: 75% }
+@property --c-1 { syntax: '<color>'; inherits: false; initial-value: hsla(195, 20%, 45%, 1) } /* Gris Azulado */
+
+@property --y-2 { syntax: '<percentage>'; inherits: false; initial-value: 46% }
+@property --x-2 { syntax: '<percentage>'; inherits: false; initial-value: 40% }
+@property --c-2 { syntax: '<color>'; inherits: false; initial-value: hsla(220, 40%, 15%, 1) } /* Azul Profundo */
+
+/* 2. ANIMACIÓN RECALIBRADA A AZULES/GRISES */
+@keyframes background-animada {
+    0% {
+        --y-0: 58%; --x-0: 27%; --c-0: hsla(210, 30%, 30%, 1);
+        --y-1: 14%; --x-1: 75%; --c-1: hsla(200, 15%, 50%, 1);
+        --y-2: 46%; --x-2: 40%; --c-2: hsla(220, 35%, 15%, 1);
+    }
+    100% {
+        --y-0: 6%; --x-0: 10%; --c-0: hsla(210, 25%, 20%, 1);
+        --y-1: 12%; --x-1: 12%; --c-1: hsla(190, 10%, 40%, 1);
+        --y-2: 41%; --x-2: 4%; --c-2: hsla(225, 40%, 10%, 1);
+    }
+}
+
+/* 3. APLICACIÓN AL BODY */
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    text-align: justify;
+    
+    /* Configuración del Fondo Animado */
+    background-color: hsla(220, 35%, 15%, 1);
+    background-image: 
+        radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) 4%, transparent 70%), 
+        radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) 4%, transparent 70%), 
+        radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) 4%, transparent 70%);
+    background-attachment: fixed;
+    animation: background-animada 15s linear infinite alternate;
+    background-blend-mode: soft-light; /* Mezcla mejor los colores */
+}
+
+/* 4. COMPONENTES INTEGRADOS */
+
+nav, .tu-clase-navegacion {
+    display: flex;
+    flex-direction: row;      
+    align-items: center;      
+    justify-content: center;   
+    gap: 30px;                
+    padding: 20px 40px;       
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px); /* Efecto esmerilado opcional */
+}
+
+nav a, .tu-clase-navegacion a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover { opacity: 0.7; }
+
+/* Header - Primer div */
+div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+div:first-of-type img {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+div:first-of-type h3 { margin: 5px 0; font-size: 18px; font-weight: 500; }
+div:first-of-type h3:first-of-type { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+
+/* Footer */
+footer {
+    padding: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 40px;
+}
