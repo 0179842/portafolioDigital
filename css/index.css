@@ -117,3 +117,109 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 40px;
 }
+
+/* Contenedor General del Formulario */
+.contenedor-contacto {
+    margin: 40px auto;
+    padding: 0 10px;
+    width: 100%;
+}
+
+.contenedor-contacto h2 {
+    text-align: center;
+    color: #a0c4ff; /* Azul claro resaltante */
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Reset para que el div de contacto no herede estilos del Header de arriba */
+.seccion-final-contacto, .seccion-final-contacto div {
+    display: block; 
+    text-align: center;
+}
+/* Eliminamos cualquier margen que el div contenedor pueda estar metiendo */
+.contenedor-contacto div:first-of-type {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.tabla-formulario {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(15, 25, 40, 0.6);
+    backdrop-filter: blur(10px);
+    gap: 0 !important; /* IMPORTANTE: Esto quita cualquier hueco entre filas */
+}
+
+/* Forzamos que todas las filas (incluida la primera) sean idénticas y pegadas */
+.tabla-formulario .fila {
+    display: grid !important;
+    grid-template-columns: 180px 1fr !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent !important; /* Evita parches de color diferentes */
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: stretch;
+}
+
+/* Estilo de las etiquetas (celdas izquierda) */
+.tabla-formulario .fila label {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    font-weight: bold;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+/* Estilo de los inputs (celdas derecha) */
+.tabla-formulario .fila input, 
+.tabla-formulario .fila textarea {
+    background: transparent !important;
+    border: none !important;
+    padding: 20px !important;
+    color: white !important;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    margin: 0 !important;
+}
+
+/* Quitar el borde a la última fila antes del botón para que no se vea doble */
+.fila-boton {
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.fila-boton button {
+    background: #a0c4ff;
+    color: #0f1928;
+    border: none;
+    padding: 12px 45px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+/* Estado Hover del Botón de Envío */
+.fila-boton button:hover {
+    background: #ffffff;      /* Cambia a blanco puro */
+    color: #0f1928;           /* Mantiene el texto oscuro para contraste */
+    transform: translateY(-2px); /* Pequeño salto hacia arriba */
+    box-shadow: 0 5px 15px rgba(160, 196, 255, 0.4); /* Brillo azulado suave */
+    transition: 0.3s ease;    /* Animación suave de transición */
+}
+
+/* Efecto opcional al hacer clic (Active) */
+.fila-boton button:active {
+    transform: translateY(0);  /* Regresa a su posición original */
+    box-shadow: 0 2px 5px rgba(160, 196, 255, 0.2);
+}
