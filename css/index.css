@@ -28,12 +28,18 @@
 /* 3. APLICACIÓN AL BODY */
 body {
     margin: 0;
+    /* Usamos padding para el espacio interior */
+    padding: 0 20px; /* 0 arriba/abajo, 20px a los lados (aprox. 5mm) */
+    
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
     text-align: justify;
     
-    /* Configuración del Fondo Animado */
+    /* Box-sizing asegura que el padding no estire el ancho total del cuerpo */
+    box-sizing: border-box; 
+
+    /* Configuración del Fondo Animado (Sin cambios) */
     background-color: hsla(220, 35%, 15%, 1);
     background-image: 
         radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) 4%, transparent 70%), 
@@ -41,7 +47,14 @@ body {
         radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) 4%, transparent 70%);
     background-attachment: fixed;
     animation: background-animada 15s linear infinite alternate;
-    background-blend-mode: soft-light; /* Mezcla mejor los colores */
+    background-blend-mode: soft-light;
+}
+
+/* RECOMENDACIÓN EXTRA: Contenedor Principal */
+/* Para que en pantallas de PC el texto no se estire demasiado a lo ancho */
+main, .container {
+    max-width: 1000px; 
+    margin: 0 auto; /* Centra el contenido automáticamente */
 }
 
 /* 4. COMPONENTES INTEGRADOS */
