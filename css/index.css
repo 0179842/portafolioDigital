@@ -1,17 +1,17 @@
-/* 1. DEFINICIÓN DE PROPIEDADES (Necesario para que la animación funcione) */
+/* 1. DEFINICIÓN DE PROPIEDADES */
 @property --y-0 { syntax: '<percentage>'; inherits: false; initial-value: 58% }
 @property --x-0 { syntax: '<percentage>'; inherits: false; initial-value: 27% }
-@property --c-0 { syntax: '<color>'; inherits: false; initial-value: hsla(210, 30%, 25%, 1) } /* Azul Grisáceo Oscuro */
+@property --c-0 { syntax: '<color>'; inherits: false; initial-value: hsla(210, 30%, 25%, 1) }
 
 @property --y-1 { syntax: '<percentage>'; inherits: false; initial-value: 14% }
 @property --x-1 { syntax: '<percentage>'; inherits: false; initial-value: 75% }
-@property --c-1 { syntax: '<color>'; inherits: false; initial-value: hsla(195, 20%, 45%, 1) } /* Gris Azulado */
+@property --c-1 { syntax: '<color>'; inherits: false; initial-value: hsla(195, 20%, 45%, 1) }
 
 @property --y-2 { syntax: '<percentage>'; inherits: false; initial-value: 46% }
 @property --x-2 { syntax: '<percentage>'; inherits: false; initial-value: 40% }
-@property --c-2 { syntax: '<color>'; inherits: false; initial-value: hsla(220, 40%, 15%, 1) } /* Azul Profundo */
+@property --c-2 { syntax: '<color>'; inherits: false; initial-value: hsla(220, 40%, 15%, 1) }
 
-/* 2. ANIMACIÓN RECALIBRADA A AZULES/GRISES */
+/* 2. ANIMACIÓN RECALIBRADA */
 @keyframes background-animada {
     0% {
         --y-0: 58%; --x-0: 27%; --c-0: hsla(210, 30%, 30%, 1);
@@ -32,8 +32,6 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
     text-align: justify;
-    
-    /* Configuración del Fondo Animado */
     background-color: hsla(220, 35%, 15%, 1);
     background-image: 
         radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) 4%, transparent 70%), 
@@ -41,11 +39,11 @@ body {
         radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) 4%, transparent 70%);
     background-attachment: fixed;
     animation: background-animada 15s linear infinite alternate;
-    background-blend-mode: soft-light; /* Mezcla mejor los colores */
+    background-blend-mode: soft-light;
+    overflow-x: hidden; /* Evita scroll horizontal accidental */
 }
 
 /* 4. COMPONENTES INTEGRADOS */
-
 nav, .tu-clase-navegacion {
     display: flex;
     flex-direction: row;      
@@ -54,7 +52,8 @@ nav, .tu-clase-navegacion {
     gap: 30px;                
     padding: 20px 40px;       
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(5px); /* Efecto esmerilado opcional */
+    backdrop-filter: blur(5px);
+    flex-wrap: wrap; /* Permite que los links bajen si no caben */
 }
 
 nav a, .tu-clase-navegacion a {
@@ -62,11 +61,9 @@ nav a, .tu-clase-navegacion a {
     text-decoration: none;
     font-weight: 500;
     transition: 0.3s;
+    white-space: nowrap; /* Evita que los nombres de links se partan */
 }
 
-nav a:hover { opacity: 0.7; }
-
-/* Header - Primer div */
 div:first-of-type {
     display: flex;
     flex-direction: column;
@@ -84,15 +81,43 @@ div:first-of-type img {
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-div:first-of-type h3 { margin: 5px 0; font-size: 18px; font-weight: 500; }
-div:first-of-type h3:first-of-type { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+/* 5. MEDIA QUERIES (RESPONSIVIDAD) */
 
-/* Footer */
-footer {
-    padding: 20px;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 40px;
+/* Para Tablets y pantallas medianas */
+@media (max-width: 768px) {
+    nav, .tu-clase-navegacion {
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    
+    div:first-of-type h3:first-of-type {
+        font-size: 20px;
+    }
+}
+
+/* Para Móviles (Smartphones) */
+@media (max-width: 480px) {
+    nav, .tu-clase-navegacion {
+        flex-direction: column; /* Navegación en vertical para el dedo */
+        gap: 10px;
+        padding: 20px;
+    }
+
+    div:first-of-type {
+        padding: 30px 10px;
+    }
+
+    div:first-of-type img {
+        width: 80px; /* Imagen un poco más pequeña en móvil */
+        height: 80px;
+    }
+
+    body {
+        font-size: 14px; /* Texto base un poco más pequeño */
+    }
+    
+    footer {
+        font-size: 12px;
+        margin-top: 20px;
+    }
 }
