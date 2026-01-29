@@ -25,6 +25,35 @@
     }
 }
 
+h2 {
+    
+    /* Letras blancas */
+    color: #ffffff;
+    text-align: left;
+    /* Sombra de texto para que el blanco sea legible sobre azul claro */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    
+    /* Bordes rectos (sin biselado/redondeado) */
+    border-radius: 0;
+    
+    /* Espaciado interno */
+    padding: 12px 20px;
+    
+    /* Sombra proyectada muy tenue y elegante */
+    /* 0 desplz. horizontal, 4px vertical, 15px de difuminado, color muy transparente */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    
+    /* Tipografía técnica y limpia */
+    font-family: 'Helvetica', Arial, sans-serif;
+    /*font-weight: 500;*/
+    letter-spacing: 0.5px;
+    
+    /* Ajuste de bloque */
+    display: block;
+    border-left: 15px solid #05579b; /* Detalle lateral para resaltar el tono azul */
+    margin-bottom: 20px;
+}
+
 body {
     margin: 0;
     padding: 0 20px; 
@@ -125,12 +154,7 @@ footer {
     width: 100%;
 }
 
-.contenedor-contacto h2 {
-    text-align: center;
-    color: white; /* Azul claro resaltante */
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
+
 
 /* Reset para que el div de contacto no herede estilos del Header de arriba */
 .seccion-final-contacto, .seccion-final-contacto div {
@@ -222,5 +246,4 @@ footer {
 .fila-boton button:active {
     transform: translateY(0);  /* Regresa a su posición original */
     box-shadow: 0 2px 5px rgba(160, 196, 255, 0.2);
-
 }
