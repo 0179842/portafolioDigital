@@ -61,7 +61,7 @@ El enfoque central de este espacio se desplaza por los pilares de la tríada de 
                     <textarea id="asunto" name="message" rows="5" placeholder="Escribe aquí los detalles..." required></textarea>
                 </div>
                 <div class="fila-boton">
-                    <button type="submit">Enviar Formulario</button>
+                    <button type="submit" onclick="setTimeout(() => { this.form.reset(); }, 100)">Enviar Formulario</button>
                 </div>
             </form>
         </section>
@@ -71,4 +71,5 @@ El enfoque central de este espacio se desplaza por los pilares de la tríada de 
             <p>🔒︎ Certificado SSL por GitHub Pages</p>
         </footer>
     </body>
+
 </html>
