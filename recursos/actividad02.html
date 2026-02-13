@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Actividad 02</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+    <nav>
+            <a href="../index.html">Inicio</a> 
+            <a href="actividades.html">Actividades</a> 
+            <a href="notas.html">Notas</a> 
+            <a href="herramientas.html">Herramientas</a>
+            <a href="proyectos.html">Proyectos</a>
+            <a href="certificaciones.html">Certificaciones</a>
+    </nav>
+
+<main class="container">
+    <div>
+
+    <!-- CONTENEDOR DE LOGOS SUPERIORES -->
+    <div class="top-logos-container"
+     style="display:flex; 
+            flex-direction:row; 
+            justify-content:center; 
+            align-items:center; 
+            gap:40px; 
+            margin:auto 0;">
+
+    <img src="../images/seguridad.png" 
+         alt="Logo Maersk"
+         style="height:80px; object-fit:cover;">
+
+</div>
+    <h3>Actividad 02: Análisis de servicios de seguridad (X.800 y RFC 4949)</h3>
+</div>
+
+    <br>
+
+    <h2>Introducción</h2>
+
+    <p>
+        El RFC 4949, titulado “Internet Security Glossary”, es un documento publicado por 
+        la IETF que proporciona un glosario estandarizado de términos relacionados con la 
+        seguridad de la información y las redes. Su objetivo principal es unificar el 
+        significado de conceptos clave como autenticación, confidencialidad, integridad, 
+        disponibilidad, control de acceso y criptografía, entre muchos otros. Este RFC sirve 
+        como referencia común para investigadores, profesionales y estudiantes, ayudando 
+        a evitar ambigüedades y a mejorar la comunicación en el ámbito de la seguridad 
+        informática.<br>
+        Por su parte, la recomendación UIT-T X.800, conocida como “Arquitectura de 
+        seguridad para la interconexión de sistemas abiertos (OSI)”, define un marco 
+        conceptual para la seguridad de redes. En este estándar se establecen los servicios 
+        de seguridad (como confidencialidad, integridad, autenticación y no repudio), así 
+        como los mecanismos de seguridad que permiten implementarlos. El modelo X.800 
+        es fundamental porque ofrece una visión estructurada de cómo proteger la 
+        información en sistemas de comunicación, y ha influido en muchos modelos y 
+        normas de seguridad posteriores. <br>
+        En conjunto, el RFC 4949 y el UIT-T X.800 son pilares teóricos de la seguridad de 
+        la información: el primero aporta claridad terminológica, mientras que el segundo 
+        proporciona una arquitectura conceptual para diseñar y analizar sistemas seguros. <br>
+        Se plantean diferentes escenarios en donde habrá que identificar algunos 
+        elementos.   
+    </p>
+
+    <h2>Escenarios</h2>
+
+    <p>
+        <h3><b>Escenario 01: </b><br></h3>
+        En múltiples incidentes atribuidos al grupo LockBit, organizaciones públicas y 
+        privadas han sufrido el cifrado masivo de servidores tras un acceso inicial no 
+        autorizado. Antes de ejecutar el ransomware, los atacantes exfiltraron información 
+        sensible y posteriormente amenazaron con su publicación, evidenciando un 
+        compromiso simultáneo de la confidencialidad, la integridad y la disponibilidad. 
+        Desde el enfoque del RFC 4949, el incidente se clasifica como un multi-stage attack 
+        con data breach y availability attack, donde la indisponibilidad del sistema es solo 
+        una fase final del daño. La ausencia de respaldos inmutables y de detección 
+        temprana permitió que el impacto fuera total. 
+ 
+    </p>
+
+    <h3>Tabla de Análisis</h3>
+
+    <table border="1" width="100%">
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>• Confidencilidad: Por la exfiltración de datos sensibles.<br> 
+                • Integridad: Por el cifrado de archivos (modificación no autorizada). <br> 
+                • Disponibilidad: Por el bloqueo de acceso a servidores y sistemas. <br> 
+                • Control de acceso: Por el acceso inicial no autorizado a la red. </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>• Multi-stage attack: Serie de acciones de ataque que se dirigen a un objetivo común. <br> 
+                • Data Breach: Un incidente deseguridad en el que los datos son accedidos sin autorización. <br> 
+                • Availability Attack: Una acción que impide el acceso a los servicios del sistema. <br> 
+                • Exfiltration: Transferencia no autorizada de datos desde dentro de un sistema. </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza. </td>
+            <td>Externa (Cuando alguien accede desde el exterior, no hay infiltrados)</td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque. </td>
+            <td>Acceso inicial no autorizado, exfiltración de datos y ejecución final del ransomware. </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo. </td>
+            <td>Pérdida total de la CIA de los datos, interrupción de la continuidad del negocio, exposición de datos sensibles y posible daño reputacional/extorsión. </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada </td>
+            <td>Implementación de respaldos inmutables, sistemas de detección y respuesta para detección temprana, segmnetación de red y política de Zero Trust. </td>
+        </tr>
+    </table>
+
+    <br>
+    <p>
+        <h3><b>Escenario 02: </b></h3>
+        En diversos casos documentados, bases de datos completas quedaron accesibles 
+        públicamente debido a errores de configuración en servicios de almacenamiento en 
+        la nube. No existió una explotación técnica sofisticada, sino una falla en el control 
+        de acceso, lo que derivó directamente en la pérdida de confidencialidad de los 
+        datos. El RFC 4949 describe este tipo de incidentes como misconfiguration y 
+        exposure, subrayando que la amenaza no siempre implica malware o intrusión 
+        activa. El impacto suele ser legal y reputacional, aun cuando no se pueda demostrar 
+        acceso malicioso.  
+ 
+    </p>
+
+
+    <h3>Tabla de Análisis</h3>
+
+    <table border="1">
+
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>
+                <ul>
+                    <li>Confidencialidad: Los datos fueron legibles para entidades no autorizadas.</li>
+                    <li>Control de Acceso: Fallo en los mecanismos para limitar el acceso a usuarios legítimos.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>
+                <ul>
+                    <li>Misconfiguration: Error en la configuración de parámetros de seguridad que crea una vulnerabilidad.</li>
+                    <li>Exposure: Incidente donde datos sensibles se vuelven disponibles a personas no autorizadas.</li>
+                    <li>Data Leak: Salida no intencionada de datos fuera del control administrativo.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza.</td>
+            <td>
+                Interna (No se pudiera clasificar como infiltrado, pero la mala configuración del servicio de almacenamiento)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque.</td>
+            <td>
+                De acuerdo con la descripción del problema, se puede concluir que no hubo una explotación real, en este caso el acceso directo fue la vía HTTP/S.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo.</td>
+            <td>
+                Compromiso de la privacidad de la información, posibles multas por incumplimiento de leyes de protección de datos y daño a la imagen corporativa.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada</td>
+            <td>
+                Auditorías o capacitación de configuración automatizada y monitoreo de logs de acceso.
+            </td>
+        </tr>
+
+    </table>
+
+    <br>
+
+        <p>
+            <h3><b>Escenario 03: </b></h3>
+            Un proveedor legítimo de software fue comprometido y distribuyó una actualización 
+            que incluía código malicioso, afectando a cientos de organizaciones que confiaban 
+            en él. Este escenario refleja una violación grave de la integridad de los sistemas y, 
+            en muchos casos, de la confidencialidad, al permitir accesos no autorizados 
+            posteriores. El RFC 4949 lo identifica como supply chain attack, destacando el 
+            abuso de relaciones de confianza. El daño es particularmente crítico porque rompe 
+            el supuesto de legitimidad del software firmado.
+    
+        </p>
+
+    <table border="1">
+
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>
+                <ul>
+                    <li>Integridad: El software original fue modificado con código malicioso.</li>
+                    <li>Autenticación: Se abusa de la identidad del proveedor para distribuir el malware.</li>
+                    <li>Confidencialidad: El acceso posterior permite el robo de información.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>
+                <ul>
+                    <li><strong>Supply Chain Attack:</strong> Ataque que apunta a los elementos menos seguros de una red de suministro.</li>
+                    <li><strong>Software Integrity:</strong> La garantía de que el código no ha sido alterado de manera no autorizada.</li>
+                    <li><strong>Trojan Horse:</strong> Código malicioso contenido dentro de un programa aparentemente inofensivo.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza.</td>
+            <td>
+                Externa (La infección fue distribuida)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque.</td>
+            <td>
+                Inyección de código malicioso en el repositorio de desarrollo.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo.</td>
+            <td>
+                Pérdida de confianza en la infraestructura de clave pública (PKI) y firmas digitales, acceso masivo a redes de clientes y compromiso sistémico a gran escala.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada</td>
+            <td>
+                Análisis de composición de software, uso de hashes y monitoreo de comportamiento de red.
+            </td>
+        </tr>
+
+    </table>
+    <br>
+
+        <p>
+            <h3><b>Escenario 04: </b></h3>
+            Mediante campañas de phishing, atacantes obtuvieron credenciales válidas y 
+            accedieron a sistemas corporativos durante meses sin levantar alertas. Aunque la 
+            autenticación funcionó técnicamente, el servicio de autenticación fue comprometido 
+            al basarse en credenciales robadas, afectando también el control de acceso. Según 
+            el RFC 4949, se trata de un credential compromise con authentication failure 
+            conceptual, no técnica. La falta de MFA y de monitoreo de comportamiento facilitó 
+            la persistencia del atacante.
+    
+        </p>
+
+    <table border="1">
+
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>
+                <ul>
+                    <li>Autenticación: El servicio es engañado al presentar credenciales legítimas por un usuario ilegítimo.</li>
+                    <li>Control de Acceso: Una vez superada la autenticación, el atacante ejerce privilegios no autorizados.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>
+                <ul>
+                    <li>Credential Compromise: El acto de obtener datos de autenticación de manera ilícita.</li>
+                    <li>Phishing: Técnica de ingeniería social para engañar a los usuarios y obtener información sensible.</li>
+                    <li>Authentication Failure: Cuando el sistema valida la credencial pero la identidad real del sujeto no corresponde al dueño legítimo.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza.</td>
+            <td>
+                Externa (Uso de credenciales tuvo acceso a credenciales válidas)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque.</td>
+            <td>
+                Aplicación de la ingeniería social seguida de un inicio de sesión.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo.</td>
+            <td>
+                Suplantación de identidad, acceso a la información y persistencia prolongada dentro de la red sin ser detectado.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada</td>
+            <td>
+                Aplicar autenticación de múltiples factores, analizar el comportamiento de los usuarios y campañas de concientización.
+            </td>
+        </tr>
+
+    </table>
+    <br>
+
+         <p>
+            <h3><b>Escenario 05: </b></h3>
+            En ataques de ransomware avanzados, los atacantes eliminaron o cifraron los 
+            respaldos antes de afectar los sistemas productivos. Este hecho compromete 
+            directamente la disponibilidad y la integridad de la información, al impedir la 
+            recuperación. El RFC 4949 clasifica este comportamiento como data destruction y 
+            availability attack, evidenciando intención deliberada de maximizar el daño. La 
+            inexistencia de respaldos offline o inmutables convierte el incidente en catastrófico
+    
+        </p>
+
+    <table border="1">
+
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>
+                <ul>
+                    <li>Disponibilidad: Se impide la recuperación de los servicios y datos.</li>
+                    <li>Integridad: Los archivos de respaldo son alterados o eliminados.</li>
+                    <li>Control de Acceso: El atacante logra elevar privilegios para alcanzar los repositorios de backup.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>
+                <ul>
+                    <li>Data Destruction: Alteración o eliminación deliberada de datos para que no puedan ser utilizados o recuperados.</li>
+                    <li>Availability Attack: Ataque diseñado para impedir que un sistema realice su función crítica.</li>
+                    <li>Recovery Point Objective Failure: Incapacidad de restaurar el sistema a un estado anterior debido a la pérdida de datos.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza.</td>
+            <td>
+                Externa (El ransomware fue inyectado)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque.</td>
+            <td>
+                Escalada de privilegios y movimiento hacia los servidores de respaldo.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo.</td>
+            <td>
+                Incapacidad de recuperación ante desastres, pérdida permanente de activos de información y parálisis total de las operaciones del negocio por tiempo indefinido.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada</td>
+            <td>
+                Implementación de respaldos inmutables, y backups online implementando también privilegios de acceso a ellos.
+            </td>
+        </tr>
+
+    </table>
+    <br>
+
+        <p>
+            <h3><b>Escenario 06: </b></h3>
+            Un empleado con acceso legítimo extrajo bases de datos completas y las vendió a 
+            terceros, sin explotar vulnerabilidades técnicas. El servicio afectado fue 
+            principalmente la confidencialidad, junto con fallas en el control de acceso por 
+            exceso de privilegios. El RFC 4949 define este escenario como insider threat, 
+            destacando que el riesgo interno puede ser tan grave como el externo. La carencia 
+            de monitoreo y de políticas de mínimo privilegio fue determinante.
+        </p>
+
+    <table border="1">
+
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>
+                <ul>
+                    <li>Confidencialidad: Los datos fueron revelados a entidades no autorizadas.</li>
+                    <li>Control de Acceso: Abuso de privilegios otorgados para fines distintos a los laborales.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>
+                <ul>
+                    <li>Insider Threat: Una entidad autorizada que utiliza el acceso, de forma consciente o inconsciente, para dañar al sistema.</li>
+                    <li>Abuse of Privilege: Uso de privilegios para realizar funciones no autorizadas.</li>
+                    <li>Data Theft: Extracción física o digital de datos para beneficio propio o de terceros.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza.</td>
+            <td>
+                Interna (El empleado aprovecho sus privilegios de usuario para poder extraer la información y hacer mal uso de ella.)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque.</td>
+            <td>
+                Uso indebido de privilegios legítimos
+            </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo.</td>
+            <td>
+                Pérdida de propiedad intelectual, ventaja competitiva y datos de clientes; posibles sanciones legales y quiebra de la confianza interna.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada</td>
+            <td>
+                Implementación de sistemas de prevención de fuga de datos y monitoreo de actividad de los usuarios.
+            </td>
+        </tr>
+
+    </table>
+    <br>
+
+        <p>
+            <h3><b>Escenario 07: </b></h3>
+            Tras un ataque, los registros del sistema quedaron cifrados o alterados, impidiendo 
+            reconstruir la secuencia de eventos. Esto compromete la integridad de los datos y 
+            el no repudio, ya que no es posible demostrar qué ocurrió ni quién fue responsable. 
+            Desde el RFC 4949, se trata de una violación de evidentiary integrity y del audit trail. 
+            El impacto no solo es técnico, sino también probatorio y legal.  
+        </p>
+
+    <table border="1">
+
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>
+                <ul>
+                    <li>Integridad: Los registros (logs) fueron modificados o eliminados.</li>
+                    <li>No Repudio: Se pierde la capacidad de probar la autoría de las acciones realizadas.</li>
+                    <li>Autenticación: Al perder la trazabilidad, no se puede validar quién accedió realmente.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>
+                <ul>
+                    <li>Audit Trail: Conjunto de registros que proporcionan evidencia documental de la secuencia de actividades.</li>
+                    <li>Evidentiary Integrity: La seguridad de que la prueba digital no ha sido alterada desde su creación.</li>
+                    <li>Accountability: Propiedad que asegura que las acciones de una entidad puedan ser rastreadas de forma única hacia esa entidad.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza.</td>
+            <td>
+                Externa (Se considera externa dado a la manera en la que se oculta la información para evitar la respuesta legal)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque.</td>
+            <td>
+                Manipulación directa de archivos de registro del sistema operativo, limpieza de logs de aplicaciones tras obtener privilegios de administrador.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo.</td>
+            <td>
+                No se puede realizar un análisis de causa raíz y se pierde la validez de las pruebas legales en juicio.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada</td>
+            <td>
+                Implementación de control de logs en tiempo real a un servidor remoto y el uso de firmas digitales.
+            </td>
+        </tr>
+
+    </table>
+    <br>
+
+        <p>
+            <h3><b>Escenario 08: </b></h3>
+            Una actualización mal ejecutada provocó la caída simultánea de múltiples servicios 
+            críticos a nivel global. Aunque no existió un atacante, el servicio de disponibilidad 
+            fue gravemente afectado. El RFC 4949 contempla estos eventos como operational 
+            failure, recordando que la seguridad también se ve afectada por errores internos. La 
+            falta de pruebas previas y planes de reversión amplificó el impacto.
+        </p>
+
+    <table border="1">
+
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>
+                Disponibilidad: El servicio dejó de ser accesible para los usuarios autorizados debido a la caída de los sistemas.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>
+                <ul>
+                    <li>Operational Failure: Un evento donde un sistema no puede realizar su función debido a errores internos, no necesariamente ataques.</li>
+                    <li>Service Disruption: Interrupción temporal o permanente de un servicio del sistema.</li>
+                    <li>Reliability: La propiedad de que un sistema se comporte de acuerdo con sus especificaciones de manera consistente.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza.</td>
+            <td>
+                Interna (El ataque resultó de un error en los procesos de gestión de cambios, no hubo intención maliciosa)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque.</td>
+            <td>
+                No se puede definir el vector de ataque, dado que se trató de un error de procesos.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo.</td>
+            <td>
+                Denegación del servicio a escala masiva, pérdida de ingresos y caos operativo.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada</td>
+            <td>
+                Implementación de pruebas de regresión y un plan de reversión.
+            </td>
+        </tr>
+
+    </table>
+    <br>
+
+    <h3><b>Escenario 09: </b></h3>
+    <p>
+        Atacantes replicaron sitios y correos oficiales para engañar a ciudadanos y obtener 
+        información sensible. Este escenario afecta la autenticación, al suplantar 
+        identidades legítimas, y la confidencialidad de los datos recolectados. El RFC 4949 
+        lo clasifica como masquerade y phishing, subrayando el componente de ingeniería 
+        social. La ausencia de mecanismos de autenticación del dominio y de 
+        concientización facilitó el éxito del ataque.
+    </p>
+
+    <table border="1">
+
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>
+                <ul>
+                    <li>Autenticación: Se compromete la veracidad de la identidad del origen (suplantación del sitio oficial).</li>
+                    <li>Confidencialidad: Los datos sensibles de los ciudadanos son expuestos a terceros no autorizados.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>
+                <ul>
+                    <li>Masquerade: Una entidad que finge ser otra para obtener acceso no autorizado o privilegios.</li>
+                    <li>Phishing: Técnica de engaño para adquirir información sensible mediante la falsificación de una comunicación electrónica.</li>
+                    <li>Social Engineering: Manipulación psicológica de personas para que realicen acciones o divulguen información confidencial.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza.</td>
+            <td>
+                Externa (Se usa el phishing para obtener la información de las personas)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque.</td>
+            <td>
+                Spoofing de correo y URL, se crearon sitios web espejo y se envían correos masivos.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo.</td>
+            <td>
+                Robo masivo de identidades, compromiso de cuentas bancarias y pérdida de confianza pública.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada</td>
+            <td>
+                Implementación de autenticación de correo, uso de certificados SSL/TLS y programas de concientización ciudadana.
+            </td>
+        </tr>
+
+    </table>
+    <br>
+
+    <h3><b>Escenario 10: </b></h3>  
+    <p>
+        En algunos incidentes, tras exfiltrar información, los atacantes ejecutaron acciones 
+        destructivas para borrar sistemas completos y eliminar rastros. Se produce un 
+        compromiso total de la confidencialidad, la integridad y la disponibilidad, 
+        configurando uno de los peores escenarios posibles. El RFC 4949 describe este 
+        patrón como destructive attack, donde el objetivo no es solo el lucro, sino el daño 
+        irreversible. La detección tardía impidió cualquier contención efectiva
+    </p>
+
+    <table border="1">
+
+        <tr>
+            <th>Elemento</th>
+            <th>Respuesta</th>
+        </tr>
+
+        <tr>
+            <td>Servicios X.800 comprometidos.</td>
+            <td>
+                <ul>
+                    <li>Confidencialidad: Por la exfiltración previa de datos.</li>
+                    <li>Integridad: Por la alteración y destrucción de archivos del sistema.</li>
+                    <li>Disponibilidad: Por la eliminación total de la capacidad operativa del hardware/software.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Definición(es) aplicable(s) RFC 4949.</td>
+            <td>
+                <ul>
+                    <li>Destructive Attack: Un ataque cuyo propósito principal es causar un daño permanente o costoso a los recursos del sistema.</li>
+                    <li>Data Wipe: Eliminación irreversible de datos que impide su recuperación forense.</li>
+                    <li>Anti-Forensics: Acciones para omitir, alterar o destruir evidencia que podría ser usada en una investigación.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Tipo de amenaza.</td>
+            <td>
+                Externa (Ataque malintencionado de alta intensidad orientado a la parálisis total)
+            </td>
+        </tr>
+
+        <tr>
+            <td>Vector de ataque.</td>
+            <td>
+                Compromiso de cuentas administrativas, seguido de la exfiltración de datos silenciosa y finalmente la ejecución del malware de destrucción de volúmenes.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Impacto técnico / operativo.</td>
+            <td>
+                Destrucción de archivos digitales, imposibilidad de recuperación mediante métodos estándar y necesidad de reconstrucción total de la infraestructura.
+            </td>
+        </tr>
+
+        <tr>
+            <td>Medida de control recomendada</td>
+            <td>
+                Segmentación de red estricta, sistemas de detección de anomalías y respaldos inaccesibles desde la red principal.
+            </td>
+        </tr>
+
+    </table>
+
+
+
+
+
+
+
+    <h2>Conclusiones</h2>
+
+    <p>
+        El análisis sistemático de estos diez escenarios demuestra que la seguridad 
+        informática, bajo los marcos del RFC 4949 y el ITU-T X.800, no es un estado estático 
+        sino un equilibrio dinámico donde la tríada de confidencialidad, integridad y 
+        disponibilidad es vulnerable tanto a ataques externos sofisticados como a errores 
+        humanos internos. El aprendizaje fundamental es que las organizaciones deben 
+        trascender la seguridad perimetral tradicional para adoptar un enfoque de defensa 
+        en profundidad, entendiendo que el compromiso de la autenticación y el abuso de 
+        confianza son los vectores más críticos en la actualidad.  
+        En última instancia, la resiliencia no solo depende de prevenir intrusiones, sino de 
+        la capacidad de mantener audit trails íntegros y respaldos inmutables que permitan 
+        la recuperación ante ataques destructivos o fallos operativos, transformando la 
+        seguridad en un proceso de mejora continua basado en la detección temprana y el 
+        control estricto de privilegios.
+    </p>
+    
+
+     <h2>Referencias</h2>
+
+    <p>
+        <ul>
+            <li>Shirey, R. (2007). Internet Security Glossary, Version 2 (RFC 4949). Internet 
+            Engineering Task Force. <a href="https://datatracker.ietf.org/doc/html/rfc4949" target="_blank" rel="noopener">https://datatracker.ietf.org/doc/html/rfc4949</a><br></li>
+            <li>Unión Internacional de Telecomunicaciones. (1991). Arquitectura de seguridad para 
+            la interconexión de sistemas abiertos para aplicaciones de las CCITT 
+            (Recomendación ITU-T X.800). <a href="https://www.itu.int/rec/T-REC-X.800-199103-I/es" target="_blank" rel="noopener">https://www.itu.int/rec/T-REC-X.800-199103-I/es</a>
+            </li>
+        </ul>
+    </p>
+        
+        
+
+    <!-- BOTÓN DESCARGA PDF -->
+    <div class="fila-boton" style="text-align:center;">
+        <a href="179842-ACT02.pdf" download>
+            <button>Descargar PDF Original</button>
+        </a>
+    </div>
+
+</main>
+
+<footer>
+    © 2026 Universidad Politécnica de San Luis Potosí | Seguridad Informática
+</footer>
+
+</body>
+</html>
