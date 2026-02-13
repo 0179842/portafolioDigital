@@ -247,3 +247,86 @@ footer {
     transform: translateY(0);  /* Regresa a su posición original */
     box-shadow: 0 2px 5px rgba(160, 196, 255, 0.2);
 }
+
+/* ================= SECCIÓN DINÁMICA ================= */
+
+.clickable {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.clickable:hover {
+    transform: translateX(5px);
+    opacity: 0.8;
+}
+
+/* Ocultar inicialmente */
+.hidden-section {
+    display: none;
+    margin-top: 25px;
+}
+
+/* Convertimos la tabla en catálogo horizontal */
+.table {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    padding: 20px 10px;
+    border: none;
+    scroll-snap-type: x mandatory;
+}
+
+/* Quitamos formato clásico de tabla */
+.table tr {
+    display: flex;
+    flex-direction: column;
+    min-width: 280px;
+    background: rgba(15, 25, 40, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    scroll-snap-align: center;
+    transition: 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover animado */
+.table tr:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    border: 1px solid rgba(160, 196, 255, 0.6);
+}
+
+/* Ajuste de celdas */
+.table td {
+    border: none;
+    padding: 8px 0;
+    text-align: left;
+}
+
+/* Título actividad */
+.table td:first-child {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Links */
+.table a {
+    text-decoration:underline;
+    color: #a0c4ff;
+    transition: 0.3s;
+}
+
+.table a:hover {
+    color: #ffffff;
+}
+
+/* Scroll elegante */
+.table::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table::-webkit-scrollbar-thumb {
+    background: rgba(160, 196, 255, 0.5);
+    border-radius: 10px;
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Actividades</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+        <nav>
+            <a href="../index.html">Inicio</a> 
+            <a href="actividades.html">Actividades</a> 
+            <a href="notas.html">Notas</a> 
+            <a href="herramientas.html">Herramientas</a>
+            <a href="proyectos.html">Proyectos</a>
+            <a href="certificaciones.html">Certificaciones</a>
+        </nav>
+
+<main class="container">
+
+    <!-- ================= HEADER ================= -->
+    <div>
+        <h3>Catálogo Académico</h3>
+        <h3>Actividades del Curso</h3>
+    </div>
+
+    <!-- ================= PARCIAL 1 ================= -->
+    <section>
+        <h2 onclick="toggleSection('p1')" class="clickable">
+            Parcial 1
+        </h2>
+
+        <div id="p1" class="hidden-section">
+
+            <table class="table" border="1">
+
+                <tr>
+                    <td><a href="actividad01.html">Actividad 1</a></td>
+                    <td>Análisis en grupo de un Ciberataque real y su impacto empresarial</td>
+                </tr>
+
+                <tr>
+                    <td>Actividad 2</td>
+                    <td>Investigación técnica aplicada.</td>
+                </tr>
+
+                <tr>
+                    <td>Actividad 3</td>
+                    <td>Reporte estructurado.</td>
+                </tr>
+
+                <tr>
+                    <td>Actividad 4</td>
+                    <td>Presentación ejecutiva.</td>
+                </tr>
+
+            </table>
+        </div>
+    </section>
+
+
+    <!-- ================= PARCIAL 2 ================= -->
+    <section>
+        <h2 onclick="toggleSection('p2')" class="clickable">
+            Parcial 2
+        </h2>
+
+        <div id="p2" class="hidden-section">
+
+            <table class="table" border="1">
+
+
+                <tr>
+                    <td>Actividad 5</td>
+                    <td>Análisis de caso real.</td>
+                </tr>
+
+                <tr>
+                    <td>Actividad 6</td>
+                    <td>Evaluación técnica detallada.</td>
+                </tr>
+
+                <tr>
+                    <td>Actividad 7</td>
+                    <td>Aplicación de marcos normativos.</td>
+                </tr>
+
+            </table>
+        </div>
+    </section>
+
+
+    <!-- ================= PARCIAL 3 ================= -->
+    <section>
+        <h2 onclick="toggleSection('p3')" class="clickable">
+            Parcial 3
+        </h2>
+
+        <div id="p3" class="hidden-section">
+
+            <table class="table" border="1">
+
+                <tr>
+                    <td>Actividad 8</td>
+                    <td>Proyecto integrador.</td>
+                </tr>
+
+                <tr>
+                    <td>Actividad 9</td>
+                    <td>Auditoría técnica simulada.</td>
+                </tr>
+
+                <tr>
+                    <td>Actividad 10</td>
+                    <td>Entrega final y conclusiones.</td>
+                </tr>
+
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    © 2026 Catálogo de Actividades
+</footer>
+
+
+<!-- ================= SCRIPT DINÁMICO ================= -->
+<script>
+function toggleSection(id) {
+    const section = document.getElementById(id);
+
+    if (section.style.display === "none") {
+        section.style.display = "block";
+    } else {
+        section.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>
