@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativa metodologías ciberseguridad (sin CSS)</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+</head>
+<body>
+    <nav>
+        <a href="../index.html">Inicio</a> 
+        <a href="actividades.html">Actividades</a> 
+        <a href="notas.html">Notas</a> 
+        <a href="herramientas.html">Herramientas</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="certificaciones.html">Certificaciones</a>
+    </nav>
+
+    <main class="container">
+        <h1>Análisis comparativo de metodologías de pruebas de penetración</h1>
+        
+        <!-- Tabla principal extraída de la página 1 -->
+            <div style="text-align: justify;">                
+                <!-- Intro breve con gancho -->
+                <p>
+                    <strong>Imagina enfrentarte a un castillo fortificado sin un mapa.</strong> 
+                    Así es intentar auditar la seguridad de una organización sin una metodología sólida.
+                    En ciberseguridad ofensiva, los marcos de trabajo como <strong>MITRE ATT&CK, OWASP WSTG, 
+                    NIST SP 800-115, OSSTMM, PTES e ISSAF</strong> son ese mapa: guían cada paso, 
+                    desde la recolección de información hasta la explotación y el reporte final.
+                </p>
+                
+                <div style="text-align: center;">
+                    <img src="../images/map.png" 
+                    alt="topología de red"
+                    style="width:70%; height:auto; border-radius: 0 !important; display: inline-block;">
+                </div>
+                <!-- Pequeño párrafo de contexto viral / blog -->
+                <p>
+                    No es lo mismo defender a ciegas que anticiparse con inteligencia real. 
+                    Estas metodologías no son teoría aburrida: son el <strong>arsenal secreto</strong> 
+                    que separa a los profesionales de los aficionados. ¿Quieres saber cuál se adapta mejor 
+                    a tu próximo proyecto? Hemos destilado lo esencial del documento original en la tabla 
+                    que encontrarás a continuación.
+                </p>
+                
+        </div>
+            <h2>Tabla comparativa: Metodologías de seguridad</h2>
+            <table border="1" cellpadding="4" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th> <!-- vacío para la primera columna de atributos -->
+                        <th>MITRE ATT&amp;CK</th>
+                        <th>OWASP WSTG</th>
+                        <th>NIST SP 800-115</th>
+                        <th>OSSTMM</th>
+                        <th>PTES</th>
+                        <th>ISSAF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 01. Descripción breve -->
+                    <tr>
+                        <td><strong>01. Descripción breve</strong></td>
+                        <td>Base de conocimiento que documenta tácticas, técnicas y procedimientos (TTPs) usados por adversarios reales.</td>
+                        <td>Guía técnica para pruebas de seguridad en aplicaciones web desarrollada por OWASP.</td>
+                        <td>Guía técnica para pruebas y evaluación de controles de seguridad en sistemas de información.</td>
+                        <td>Metodología científica basada en métricas cuantificables para medir seguridad operacional.</td>
+                        <td>Marco estándar que define el proceso profesional de pruebas de penetración.</td>
+                        <td>Marco integral para evaluación técnica y organizacional de la seguridad.</td>
+                    </tr>
+                    <!-- 02. Fases de implementación -->
+                    <tr>
+                        <td><strong>02. Fases de implementación</strong></td>
+                        <td>1. Recolección<br>2. Mapeo de técnicas<br>3. Evaluación de controles<br>4. Simulación<br>5. Mejora defensiva</td>
+                        <td>1. Información<br>2. Configuración<br>3. Autenticación<br>4. Autorización<br>5. Validación<br>6. Lógica<br>7. Cliente</td>
+                        <td>1. Planeación<br>2. Descubrimiento<br>3. Ataque<br>4. Reporte</td>
+                        <td>1. Alcance<br>2. Recolección<br>3. Pruebas técnicas<br>4. Análisis cuantitativo<br>5. Reporte</td>
+                        <td>1. Pre-engagement<br>2. Intelligence<br>3. Threat modeling<br>4. Vulnerability analysis<br>5. Exploitation<br>6. Post-exploitation<br>7. Reporting</td>
+                        <td>1. Planeación<br>2. Evaluación<br>3. Explotación<br>4. Reporte<br>5. Mejora continua</td>
+                    </tr>
+                    <!-- 03. Objetivo principal -->
+                    <tr>
+                        <td><strong>03. Objetivo principal</strong></td>
+                        <td>Detección y análisis de técnicas de ataque basadas en inteligencia real.</td>
+                        <td>Identificación de vulnerabilidades web.</td>
+                        <td>Evaluación formal de controles de seguridad.</td>
+                        <td>Medición objetiva del nivel de seguridad.</td>
+                        <td>Estandarizar el proceso completo de pentesting.</td>
+                        <td>Evaluación integral de seguridad organizacional.</td>
+                    </tr>
+                    <!-- 04. Escenarios de uso -->
+                    <tr>
+                        <td><strong>04. Escenarios de uso</strong></td>
+                        <td>SOC, Threat Hunting, Red/Blue Team, análisis forense.</td>
+                        <td>Pentesting web, auditorías de software.</td>
+                        <td>Auditorías, cumplimiento normativo, gestión de riesgos.</td>
+                        <td>Infraestructura, redes, telecomunicaciones.</td>
+                        <td>Empresas privadas, Red Team corporativo.</td>
+                        <td>Infraestructura empresarial y políticas de seguridad.</td>
+                    </tr>
+                    <!-- 05. Orientación -->
+                    <tr>
+                        <td><strong>05. Orientación</strong></td>
+                        <td>Defensa y evaluación ofensiva.</td>
+                        <td>Ataque (ofensiva técnica).</td>
+                        <td>Evaluación y defensa.</td>
+                        <td>Evaluación técnica neutral.</td>
+                        <td>Ataque estructurado.</td>
+                        <td>Evaluación y ofensiva técnica.</td>
+                    </tr>
+                    <!-- 06. Autor / Organismo -->
+                    <tr>
+                        <td><strong>06. Autor / Organismo</strong></td>
+                        <td>MITRE Corporation</td>
+                        <td>OWASP Foundation</td>
+                        <td>NIST (EE.UU.)</td>
+                        <td>ISECOM</td>
+                        <td>Comunidad PTES</td>
+                        <td>OISSG</td>
+                    </tr>
+                    <!-- 07. URL oficial -->
+                    <tr>
+                        <td><strong>07. URL oficial</strong></td>
+                        <td><a href="https://attack.mitre.org">https://attack.mitre.org</a></td>
+                        <td><a href="https://owasp.org/www-project-web-security-testing-guide/">https://owasp.org/www-project-web-security-testing-guide/</a></td>
+                        <td><a href="https://csrc.nist.gov/publications/detail/sp/800-115/final">https://csrc.nist.gov/publications/detail/sp/800-115/final</a></td>
+                        <td><a href="https://www.isecom.org/">https://www.isecom.org/</a></td>
+                        <td><a href="http://www.pentest-standard.org">http://www.pentest-standard.org</a></td>
+                        <td><a href="https://pymesec.org/issaf/">https://pymesec.org/issaf/</a></td>
+                    </tr>
+                    <!-- 08. Certificación asociada -->
+                    <tr>
+                        <td><strong>08. Certificación asociada</strong></td>
+                        <td>Referencia en CEH, CISSP, Security+.</td>
+                        <td>Relacionada con OSWE, eWPT, OSCP.</td>
+                        <td>Referencia en CISSP, CISA, CISM.</td>
+                        <td>OPST (OSSTMM Professional Security Tester).</td>
+                        <td>Relacionada con OSCP, GPEN, CEH.</td>
+                        <td>Sin certificación oficial propia.</td>
+                    </tr>
+                    <!-- 09. Versión vigente -->
+                    <tr>
+                        <td><strong>09. Versión vigente</strong></td>
+                        <td>Actualización continua (Enterprise, Mobile, ICS).</td>
+                        <td>Versión estable 4.2.</td>
+                        <td>Publicación vigente desde 2008.</td>
+                        <td>Versión 3.0.</td>
+                        <td>Estándar comunitario vigente.</td>
+                        <td>Marco de referencia académico.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        <!-- Separador y contenido de página 2 (caracteres extraños omitidos, solo texto legible) -->
+        <hr>
+
+<iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/B7tTQ272OHE?si=WS_tkgZrvCqQHq93" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" 
+    allowfullscreen>
+</iframe>
+        <!-- Conclusión y referencias (texto limpio de la página 2) -->
+        <section>
+            <h2>Conclusión</h2>
+            <p>
+                En conclusión, el análisis comparativo de las metodologías MITRE ATT&CK, OWASP WSTG, NIST SP 800-115, OSSTMM, PTES e ISSAF permitió identificar que cada una cumple un propósito específico dentro del ámbito de la ciberseguridad. Aunque todas están orientadas a fortalecer la seguridad de la información, difieren en su enfoque, estructura y aplicación práctica. Algunas se centran en la identificación de técnicas de ataque reales, otras en pruebas especializadas como aplicaciones web, y otras funcionan como marcos formales para auditorías y evaluación de controles.
+            </p>
+            <p>
+                El estudio de estas metodologías demuestra la importancia de contar con estándares y guías estructuradas para realizar pruebas de penetración de manera ética, profesional y organizada. Asimismo, evidencia que la elección de una metodología depende del contexto, los objetivos de la evaluación y el tipo de infraestructura a analizar. Comprender sus diferencias y alcances contribuye al desarrollo de una visión más integral y estratégica en la gestión de la seguridad informática.
+            </p>
+        </section>
+
+        <section>
+            <h2>Referencias consultadas</h2>
+            <ul>
+                <li>
+                    Open Information Systems Security Group. (s. f.). ISSAF – Information Systems Security Assessment Framework. 
+                    <a href="https://pymesec.org/issaf/">https://pymesec.org/issaf/</a>
+                </li>
+                <li>
+                    ISECOM. (s. f.). Open Source Security Testing Methodology Manual (OSSTMM). 
+                    <a href="https://www.isecom.org/research.html#content5-9z">https://www.isecom.org/research.html#content5-9z</a>
+                </li>
+                <li>
+                    Cisco Networking Academy. (s. f.). Hacker Ético [Curso en línea]. 
+                    <a href="https://www.netacad.com/launch?id=3b07bfc3-9b21-4dbd-909b-a235416df136&tab=curriculum&view=8557e701-847e-535e-b070-db96237065c2">
+                        https://www.netacad.com/launch?id=3b07bfc3-9b21-4dbd-909b-a235416df136&tab=curriculum&view=8557e701-847e-535e-b070-db96237065c2
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        
+    <!-- BOTÓN DESCARGA PDF -->
+            <div class="fila-boton" style="text-align:center;">
+            <a href="179842_Act05.pdf" download>
+                <button>Descargar PDF Original</button>
+            </a>
+            </div>
+    </main>
+    <footer>
+            © 2026 Universidad Politécnica de San Luis Potosí | Seguridad Informática
+        </footer>
+</body>
+</html>
