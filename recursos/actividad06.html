@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPSec VPN: Comunicaciones seguras</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <nav>
+            <a href="../index.html">Inicio</a> 
+            <a href="actividades.html">Actividades</a> 
+            <a href="notas.html">Notas</a> 
+            <a href="herramientas.html">Herramientas</a>
+            <a href="proyectos.html">Proyectos</a>
+            <a href="certificaciones.html">Certificaciones</a>
+        </nav>
+        <main class="container">
+    <!-- ============================================ -->
+    <!-- ENCABEZADO PRINCIPAL                          -->
+    <!-- ============================================ -->
+
+    <!-- ============================================ -->
+    <!-- SECCIÓN DE INTRODUCCIÓN (CONTEXTO)           -->
+    <!-- ============================================ -->
+    <section>
+        <h1>Introducción: ¿Por qué IPSec sigue siendo clave?</h1>
+        <p>
+            En un mundo donde las filtraciones de datos y el espionaje corporativo están a la orden del día, 
+            <strong>IPSec (Internet Protocol Security)</strong> se mantiene como el estándar de oro para 
+            comunicaciones privadas a nivel de red. Desarrollado originalmente por el IETF, este conjunto de 
+            protocolos autentica y cifra cada paquete IP, creando túneles inviolables entre sedes, sucursales 
+            o teletrabajadores.
+        </p>
+        <p>
+            A diferencia de SSL/TLS (que protege aplicaciones específicas como el navegador), IPSec trabaja 
+            <strong>directamente en la capa 3 del modelo OSI</strong>, lo que significa que <em>todas</em> las 
+            aplicaciones —desde correo electrónico hasta bases de datos— quedan protegidas sin necesidad de 
+            modificarlas. Empresas, gobiernos y proveedores de servicios confían en IPSec para construir 
+            <strong>VPNs sitio-a-sitio, acceso remoto seguro y enrutamiento seguro en la nube</strong>.
+        </p>
+        <p>
+            En esta entrada vamos a desglosar cómo funciona, veremos una topología real y reflexionaremos sobre 
+            su relevancia técnica en entornos actuales. Prepárate para sumergirte en el corazón de la criptografía 
+            aplicada a redes.
+        </p>
+        <!-- Espacio para video de YouTube (sin formato, solo marcador) -->
+        <div style="border: 2px dashed #333; padding: 20px; margin: 20px 0;">
+            <iframe width="560" height="315" src="https://youtu.be/pphB1pONPPU?si=3lWnhJrw_zDah2f3" 
+            title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- DESARROLLO DE LA ACTIVIDAD (IMAGEN GRANDE)   -->
+    <!-- ============================================ -->
+    <section>
+        <h2>Desarrollo de la actividad: Topología VPN IPSec sitio a sitio</h2>
+        <p>
+            A continuación se muestra la topología utilizada en la práctica de laboratorio. Se han configurado 
+            dos routers Cisco (o dispositivos equivalentes) conectados a través de Internet (nube pública). 
+            Entre ellos se establece un <strong>túnel IPSec con protocolos AH + ESP, cifrado AES-256 y autenticación SHA-512</strong>.
+            Las redes locales detrás de cada router (192.168.1.0/24 y 10.0.0.0/24) pueden comunicarse de forma 
+            transparente y segura, como si estuvieran en el mismo segmento físico.
+        </p>
+        <!-- IMAGEN GRANDE (placeholder con texto y espacio visual) -->
+         <h2>Topologia a desarrollar</h2>
+        <div>
+            <img src="../images/ipsecVPN.png" 
+         alt="Imagen NotPetya Maersk"
+         style="width:100%; height:auto; border-radius: 0 !important; object-fit: contain;">
+            <p style="text-align: justify;"><strong>Descripción de la imagen:</strong> Dos routers (R1 y R2) conectados a una nube WAN. Cada router tiene una LAN tras él. Sobre la línea que los une se muestran candados que representan el túnel IPSec. También se incluyen los modos de funcionamiento (túnel/transporte) y las fases IKE (1 y 2) con los parámetros negociados.</p>
+            <!-- <img src="topologia-ipsec.png" alt="Topología VPN IPSec sitio a sitio con detalles de fases IKE" width="100%" style="max-width:1000px;"> -->
+        </div>
+
+        <h2>Parámetros de configuración relevantes:</h2>
+        <ul>
+            <li><strong>Fase 1 (IKE):</strong> AES-256, SHA-512, DH Group 14, lifetime 86400s</li>
+            <li><strong>Fase 2 (IPSec):</strong> ESP, AES-256, SHA-512, PFS group 14, lifetime 3600s</li>
+            <li><strong>Autenticación:</strong> llave precompartida (PSK) o certificados digitales</li>
+            <li><strong>Tráfico interesante:</strong> 192.168.1.0/24 ←→ 10.0.0.0/24</li>
+        </ul>
+        <p>
+            En la simulación se verificó el establecimiento del túnel mediante <code>show crypto isakmp sa</code> y 
+            <code>show crypto ipsec sa</code>, y se realizaron pings extremo a extremo con wireshark para comprobar 
+            que los paquetes viajan cifrados (no se ve el contenido ICMP).
+        </p>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CONCLUSIÓN TÉCNICA                            -->
+    <!-- ============================================ -->
+    <section>
+        <h2>Conclusión</h2>
+        <p>
+            Desde un punto de vista ingenieril, IPSec VPN ofrece una <strong>seguridad robusta y transparente</strong> 
+            para comunicaciones multipropósito. Su integración en la capa de red permite proteger cualquier protocolo 
+            de capas superiores (TCP, UDP, ICMP) sin intervención del usuario o de las aplicaciones. Esto lo hace 
+            especialmente valioso en entornos corporativos con aplicaciones heredadas o donde no se puede modificar 
+            el stack de software.
+        </p>
+        <p>
+            Sin embargo, no está exento de complejidad: la correcta negociación de <strong>SA (Security Associations)</strong>, 
+            la gestión de claves mediante IKEv1/IKEv2 y la resolución de problemas de MTU (Maximum Transmission Unit) 
+            requieren un conocimiento profundo de redes y criptografía. Además, el rendimiento puede verse afectado 
+            por el overhead criptográfico, aunque los procesadores modernos con aceleración por hardware (como 
+            Intel AES-NI) minimizan este impacto.
+        </p>
+        <p>
+            En conclusión, IPSec sigue siendo <strong>la opción preferida para VPNs sitio-a-sitio y acceso remoto 
+            a gran escala</strong>, especialmente cuando se combina con dynamic routing (OSPF, BGP) sobre el túnel. 
+            Su madurez, estandarización y amplio soporte en equipos de red (Cisco, Juniper, pfSense, Azure, AWS) 
+            garantizan su vigencia por muchos años más.
+        </p>
+        <blockquote>
+            <p><em>"IPSec no es solo una tecnología, es la materialización del principio de 'zero trust' a nivel de 
+            red: nunca confíes, siempre verifica (y cifra)."</em></p>
+        </blockquote>
+    </section>
+
+    <div class="fila-boton" style="text-align:center; margin:auto 0;">
+    
+    <a href="179842-Act06.pdf" download>
+        <button>
+            Descargar Reporte en PDF
+        </button>
+    </a>
+
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PIE DE PÁGINA (OPCIONAL)                      -->
+    <!-- ============================================ -->
+    <hr>
+    <footer>
+    © 2026 Universidad Politécnica de San Luis Potosí
+    </footer>
+</body>
+</html>
