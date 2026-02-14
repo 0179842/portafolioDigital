@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios iptables</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <nav>
+            <a href="../index.html">Inicio</a> 
+            <a href="actividades.html">Actividades</a> 
+            <a href="notas.html">Notas</a> 
+            <a href="herramientas.html">Herramientas</a>
+            <a href="proyectos.html">Proyectos</a>
+            <a href="certificaciones.html">Certificaciones</a>
+    </nav>
+        <main class="container">
+            <div>
+                <h1>Introducción a iptables y control de tráfico en redes</h1>
+                <img src="../images/netfilter.png" 
+            alt="tables"
+            style="width:80%; height:auto; border-radius: 0 !important; object-fit: contain; align-self: center;">
+            </div>
+            
+    
+            <p>El siguiente documento presenta una serie de ejercicios prácticos sobre <strong>iptables</strong>, la herramienta estándar en sistemas Linux para la configuración de firewalls y el filtrado de paquetes. iptables permite definir reglas que controlan el tráfico entrante, saliente y que atraviesa el sistema, organizadas en tablas y cadenas según su función.</p>
+            
+            <h2>Contexto del material</h2>
+            <p>Este conjunto de ejercicios está diseñado para reforzar conceptos fundamentales como:</p>
+            <ul>
+                <li>El flujo de un paquete a través del sistema (tabla → cadena → acción).</li>
+                <li>La función de cada tabla principal: <strong>FILTER</strong>, <strong>NAT</strong>, <strong>MANGLE</strong>, <strong>RAW</strong> y <strong>SECURITY</strong>.</li>
+                <li>La sintaxis y anatomía de los comandos iptables.</li>
+                <li>Opciones comunes para filtrar por IP, puerto, interfaz, estado de conexión y límite de intentos.</li>
+                <li>Reglas prácticas para permitir tráfico HTTP, HTTPS, SSH y más, con ejemplos aplicables a entornos reales.</li>
+            </ul>
+            
+            <p>A lo largo de los ejercicios se presentan tanto preguntas teóricas como la construcción de reglas específicas, permitiendo al estudiante familiarizarse con la línea de comandos y comprender cómo se gestiona la seguridad a nivel de red en Linux.</p>
+        
+                    <h2>1. Completa los espacios conforme se explica el flujo del paquete.</h2>
+                    <p>Cuando un paquete llega al sistema, primero pasa por una <strong>tabla</strong>, después por una <strong>cadena</strong> y finalmente se ejecuta una <strong>acción</strong>.</p>
+
+            <h2>2. Relaciona cada tabla con su propósito principal.</h2>
+            
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tabla</th>
+                        <th>Propósito principal</th>
+                        <th>Ejemplo de uso (01 palabra o frase corta)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FILTER</td>
+                        <td>Filtrado de paquete</td>
+                        <td>Bloque el tráfico</td>
+                    </tr>
+                    <tr>
+                        <td>NAT</td>
+                        <td>Traducción de direcciones</td>
+                        <td>Hace un port forwarding</td>
+                    </tr>
+                    <tr>
+                        <td>MANGLE</td>
+                        <td>Modificación avanzada de pág</td>
+                        <td>Cambiar cabeceras</td>
+                    </tr>
+                    <tr>
+                        <td>RAW</td>
+                        <td>Excepciones al seg de conex</td>
+                        <td>Paquete que no deben inspeccionar</td>
+                    </tr>
+                    <tr>
+                        <td>SECURITY</td>
+                        <td>Aplicación etiquetas de seguridad</td>
+                        <td>Contextos de seg adicionales</td>
+                    </tr>
+                </tbody>
+            </table>
+
+           <br> <img src="../images/tables.png" 
+            alt="tables"
+            style="width:60%; height:auto; border-radius: 0 !important; object-fit: contain; align-self: center;">
+            <h1>Funcionamiento de las cadenas en iptables</h1>
+    
+                <table border="1" cellpadding="5" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Cadena</th>
+                            <th>Función</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>INPUT</strong></td>
+                            <td>Tráfico entrante</td>
+                            <td>Paquetes destinados al propio host.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OUTPUT</strong></td>
+                            <td>Tráfico saliente</td>
+                            <td>Paquetes generados por el host.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FORWARD</strong></td>
+                            <td>Tráfico reenviado</td>
+                            <td>Paquetes que atraviesan el host (rutado).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PREROUTING</strong></td>
+                            <td>Pre-enrutamiento</td>
+                            <td>Modificaciones antes de rutear el paquete (NAT).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POSTROUTING</strong></td>
+                            <td>Post-enrutamiento</td>
+                            <td>Modificaciones después del ruteo (NAT).</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>Resumen visual del flujo:</h2>
+                <ul>
+                    <li><strong>PREROUTING</strong> → <strong>INPUT</strong> (si el paquete es para el host) / <strong>FORWARD</strong> (si el paquete debe reenviarse) → <strong>POSTROUTING</strong></li>
+                    <li><strong>OUTPUT</strong> (paquetes generados localmente) → <strong>POSTROUTING</strong></li>
+                </ul>
+                
+                <p>Estas cinco cadenas son las predeterminadas en iptables y permiten controlar el tráfico en cada etapa de su recorrido por el sistema.</p>
+
+            <h2>3. Anatomía de un comando iptables:</h2>
+            
+            <img src="../images/iptables.png" 
+            alt="iptables"
+            style="width:100%; height:auto; border-radius: 0 !important; object-fit: contain;">
+            <pre>iptables -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT</pre>
+
+            <h2>4. Este comando permite:</h2>
+            <p>permitir protocolos HTTP/HTTPS</p>
+
+            <h2>5. Variables y opciones communes</h2>
+            <ul>
+                <li><strong>a) Limitar intentos por minuto:</strong> --limit 5/minute</li>
+                <li><strong>b) Filtrar por IP de origen:</strong> -s 192.168.0.1/24</li>
+                <li><strong>c) Ver solo números sin DNS (ni resolución de puertos):</strong> -n</li>
+                <li><strong>d) Ver reglas con contadores (paquetes y bytes):</strong> -v</li>
+            </ul>
+
+            <h2>6. ¿Qué hace esta regla?</h2>
+            <pre>iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT</pre>
+            <p>Permite el tráfico entrante por la interfaz eth0 a los puertos 22, 80 y 443, mientras sea parte de una conexión nueva o establecida.</p>
+
+            <h2>7. Permitir tráfico HTTP entrante</h2>
+            <pre>iptables -A INPUT -p tcp --dport 80 -j ACCEPT</pre>
+
+            <h2>8. Permitir todo el tráfico saliente</h2>
+            <pre>iptables -P OUTPUT ACCEPT</pre>
+
+            <h2>9. Permitir SSH solo desde la IP 192.168.1.50</h2>
+            <pre>iptables -A INPUT -p tcp -s 192.168.1.50 --dport 22 -j ACCEPT</pre>
+
+            <h2>10. Permitir tráfico TCP entrante a puertos 80 y 443 solo si es conexión establecida o relacionada</h2>
+            <pre>iptables -A INPUT -p tcp -m multiport --dports 80,443 -m state --state ESTABLISHED,RELATED -j ACCEPT</pre>
+
+            <h2>11. Permitir tráfico TCP entrante por eth0 a 22, 80 y 443, registrar intentos y permitir solo NEW y ESTABLISHED</h2>
+            <pre>iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT</pre>
+
+            <h1>Conclusión y reflexión técnica</h1>
+    
+            <p>Después de trabajar con estos ejercicios, me queda claro que iptables no es solo una herramienta de filtrado, sino un sistema estructurado donde cada tabla y cadena cumple un rol específico en el recorrido del paquete. Comprender la diferencia entre INPUT, OUTPUT y FORWARD, así como el momento en que actúan PREROUTING y POSTROUTING, me permite visualizar mentalmente el flujo de red y anticipar dónde aplicar cada regla. Me doy cuenta de que muchas veces el error no está en la regla en sí, sino en colocarla en la cadena incorrecta o no considerar el estado de la conexión. Este enfoque práctico me ayuda a pensar como administrador de sistemas: anticipar comportamientos, controlar accesos y entender que cada paquete lleva consigo una historia que iptables puede leer y gestionar.</p>
+            <!-- BOTÓN DESCARGA PDF -->
+            <div class="fila-boton" style="text-align:center;">
+            <a href="179842-Act03.pdf" download>
+                <button>Descargar PDF Original</button>
+            </a>
+    </div>
+        </main>
+        <footer>
+            © 2026 Universidad Politécnica de San Luis Potosí | Seguridad Informática
+        </footer>
+    </body>
+</html>

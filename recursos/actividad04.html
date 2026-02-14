@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 04 - Mecanismos de defensa en red</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <nav>
+        <a href="../index.html">Inicio</a> 
+        <a href="actividades.html">Actividades</a> 
+        <a href="notas.html">Notas</a> 
+        <a href="herramientas.html">Herramientas</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="certificaciones.html">Certificaciones</a>
+    </nav>
+    <main class="container">
+        <div style="text-align: justify;">
+            <h1>Defensa en red: cuando el escudo cobra vida</h1>
+            <div style="text-align: center;">
+                <img src="../images/firewall.png" 
+                alt="topología de red"
+                style="width:80%; height:auto; border-radius: 0 !important; display: inline-block;">
+            </div>
+        
+            <p>Imagina que eres el guardia de seguridad en la puerta de un edificio corporativo. No solo revisas credenciales, sino que decides quién entra, quién sale, qué paquetes pueden pasar y cuáles deben morir en el intento. Eso, exactamente eso, es iptables. Pero aquí no hay pistolas ni uniformes: hay reglas, cadenas y tablas que trabajan en silencio, microsegundo a microsegundo, protegiendo cada bit que osa acercarse a tu red.</p>
+            
+            <p>Esta actividad no es una simple lista de comandos. Es un mapa de batalla. Cada número en la tabla representa una decisión de arquitectura: <strong>políticas restrictivas</strong> que cierran la puerta por defecto, <strong>conexiones establecidas</strong> que no deben ser interrumpidas, <strong>DNS, SMTP y HTTP</strong> que necesitan nacer, viajar y morir en los lugares correctos. Detrás de cada regla hay un estudiante que está aprendiendo a pensar como un firewall: con lógica, con estado, con estrategia.</p>
+            
+            <p>Bienvenido a la trinchera. El enemigo es el tráfico no deseado. Las armas: iptables. Y tú, desde tu terminal, tienes el control.</p>
+            
+        </div>
+        <div><h1>Mecanismos de defensa en red.</h1>
+            <p style="text-align: justify;">Teniendo en cuenta la topología de red mostrada 
+                completa la tabla con las  reglas de iptables que deberían 
+                aplicarse en el Firewall para llevar a cabo las acciones 
+                solicitadas. Las reglas, siempre que sea posible, deben 
+                determinar protocolo, dirección IP origen y destino, 
+                puerto/s origen y destino y el estado de la conexión. 
+            </p>
+            <div style="text-align: center;">
+                <img src="../images/topologia.png" 
+                alt="topología de red"
+                style="width:80%; height:auto; border-radius: 0 !important; display: inline-block;">
+            </div>
+        </div><br>
+    
+    
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Objetivo</th>
+                <th>Tabla</th>
+                <th>Cadena</th>
+                <th>Acción / Comando</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Política restrictiva (Drop)</td>
+                <td>filter</td>
+                <td>INPUT/FORWARD</td>
+                <td>iptables -P FORWARD DROP</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Conexiones establecidas</td>
+                <td>filter</td>
+                <td>INPUT/FORWARD</td>
+                <td>iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>DNS (TCP) Saliente</td>
+                <td>filter</td>
+                <td>OUTPUT</td>
+                <td>iptables -A FORWARD -p tcp -s 192.1.2.0/24 -d 0.0.0.0/0 --sport 1024:65535 --dport 53 -m state --state NEW -j ACCEPT</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Correo entrante (SMTP)</td>
+                <td>filter</td>
+                <td>INPUT</td>
+                <td>iptables -A FORWARD -p tcp -s 0.0.0.0/0 -d 192.1.2.10 --sport 1024:65535 --dport 25 -m state --state NEW -j ACCEPT</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Correo saliente (SMTP)</td>
+                <td>filter</td>
+                <td>OUTPUT</td>
+                <td>iptables -A FORWARD -p tcp -s 192.1.2.10 -d 0.0.0.0/0 --sport 1024:65535 --dport 25 -m state --state NEW -j ACCEPT</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>HTTP desde Internet</td>
+                <td>filter</td>
+                <td>INPUT</td>
+                <td>iptables -A FORWARD -p tcp -s 0.0.0.0/0 -d 192.1.2.11 --sport 1024:65535 --dport 80 -j ACCEPT</td>
+            </tr>
+        </tbody>
+    </table><br>
+    <p>Ejemplo de como activar un Firewall</p>
+    <div style="text-align: center;">
+                <img src="../images/activar.png" 
+                alt="topología de red"
+                style="width:80%; height:auto; border-radius: 0 !important; display: inline-block;">
+            </div>
+
+        <div style="text-align: justify;">
+        <h1>Conclusión: lo que aprendí en la trinchera</h1>
+        
+        <p>Después de esta actividad, entendí que iptables no es solo sintaxis: es <strong>arquitectura de confianza</strong>. Aprendí que INPUT no es lo mismo que FORWARD, y que una conexión ESTABLISHED merece un trato distinto que una NEW.</p>
+        <p>Me sorprendió descubrir que muchas reglas fallan por estar <strong>en la cadena incorrecta</strong>. Por ejemplo, permitir HTTP desde Internet en INPUT cuando el tráfico realmente pasa por FORWARD porque el servidor está detrás del firewall. Ese detalle cambia todo.</p>
+        <p>También internalicé que <strong>la política por defecto importa</strong>: primero cerrar todo (iptables -P FORWARD DROP), luego abrir solo lo necesario. Esa es la filosofía del mínimo privilegio aplicada a redes.</p>
+        <p>Ahora, cuando veo un comando iptables, ya no veo texto críptico: veo decisiones, estrategia y, sobre todo, <strong>control</strong>.</p>
+    </div>
+    <!-- BOTÓN DESCARGA PDF -->
+            <div class="fila-boton" style="text-align:center;">
+            <a href="179842-act04.pdf" download>
+                <button>Descargar PDF Original</button>
+            </a>
+            </div>
+    </main>
+    <footer>
+            © 2026 Universidad Politécnica de San Luis Potosí | Seguridad Informática
+        </footer>
+
+</html>
