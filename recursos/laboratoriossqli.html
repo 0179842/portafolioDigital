@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection - Roadmap de Laboratorios</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <nav>
+            <a href="../index.html">Inicio</a> 
+            <a href="actividades.html">Actividades</a> 
+            <a href="notas.html">Notas</a> 
+            <a href="herramientas.html">Herramientas</a>
+            <a href="proyectos.html">Proyectos</a>
+            <a href="certificaciones.html">Certificaciones</a>
+            <a href="roadtohall.html">Road to Hall Of Fame</a>
+        </nav>
+            <main class="container">
+        <div>
+            <h1 style="text-align: center;">Equipo 02</h1>
+            <h1 style="text-align: center;">SQL Injection - Laboratorios PortSwigger</h1>
+        </div>
+
+        <!-- ==================================== -->
+        <!-- SECCIÓN DEL ROADMAP DE LABORATORIOS  -->
+        <!-- ==================================== -->
+        <section class="roadmap-section">
+            <h2>Roadmap de Laboratorios: SQL Injection</h2>
+            <p>Los 172 laboratorios de PortSwigger organizados por nivel. Sigue tu progreso a continuación.</p>
+
+            <!-- CONTADORES DE PROGRESO CON CÍRCULO LLAMATIVO -->
+            <div class="progress-container">
+                <!-- SVG con gradiente para el círculo -->
+                <svg width="0" height="0" style="position: absolute;">
+                    <defs>
+                        <linearGradient id="gradient-circle" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#a0c4ff;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#4a90e2;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#9b59b6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+
+                <!-- Círculo de progreso principal -->
+                <div class="circular-progress">
+                    <div class="progress-ring">
+                        <svg width="150" height="150">
+                            <circle class="progress-ring-bg" cx="75" cy="75" r="66"></circle>
+                            <circle class="progress-ring-circle" cx="75" cy="75" r="66"></circle>
+                        </svg>
+                        <div class="progress-text">
+                            <span class="progress-number">18</span>
+                            <span class="progress-total">/172</span>
+                        </div>
+                    </div>
+                    <div class="progress-label">Laboratorios Completados</div>
+                </div>
+                
+                <!-- Progreso por nivel -->
+                <div class="level-progress">
+                    <div class="progress-item">
+                        <span class="progress-label">Apprentice</span>
+                        <span class="progress-value">3/59</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">Practitioner</span>
+                        <span class="progress-value">14/172</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">Expert</span>
+                        <span class="progress-value">0/39</span>
+                    </div>
+                </div>
+            </div>
+
+            <main class="container">
+    <section>
+        <h2>Introducción</h2>
+        <p>
+            En el ecosistema actual de aplicaciones web y sistemas de información, donde la mayoría de los servicios dependen de bases de datos relacionales para almacenar y procesar datos críticos, la seguridad en la interacción entre la aplicación y el motor de base de datos se convierte en un elemento estratégico. Dentro de este contexto, SQL Injection (SQLi) destaca como una de las vulnerabilidades más peligrosas y persistentes. Se trata de una falla de tipo inyección que ocurre cuando las entradas proporcionadas por el usuario no son correctamente validadas ni parametrizadas, permitiendo que fragmentos de código SQL malicioso sean interpretados y ejecutados por el sistema gestor de bases de datos.
+        </p>
+        <p>
+            Desde una perspectiva técnica, el núcleo del problema radica en la construcción dinámica de consultas SQL mediante concatenación directa de datos externos, lo que rompe el principio fundamental de separación entre código y datos. Esta debilidad puede alterar la lógica de autenticación, exponer información confidencial, modificar registros o incluso comprometer completamente la infraestructura del servidor. La gravedad de SQL Injection no solo reside en su impacto potencial sobre la confidencialidad, integridad y disponibilidad de la información, sino también en su frecuencia de aparición en aplicaciones que no implementan prácticas de desarrollo seguro.
+        </p>
+        <p>
+            Analizar SQL Injection implica comprender tanto la arquitectura de las bases de datos relacionales como el funcionamiento interno del lenguaje SQL y los mecanismos de validación de entradas. Su estudio resulta esencial para diseñar sistemas robustos, identificar riesgos en fases tempranas del desarrollo y aplicar controles efectivos que mitiguen una de las amenazas más críticas dentro del panorama de la ciberseguridad actual.
+        </p>
+    </section>
+
+    <section>
+        <h2>Marco Teórico</h2>
+        
+        <h3>1. Fundamentos de Bases de Datos Relacionales</h3>
+        <p>Una base de datos relacional es un sistema de almacenamiento estructurado que organiza la información en tablas. Cada tabla está compuesta por:</p>
+        
+        <ul>
+            <li><strong>Filas (tuplas o registros):</strong> representan una instancia de datos.</li>
+            <li><strong>Columnas (atributos):</strong> describen características del registro.</li>
+            <li><strong>Clave primaria (Primary Key):</strong> identifica de forma única cada registro.</li>
+            <li><strong>Clave foránea (Foreign Key):</strong> permite establecer relaciones entre tablas.</li>
+        </ul>
+
+        <p><strong>Ejemplo conceptual: Tabla Usuarios</strong></p>
+        <div class="detail-section">
+            <pre>
+id_usuario | nombre | correo
+1          | Ana    | ana@mail.com</pre>
+        </div>
+        <p>
+            Aquí, id_usuario es la clave primaria. Si otra tabla (por ejemplo Pedidos) incluye id_usuario, se establece una relación. El modelo relacional garantiza integridad referencial, consistencia de datos y reducción de redundancia.
+        </p>
+
+        <h3>2. Consultas SQL Básicas</h3>
+        <p>SQL se divide principalmente en DDL (Data Definition Language) para definir estructura y DML (Data Manipulation Language) para manipular datos.</p>
+
+        <h4>2.1 SELECT</h4>
+        <p>Permite consultar datos almacenados. Sintaxis básica:</p>
+        <div class="detail-section">
+            <pre>SELECT columna1, columna2 FROM tabla WHERE condición;</pre>
+        </div>
+
+        <h4>2.2 INSERT</h4>
+        <p>Permite agregar nuevos registros.</p>
+        <div class="detail-section">
+            <pre>INSERT INTO Usuarios (nombre, correo) VALUES ('Carlos', 'carlos@mail.com');</pre>
+        </div>
+
+        <h4>2.3 UPDATE</h4>
+        <p>Modifica datos existentes.</p>
+        <div class="detail-section">
+            <pre>UPDATE Usuarios SET correo = 'nuevo@mail.com' WHERE id_usuario = 1;</pre>
+        </div>
+
+        <h4>2.4 DELETE</h4>
+        <p>Elimina registros.</p>
+        <div class="detail-section">
+            <pre>DELETE FROM Usuarios WHERE id_usuario = 1;</pre>
+        </div>
+
+        <h4>2.5 UNION</h4>
+        <p>Combina resultados de dos consultas compatibles y elimina duplicados por defecto.</p>
+        <div class="detail-section">
+            <pre>SELECT nombre FROM Clientes UNION SELECT nombre FROM Proveedores;</pre>
+        </div>
+
+        <h3>3. ¿Qué es SQL Injection?</h3>
+        <p>SQL Injection (SQLi) es una vulnerabilidad que ocurre cuando una aplicación construye consultas SQL dinámicamente e inserta directamente datos del usuario sin validar ni parametrizar adecuadamente la entrada.</p>
+        <p><strong>Ejemplo vulnerable:</strong></p>
+        <div class="detail-section">
+            <pre>SELECT * FROM Usuarios WHERE nombre = ' " + usuario + " ' AND password = ' " + contraseña + " ';</pre>
+        </div>
+        <p>Si el usuario introduce <code>' OR '1'='1</code>, la consulta resultante permite omitir la autenticación porque la condición siempre es verdadera.</p>
+
+        <h3>4. Clasificación de Ataques SQLi</h3>
+        <h4>4.1 In-band SQL Injection</h4>
+        <p>El atacante usa el mismo canal para enviar y recibir datos. Incluye técnicas <strong>Union-based</strong> (extraer información adicional) y <strong>Error-based</strong> (aprovechar mensajes de error del motor SQL).</p>
+
+        <h4>4.2 Blind SQL Injection</h4>
+        <p>No se muestran resultados directamente, pero se infiere información.</p>
+        <ul>
+            <li><strong>Boolean-based:</strong> Se analizan cambios en el comportamiento de la aplicación (respuestas verdadero/falso) para inferir datos.</li>
+            <li><strong>Time-based:</strong> Se introducen funciones de retraso como <code>SLEEP()</code> o <code>WAITFOR DELAY</code>. Si la respuesta tarda, la condición evaluada fue verdadera.</li>
+        </ul>
+
+        <h4>4.3 Out-of-band SQL Injection</h4>
+        <p>El atacante utiliza canales alternos de comunicación (como conexiones salientes del servidor) para exfiltrar datos cuando no se pueden usar las técnicas anteriores.</p>
+    </section>
+
+    <section>
+        <h2>5. Impacto en la Tríada CIA</h2>
+        
+        <p>SQL Injection afecta los tres pilares fundamentales de la seguridad:</p>
+        <ul>
+            <li><strong>Confidencialidad:</strong> Acceso no autorizado a credenciales, datos personales (PII) o información financiera.</li>
+            <li><strong>Integridad:</strong> Modificación o eliminación de registros, alteración de saldos bancarios o cambios de roles de usuario.</li>
+            <li><strong>Disponibilidad:</strong> Eliminación masiva de datos, bloqueo de tablas o sobrecarga del sistema (DoS lógico).</li>
+        </ul>
+
+        <h3>6. Relación con OWASP Top 10</h3>
+        <p>SQL Injection se encuentra en la categoría <strong>A03: Injection</strong> del OWASP Top 10 – 2021. Es considerada crítica por su alta severidad, facilidad de explotación e impacto directo sobre datos sensibles.</p>
+
+        <h3>7. Importancia en Pruebas de Penetración</h3>
+        <p>En un Pentest, es una de las primeras pruebas debido a su frecuencia y capacidad para escalar privilegios rápidamente. Se evalúa la validación de entradas, el manejo de errores y los privilegios de la cuenta de base de datos.</p>
+
+        <h3>8. Tipos de Payloads</h3>
+        <ul>
+            <li><strong>Payloads Lógicos:</strong> Usan operadores (OR, AND) para alterar la autenticación.</li>
+            <li><strong>Payloads de Extracción:</strong> Usan UNION o subconsultas para obtener información adicional.</li>
+            <li><strong>Payloads de Enumeración:</strong> Identifican nombres de tablas, columnas y versiones del motor.</li>
+            <li><strong>Payloads de Explotación Avanzada:</strong> Incluyen funciones internas y llamadas de red.</li>
+        </ul>
+
+        <h3>9. Principios de Defensa</h3>
+        <p>La mitigación debe ser estructural:</p>
+        <ul>
+            <li><strong>Consultas Preparadas (Prepared Statements):</strong> Es la defensa más efectiva al separar el código SQL de los datos.</li>
+            <li><strong>Validación de Entradas:</strong> Aplicar validación por tipo, longitud y listas blancas (whitelisting).</li>
+            <li><strong>Mínimo Privilegio:</strong> La cuenta de la BD debe tener solo los permisos necesarios (evitar privilegios de admin).</li>
+            <li><strong>Manejo Seguro de Errores:</strong> No mostrar mensajes internos del motor SQL al usuario final.</li>
+            <li><strong>Desarrollo Seguro (Secure SDLC):</strong> Integrar la seguridad en todo el ciclo de vida del software.</li>
+        </ul>
+    </section>
+</main>
+
+            <!-- LISTA DE LABORATORIOS POR NIVELES -->
+            
+            <!-- NIVEL APPRENTICE -->
+            <div class="level-section">
+                <!-- <h3 class="level-title">
+                    <span class="level-badge level-apprentice">APPRENTICE</span>
+                    <span class="level-count">59 laboratorios</span>
+                </h3>-->
+                
+                <div class="labs-grid">
+                    <!-- LAB 1: APPRENTICE -->
+                    <div class="lab-card completed" data-level="apprentice">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">1. SQL injection vulnerability in WHERE clause allowing retrieval of hidden data</h3>
+                            <p style="text-align: justify;">Modificación de filtros para mostrar productos ocultos (usualmente con ' OR 1=1--).</p>
+                            <span class="lab-level level-apprentice">APPRENTICE</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl1.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl1.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pv1.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="slv1.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="labs-grid">
+                    <!-- LAB 3: APPRENTICE -->
+                    <div class="lab-card completed" data-level="apprentice">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">2. SQL injection attack, querying the database type and version on Oracle</h3>
+                            <p style="text-align: justify;">Salto de autenticación para ingresar como administrador sin conocer la contraseña.</p>
+                            <span class="lab-level level-apprentice">APPRENTICE</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq2.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl2.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv2.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls2.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <h3 class="level-title">
+                    <span class="level-badge level-practitioner">PRACTITIONER</span>
+                    <span class="level-count">59 laboratorios</span>
+                </h3> -->
+
+                                <div class="labs-grid">
+                    <!-- LAB 3: APPRENTICE -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">3. SQL injection attack, querying the database type and version on Oracle</h3>
+                            <p style="text-align: justify;">Uso de SELECT banner FROM v$version para identificar el motor.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq3.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl3.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv3.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls2.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+                <div>
+
+                <div class="labs-grid">
+                    <!-- LAB 3: APPRENTICE -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">4. SQL injection attack, querying the database type and version on MySQL and Microsoft</h3>
+                            <p style="text-align: justify;">Uso de SELECT @@version para identificar la versión del motor.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq4.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl4.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv4.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="slv4.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+
+                    <div class="labs-grid">
+                    <!-- LAB 5: APPRENTICE -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">5. SQL injection attack, listing the database contents on non-Oracle databases</h3>
+                            <p style="text-align: justify;">Extracción de nombres de tablas y columnas usando information_schema.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq5.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl5.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv5.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls5.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="labs-grid">
+                    <!-- LAB 6: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">6. SQL injection attack, listing the database contents on Oracle</h3>
+                            <p style="text-align: justify;">Extracción de estructura usando las tablas del sistema como all_tables.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq6.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl6.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv6.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls6.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="labs-grid">
+                    <!-- LAB 7: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">7. SQL injection UNION attack, determining the number of columns returned by the query</h3>
+                            <p style="text-align: justify;">Determinación del número de columnas de la consulta original usando ORDER BY o UNION SELECT NULL.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq7.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl7.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv7.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls7.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="labs-grid">
+                    <!-- LAB 8: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">8. SQL injection UNION attack, finding a column containing text</h3>
+                            <p style="text-align: justify;">Identificación de qué columna acepta datos tipo cadena para poder extraer información.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq8.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl8.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv8.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls8.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="labs-grid">
+                    <!-- LAB 9: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">9. SQL injection UNION attack, retrieving data from other tables</h3>
+                            <p style="text-align: justify;">Extracción de datos sensibles (como usuarios y claves) de tablas externas a la consulta original.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq9.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl9.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv9.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls9.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="labs-grid">
+                    <!-- LAB 10: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">10. SQL injection UNION attack, retrieving data from other tables</h3>
+                            <p style="text-align: justify;">Concatenación de varios campos en una sola columna para extraer múltiples datos a la vez.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq10.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl10.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv10.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls10.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="labs-grid">
+                    <!-- LAB 11: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">11. SQL injection UNION attack, retrieving data from other tables</h3>
+                            <p style="text-align: justify;">Inferencia de datos letra por letra observando si un mensaje (ej. "Welcome") aparece o no.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq11.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl11.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv11.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls11.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="labs-grid">
+                    <!-- LAB 12: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">12. Blind SQL injection with conditional errors</h3>
+                            <p style="text-align: justify;">Inferencia de datos provocando errores controlados en la base de datos (como una división por cero) si la condición es verdadera.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq12.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl12.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv12.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls12.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="labs-grid">
+                    <!-- LAB 13: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">13. Visible error-based SQL injection</h3>
+                            <p style="text-align: justify;">Extracción de datos directamente a través de los mensajes de error que la aplicación muestra en pantalla..</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq13.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl13.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv13.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls13.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="labs-grid">
+                    <!-- LAB 14: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">14. Blind SQL injection with time delays</h3>
+                            <p style="text-align: justify;">Confirmación de vulnerabilidad forzando a la base de datos a esperar unos segundos (pausa) antes de responder.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq14.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl14.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv14.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls14.png" alt="Confirmacion Lab Solved"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="labs-grid">
+                    <!-- LAB 15: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">15. Blind SQL injection with time delays and information retrieval</h3>
+                            <p style="text-align: justify;">Extracción de información sensible basándose exclusivamente en el tiempo que tarda el servidor en contestar.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq15.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl15.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv14.png" alt="Respuesta vulnerable"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <h3>No se puede resolver</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+                <div class="labs-grid">
+                    <!-- LAB 16: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">16.Blind SQL injection with out-of-band interaction</h3>
+                            <p style="text-align: justify;">Uso de vulnerabilidades para obligar al servidor a realizar una consulta DNS o HTTP a un servidor externo controlado por el atacante.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq16.png" alt="Request Interceptado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="pl16.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <h3>No se puede resolver</h3>
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <h3>No se puede resolver</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                            <div class="labs-grid">
+                    <!-- LAB 17: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">17. Blind SQL injection with out-of-band data exfiltration.</h3>
+                            <p style="text-align: justify;">Envío de datos robados (como contraseñas) dentro de una solicitud DNS o HTTP hacia un servidor externo.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <h3>No se puede resolver</h3>
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <h3>No se puede resolver</h3>
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <h3>No se puede resolver</h3>
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <h3>No se puede resolver</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+                            <div class="labs-grid">
+                    <!-- LAB 18: PRACTITIONER -->
+                    <div class="lab-card completed" data-level="practitioner">
+                    <div class="lab-header clickable">
+                        <div class="lab-status">OK</div>
+                        <div class="lab-header-content">
+                            <h3 class="lab-title">18. SQL injection with filter bypass via XML encoding.</h3>
+                            
+                            <p style="text-align: justify;">Evasión de firewalls o filtros de seguridad ofuscando el payload SQL dentro de etiquetas XML codificadas.</p>
+                            <span class="lab-level level-practitioner">PRACTITIONER</span>
+                        </div>
+                        <div class="expand-icon">▼</div>
+                    </div>
+                    <div class="lab-details">
+
+                        <h3>Request Interceptado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rq18.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Payload utilizado</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                           <img src="pl18.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Respuesta vulnerable</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="rv18.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+
+                        <h3>Confirmacion de Lab Solved</h3>
+                        <div style="text-align: center; margin: 15px 0;">
+                            <img src="ls18.png" alt="Payload utilizado"
+                            style="max-width: 500px; width: 100%; height: auto; border-radius: 8px;
+                            border: 1px solid rgba(160, 196, 255, 0.3); box-shadow: 0 3px 10px rgba(0,0,0,0.3);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="conclusion-extendida">
+    <h2>Conclusión Estratégica</h2>
+    
+    <p>
+        La persistencia de <strong>SQL Injection</strong> en la cima de las amenazas globales no es una coincidencia, sino un recordatorio constante de que la confianza ciega en la entrada del usuario es el eslabón más débil de cualquier sistema. A lo largo de este análisis, hemos comprendido que una vulnerabilidad de inyección no es simplemente un error de sintaxis, sino una <strong>brecha crítica en la arquitectura de confianza</strong> entre la aplicación y su núcleo de datos.
+    </p>
+
+    <div class="labs-grid">
+    
+            <div class="lab-details" style="text-align: justify;">
+                Comprender los ataques Blind, Time-based y Out-of-band permite a los desarrolladores anticiparse a los adversarios. La seguridad es un proceso dinámico; el monitoreo constante y las pruebas de penetración regulares son los únicos mecanismos para garantizar la resiliencia a largo plazo.
+            </div>
+        </article>
+    </div>
+
+
+</section>
+
+<div class="fila-boton" style="text-align:center; margin:auto 0;">
+    
+    <a href="Act08-Equipo02.pdf" download>
+        <button>
+            Descargar Reporte en PDF
+        </button>
+    </a>
+
+    </div>
+
+
+
+    <!-- Script para funcionalidad de expandir/contraer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const headers = document.querySelectorAll('.lab-header.clickable');
+            
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    const card = this.closest('.lab-card');
+                    const details = card.querySelector('.lab-details');
+                    const icon = this.querySelector('.expand-icon');
+                    
+                    // Cerrar otros abiertos (opcional - comentar si no se desea)
+                    document.querySelectorAll('.lab-card.expanded').forEach(expandedCard => {
+                        if (expandedCard !== card) {
+                            expandedCard.classList.remove('expanded');
+                            expandedCard.querySelector('.lab-details').style.display = 'none';
+                            expandedCard.querySelector('.expand-icon').textContent = '▼';
+                        }
+                    });
+                    
+                    // Toggle actual
+                    if (card.classList.contains('expanded')) {
+                        card.classList.remove('expanded');
+                        details.style.display = 'none';
+                        icon.textContent = '▼';
+                    } else {
+                        card.classList.add('expanded');
+                        details.style.display = 'block';
+                        icon.textContent = '▲';
+                    }
+                });
+            });
+        });
+    </script>
+
+    
+    <footer>
+            <p>© CNO V Seguridad Informática 2026</p>
+        </footer>
+</body>
+</html>

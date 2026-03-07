@@ -1,29 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Parcial III</title>
-        <link rel="stylesheet" href="../css/index.css">
-    </head>
-    <body>
-        <nav>
-            <a href="../index.html">Inicio</a> 
-            <a href="actividades.html">Actividades</a> 
-            <a href="notas.html">Notas</a> 
-            <a href="herramientas.html">Herramientas</a>
-            <a href="proyectos.html">Proyectos</a>
-            <a href="certificaciones.html">Certificaciones</a>
-        </nav>
-        <div>
-            <h1>Parcial 3 - Seguridad Informática</h1>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio de Proyectos</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html">Inicio</a> 
+        <a href="actividades.html">Actividades</a> 
+        <a href="notas.html">Notas</a> 
+        <a href="herramientas.html">Herramientas</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="certificaciones.html">Certificaciones</a>
+        <a href="roadtohall.html">Road to Hall Of Fame</a>
+    </nav>
+
+<main class="container">
+
+    <div>
+        <h1>Proyectos Integradores</h1>
+        <p style="text-align: center;">En este espacio se presentan los proyectos integradores desarrollados durante el curso de Seguridad Informatica Primavera 2026</p>
+    </div>
+
+    <section>
+        <h2 onclick="toggleSection('p1')" class="clickable">
+            PR01 - De la teoría a la práctica: Walkthrough en acción
+        </h2>
+
+        <div id="p1" class="hidden-section">
+            <table class="table" border="1">
+                <tbody>
+                    <tr>
+                        <td><a href="https://youtu.be/Ck4VGGp600o?si=yBO1QCF8MNLXrD4k">PR01 - De la teoría a la práctica: Walkthrough en accion.</a></td>
+                        <td>Explotando las vulnerabilidades de un entorno virtual con herramientas de pentesting.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div>
-            <h2>PROYECTOS</h2>
-            <p>Aquí va el contenido relacionado con los proyectos del tercer parcial del curso de Seguridad Informática.</p>
+    </section>
+
+
+    <section>
+        <h2 onclick="toggleSection('p2')" class="clickable">
+            PR02 - El eslabón más débil: Diseño ético de una campaña de ingeniería social.
+        </h2>
+
+        <div id="p2" class="hidden-section">
+            <table class="table" border="1">
+                <tbody>
+                    <tr>
+                        <td><a href="pr02_179842.html">Investigacion comparativa de plataformas</a></td>
+                        <td>Identificar las caracteristicas y funcionalidades de las herramientas de phising para poder desarrollar una campaña de ingenieria social.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <footer>
-            <p>© CNO V Seguridad Informática 2026</p>
-        </footer>
-    </body>
+    </section>
+
+
+    <section>
+        <h2 onclick="toggleSection('p3')" class="clickable">
+            PR03 - ...
+        </h2>
+
+        <div id="p3" class="hidden-section">
+            <table class="table" border="1">
+                <tbody>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">Loading...</td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    © 2026 Portafolio de Proyectos - Seguridad Informática
+</footer>
+
+
+<script>
+// Inicializamos las secciones como ocultas al cargar si es necesario
+document.addEventListener("DOMContentLoaded", function() {
+    const sections = ["p1", "p2", "p3"];
+    sections.forEach(id => {
+        document.getElementById(id).style.display = "none";
+    });
+});
+
+function toggleSection(id) {
+    const section = document.getElementById(id);
+    if (section.style.display === "none" || section.style.display === "") {
+        section.style.display = "block";
+    } else {
+        section.style.display = "none";
+    }
+}
+</script>
+
+</body>
 </html>

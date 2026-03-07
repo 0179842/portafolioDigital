@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Vulnerabilidades</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+        <nav>
+            <a href="../index.html">Inicio</a> 
+            <a href="actividades.html">Actividades</a> 
+            <a href="notas.html">Notas</a> 
+            <a href="herramientas.html">Herramientas</a>
+            <a href="proyectos.html">Proyectos</a>
+            <a href="certificaciones.html">Certificaciones</a>
+            <a href="roadtohall.html">Road to Hall Of Fame</a>
+        </nav>
+
+<main class="container">
+
+    <div>
+        <h1>Road to Hall Of Fame</h1>
+    </div>
+
+    <section>
+        <h2 onclick="toggleSection('sqli')" class="clickable">
+            SQL Injection (SQLi)
+        </h2>
+
+        <div id="sqli" class="hidden-section">
+
+            <table class="table" border="1">
+
+                <tr>
+                    <td><a href="laboratoriossqli.html">Laboratorio SQLi</a></td>
+                    <td>Acceso a los laboratorios de práctica de SQL Injection.</td>
+                </tr>
+
+            </table>
+        </div>
+    </section>
+
+</main>
+<footer>
+    © 2026 Universidad Politécnica de San Luis Potosí
+    </footer>
+
+
+<script>
+function toggleSection(id) {
+    const section = document.getElementById(id);
+
+    if (section.style.display === "none" || section.style.display === "") {
+        section.style.display = "block";
+    } else {
+        section.style.display = "none";
+    }
+}
+</script>
+
+
+
+</body>
+</html>
