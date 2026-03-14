@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Quiz Educativo</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <nav>
+        <a href="../index.html">Inicio</a> 
+        <a href="actividades.html">Actividades</a> 
+        <a href="notas.html">Notas</a> 
+        <a href="herramientas.html">Herramientas</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="certificaciones.html">Certificaciones</a>
+        <a href="roadtohall.html">Road to Hall Of Fame</a>
+        <a href="quizPhising.html">Quiz de Phishing</a>
+    </nav>
+    <style>
+        /* Estilos adicionales para el timer */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .timer-container {
+            background: rgba(15, 25, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(160, 196, 255, 0.3);
+            border-radius: 50px;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timer-icon {
+            font-size: 20px;
+            color: #a0c4ff;
+        }
+        
+        .timer-display {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: white;
+            text-shadow: 0 0 10px rgba(160, 196, 255, 0.5);
+            min-width: 70px;
+            text-align: center;
+        }
+        
+        .timer-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-left: 5px;
+        }
+        
+        .progress {
+            flex: 1;
+            margin: 0 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .timer-container {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <main class="container">
+        <!-- Header con título -->
+        <div class="custom-header">
+            <h1>Quiz de Concientización sobre Phishing</h1>
+        </div>
+
+        <!-- Sección de Consentimiento -->
+        <div id="consentSection" class="consent-section">
+            <h2>Consentimiento Informado</h2>
+            <p>Este quiz tiene fines educativos para ayudarte a identificar intentos de phishing. No se recopilarán credenciales ni información personal sensible. Tu participación es voluntaria y anónima (solo se guardará un nombre de usuario para el ranking).</p>
+            <p>º No se almacenan contraseñas</p>
+            <p>º No se comparten datos personales</p>
+            <p>º Solo se guardan puntuaciones para el ranking global</p>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="consentCheck">
+                <label for="consentCheck">He leído y acepto los términos del consentimiento informado</label>
+            </div>
+            
+            <div class="name-input">
+                <input type="text" id="userName" placeholder="Ingresa tu nombre para el ranking (opcional)">
+            </div>
+            
+            <button id="startQuizBtn" class="start-btn" disabled>Comenzar Quiz</button>
+        </div>
+
+        <!-- Sección del Quiz -->
+        <div id="quizSection" class="quiz-section">
+            <div class="quiz-header">
+                <div class="progress" id="progress">Escenario 1 de 10</div>
+                <div class="timer-container">
+                    <span class="timer-icon">⏱️</span>
+                    <span class="timer-display" id="timerDisplay">00:00</span>
+                    <span class="timer-label">tiempo</span>
+                </div>
+            </div>
+            
+            <div id="scenarioContainer"></div>
+            
+            <div class="navigation">
+                <button id="prevBtn" class="nav-btn" disabled>⬅ Anterior</button>
+                <button id="nextBtn" class="nav-btn" disabled>Siguiente ➡</button>
+            </div>
+        </div>
+
+        <!-- Sección de Resultados -->
+        <div id="resultsSection" class="results-section">
+            <h2>Resultados y Ranking</h2>
+            
+            <div class="stats-grid" id="globalStats"></div>
+            
+            <h3>Puntuación Individual</h3>
+            <div class="stat-card">
+                <div class="stat-value" id="individualScore">0/10</div>
+                <div>Tiempo promedio por escenario: <span id="avgTime">0</span> segundos</div>
+                <div>Tiempo total: <span id="totalTime">0</span> segundos</div>
+            </div>
+            
+            <h3>Ranking Global</h3>
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Posición</th>
+                        <th>Usuario</th>
+                        <th>Puntuación</th>
+                        <th>Tiempo promedio</th>
+                    </tr>
+                </thead>
+                <tbody id="rankingBody"></tbody>
+            </table>
+            
+            <h3>Análisis de Desempeño</h3>
+            <div id="performanceAnalysis"></div>
+            
+            <button id="resetQuizBtn" class="reset-btn">Reintentar Quiz</button>
+        </div>
+    </main>
+
+    <script>
+        // Escenarios de phishing
+        const scenarios = [
+            {
+                id: 1,
+                description: "Recibes un correo de 'tu banco' diciendo que tu cuenta será suspendida y debes hacer clic en un enlace para verificar tus datos urgentemente. El remitente es 'seguridad@banc0seguro.com'",
+                isPhishing: true,
+                feedbackCorrect: "¡Correcto! Este es un clásico caso de phishing. Los bancos nunca piden datos personales por correo electrónico y la dirección del remitente tiene un error tipográfico (banc0 con cero).",
+                feedbackIncorrect: "Incorrecto. Este SÍ es un caso de phishing. Los bancos nunca piden datos personales por correo electrónico y la dirección del remitente tiene un error tipográfico (banc0 con cero)."
+            },
+            {
+                id: 2,
+                description: "Recibes un mensaje de LinkedIn de un reclutador con una oferta de trabajo atractiva. El perfil parece legítimo y tiene conexiones en común contigo.",
+                isPhishing: false,
+                feedbackCorrect: "Correcto. Aunque siempre hay que verificar, este mensaje parece legítimo. Los reclutadores reales suelen contactar así, pero mantén precaución con enlaces sospechosos.",
+                feedbackIncorrect: "Incorrecto. Este mensaje es legítimo. Aunque siempre hay que verificar, los reclutadores reales suelen contactar así, pero mantén precaución con enlaces sospechosos."
+            },
+            {
+                id: 3,
+                description: "Un SMS de 'Netflix' indica que tu suscripción ha expirado y necesitas actualizar tus datos inmediatamente haciendo clic en un enlace acortado.",
+                isPhishing: true,
+                feedbackCorrect: "¡Correcto! Los enlaces acortados pueden ocultar direcciones maliciosas. Siempre verifica iniciando sesión directamente en el sitio oficial.",
+                feedbackIncorrect: "Incorrecto. Este SÍ es phishing. Los enlaces acortados pueden ocultar direcciones maliciosas. Siempre verifica iniciando sesión directamente en el sitio oficial."
+            },
+            {
+                id: 4,
+                description: "Recibes un correo de un compañero de trabajo con un documento adjunto llamado 'informe_reunion.pdf.exe' y el asunto dice 'Revisión urgente'.",
+                isPhishing: true,
+                feedbackCorrect: "¡Correcto! Las extensiones .exe en correos son muy sospechosas. Los archivos ejecutables nunca deben abrirse si no los esperabas explícitamente.",
+                feedbackIncorrect: "Incorrecto. Este SÍ es phishing. Las extensiones .exe en correos son muy sospechosas. Los archivos ejecutables nunca deben abrirse si no los esperabas explícitamente."
+            },
+            {
+                id: 5,
+                description: "Un mensaje de WhatsApp de un número desconocido dice ser tu jefe pidiéndote que compres tarjetas de regalo para un cliente urgente.",
+                isPhishing: true,
+                feedbackCorrect: "¡Correcto! Es una estafa común. Siempre verifica por otro canal si realmente es tu jefe antes de realizar cualquier acción.",
+                feedbackIncorrect: "Incorrecto. Este SÍ es phishing. Es una estafa común. Siempre verifica por otro canal si realmente es tu jefe antes de realizar cualquier acción."
+            },
+            {
+                id: 6,
+                description: "Llamada telefónica de 'soporte técnico de Microsoft' diciendo que tu computadora tiene un virus y necesitan acceso remoto para solucionarlo.",
+                isPhishing: true,
+                feedbackCorrect: "¡Correcto! Microsoft no realiza llamadas no solicitadas. Nunca des acceso remoto a desconocidos.",
+                feedbackIncorrect: "Incorrecto. Esta SÍ es una estafa. Microsoft no realiza llamadas no solicitadas. Nunca des acceso remoto a desconocidos."
+            },
+            {
+                id: 7,
+                description: "Correo de confirmación de una compra que realmente realizaste en Amazon, con los detalles correctos del pedido.",
+                isPhishing: false,
+                feedbackCorrect: "Correcto. Este correo es legítimo porque coincide con una compra que realmente hiciste. Siempre verifica que los detalles sean correctos.",
+                feedbackIncorrect: "Incorrecto. Este correo es legítimo porque coincide con una compra que realmente hiciste. Siempre verifica que los detalles sean correctos."
+            },
+            {
+                id: 8,
+                description: "Mensaje en Instagram de una cuenta verificada de una marca conocida ofreciendo un sorteo legítimo donde ya han publicado los ganadores en su perfil.",
+                isPhishing: false,
+                feedbackCorrect: "Correcto. Las cuentas verificadas y sorteos legítimos suelen ser seguros, pero verifica siempre en el perfil oficial.",
+                feedbackIncorrect: "Incorrecto. Este mensaje es legítimo. Las cuentas verificadas y sorteos legítimos suelen ser seguros, pero verifica siempre en el perfil oficial."
+            },
+            {
+                id: 9,
+                description: "Correo de 'Recursos Humanos' pidiéndote que actualices tus datos en un portal interno de la empresa, con enlace a la intranet oficial.",
+                isPhishing: false,
+                feedbackCorrect: "Correcto. Si el enlace dirige a la intranet oficial de la empresa y esperabas esta comunicación, probablemente es legítimo.",
+                feedbackIncorrect: "Incorrecto. Este correo es legítimo. Si el enlace dirige a la intranet oficial de la empresa y esperabas esta comunicación, probablemente es legítimo."
+            },
+            {
+                id: 10,
+                description: "Ventana emergente en una página web que dice 'Tu computadora está infectada! Llama al 1-800-XXX-XXXX inmediatamente para soporte'.",
+                isPhishing: true,
+                feedbackCorrect: "¡Correcto! Estas ventanas emergentes son falsas. Nunca llames a esos números ni descargues nada de ellas.",
+                feedbackIncorrect: "Incorrecto. Esta ventana SÍ es una estafa. Estas ventanas emergentes son falsas. Nunca llames a esos números ni descargues nada de ellas."
+            }
+        ];
+
+        // Estado global
+        let currentScenario = 0;
+        let userAnswers = new Array(scenarios.length).fill(null);
+        let startTime = null;
+        let timerInterval = null;
+        let timePerScenario = new Array(scenarios.length).fill(0);
+        let globalRanking = JSON.parse(localStorage.getItem('phishingQuizRanking')) || [];
+        let currentUserName = '';
+
+        // Elementos DOM
+        const consentSection = document.getElementById('consentSection');
+        const quizSection = document.getElementById('quizSection');
+        const resultsSection = document.getElementById('resultsSection');
+        const consentCheck = document.getElementById('consentCheck');
+        const startQuizBtn = document.getElementById('startQuizBtn');
+        const userName = document.getElementById('userName');
+        const scenarioContainer = document.getElementById('scenarioContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progress = document.getElementById('progress');
+        const resetQuizBtn = document.getElementById('resetQuizBtn');
+        const timerDisplay = document.getElementById('timerDisplay');
+
+        // Habilitar botón de inicio
+        consentCheck.addEventListener('change', function() {
+            startQuizBtn.disabled = !this.checked;
+        });
+
+        // Iniciar quiz
+        startQuizBtn.addEventListener('click', function() {
+            currentUserName = userName.value.trim() || 'Anónimo';
+            consentSection.style.display = 'none';
+            quizSection.classList.add('active');
+            renderScenario(0);
+        });
+
+        // Formatear tiempo en MM:SS
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Iniciar timer
+        function startTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            startTime = new Date();
+            
+            timerInterval = setInterval(() => {
+                const now = new Date();
+                const elapsedSeconds = Math.floor((now - startTime) / 1000);
+                timerDisplay.textContent = formatTime(elapsedSeconds);
+            }, 100);
+        }
+
+        // Detener timer
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        // Renderizar escenario
+        function renderScenario(index) {
+            const scenario = scenarios[index];
+            const isAnswered = userAnswers[index] !== null;
+            const userAnswer = userAnswers[index];
+            
+            // Detener timer anterior y iniciar nuevo si la pregunta no está respondida
+            stopTimer();
+            if (!isAnswered) {
+                startTimer();
+            } else {
+                // Si ya está respondida, mostrar el tiempo que tomó
+                timerDisplay.textContent = formatTime(timePerScenario[index]);
+            }
+            
+            // Determinar el feedback correcto basado en si la respuesta es correcta o no
+            let feedbackMessage = '';
+            if (isAnswered) {
+                const isCorrect = (userAnswer === scenario.isPhishing);
+                feedbackMessage = isCorrect ? scenario.feedbackCorrect : scenario.feedbackIncorrect;
+            }
+            
+            let html = `
+                <div class="scenario">
+                    <h3>Escenario ${index + 1}:</h3>
+                    <p>${scenario.description}</p>
+                    <div class="options">
+                        <button class="option-btn phishing" onclick="answerScenario(${index}, true)" ${isAnswered ? 'disabled' : ''}>🚨 Es Phishing</button>
+                        <button class="option-btn legitimo" onclick="answerScenario(${index}, false)" ${isAnswered ? 'disabled' : ''}>✅ Es Legítimo</button>
+                    </div>
+                    <div id="feedback-${index}" class="feedback ${isAnswered ? (userAnswer === scenario.isPhishing ? 'correct' : 'incorrect') : ''} ${isAnswered ? 'show' : ''}">
+                        ${isAnswered ? feedbackMessage : ''}
+                    </div>
+                </div>
+            `;
+            
+            scenarioContainer.innerHTML = html;
+            progress.textContent = `Escenario ${index + 1} de ${scenarios.length}`;
+            
+            // Actualizar botones de navegación
+            prevBtn.disabled = index === 0;
+            
+            // Habilitar botón siguiente SOLO si la pregunta actual está respondida
+            if (userAnswers[index] !== null) {
+                nextBtn.disabled = index === scenarios.length - 1;
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+
+        // Responder escenario
+        window.answerScenario = function(index, isPhishing) {
+            if (userAnswers[index] !== null) return;
+            
+            // Calcular tiempo
+            const endTime = new Date();
+            const timeSpent = Math.round((endTime - startTime) / 1000);
+            timePerScenario[index] = timeSpent;
+            
+            // Detener timer
+            stopTimer();
+            
+            // Guardar respuesta
+            userAnswers[index] = isPhishing;
+            
+            // Actualizar UI
+            renderScenario(index);
+            
+            // Verificar si todas las preguntas están respondidas
+            checkAllAnswered();
+        };
+
+        // Verificar si todas están respondidas
+        function checkAllAnswered() {
+            const allAnswered = userAnswers.every(answer => answer !== null);
+            if (allAnswered) {
+                setTimeout(showResults, 500);
+            }
+        }
+
+        // Mostrar resultados
+        function showResults() {
+            stopTimer();
+            quizSection.classList.remove('active');
+            resultsSection.classList.add('active');
+            
+            // Calcular puntuación
+            const score = userAnswers.reduce((acc, answer, index) => {
+                return acc + (answer === scenarios[index].isPhishing ? 1 : 0);
+            }, 0);
+            
+            // Calcular tiempo total
+            const totalTime = timePerScenario.reduce((a, b) => a + b, 0);
+            const avgTime = Math.round(totalTime / timePerScenario.length);
+            
+            // Guardar en ranking global
+            globalRanking.push({
+                name: currentUserName,
+                score: score,
+                avgTime: avgTime,
+                totalTime: totalTime,
+                date: new Date().toLocaleDateString()
+            });
+            
+            // Ordenar ranking
+            globalRanking.sort((a, b) => {
+                if (b.score !== a.score) return b.score - a.score;
+                return a.avgTime - b.avgTime;
+            });
+            
+            // Mantener solo top 10
+            if (globalRanking.length > 10) {
+                globalRanking = globalRanking.slice(0, 10);
+            }
+            
+            localStorage.setItem('phishingQuizRanking', JSON.stringify(globalRanking));
+            
+            // Mostrar estadísticas individuales
+            document.getElementById('individualScore').textContent = `${score}/${scenarios.length}`;
+            document.getElementById('avgTime').textContent = avgTime;
+            document.getElementById('totalTime').textContent = totalTime;
+            
+            // Mostrar estadísticas globales
+            showGlobalStats();
+            
+            // Mostrar ranking
+            showRanking();
+            
+            // Mostrar análisis
+            showPerformanceAnalysis();
+        }
+
+        // Mostrar estadísticas globales
+        function showGlobalStats() {
+            const totalParticipants = globalRanking.length;
+            const avgGlobalScore = totalParticipants > 0 
+                ? Math.round((globalRanking.reduce((acc, user) => acc + user.score, 0) / totalParticipants) * 10) / 10
+                : 0;
+            
+            document.getElementById('globalStats').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${totalParticipants}</div>
+                    <div>Participantes totales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${avgGlobalScore}/${scenarios.length}</div>
+                    <div>Puntuación promedio</div>
+                </div>
+            `;
+        }
+
+        // Mostrar ranking
+        function showRanking() {
+            const rankingBody = document.getElementById('rankingBody');
+            rankingBody.innerHTML = globalRanking.map((user, index) => `
+                <tr>
+                    <td>${index + 1}º</td>
+                    <td>${user.name}</td>
+                    <td>${user.score}/${scenarios.length}</td>
+                    <td>${user.avgTime} seg</td>
+                </tr>
+            `).join('');
+        }
+
+        // Mostrar análisis de desempeño
+        function showPerformanceAnalysis() {
+            // Encontrar escenario con más tiempo
+            const maxTimeIndex = timePerScenario.indexOf(Math.max(...timePerScenario));
+            const maxTimeScenario = maxTimeIndex !== -1 ? scenarios[maxTimeIndex] : null;
+            
+            // Calcular aciertos por tipo
+            const phishingCorrect = userAnswers.reduce((acc, answer, index) => {
+                return acc + (scenarios[index].isPhishing && answer === true ? 1 : 0);
+            }, 0);
+            
+            const legitCorrect = userAnswers.reduce((acc, answer, index) => {
+                return acc + (!scenarios[index].isPhishing && answer === false ? 1 : 0);
+            }, 0);
+            
+            const totalPhishing = scenarios.filter(s => s.isPhishing).length;
+            const totalLegit = scenarios.filter(s => !s.isPhishing).length;
+            
+            document.getElementById('performanceAnalysis').innerHTML = `
+                <div class="analysis-container">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <div class="analysis-icon">⏱️</div>
+                            <div class="analysis-title">Escenario más lento</div>
+                            <div class="analysis-value">${maxTimeScenario ? maxTimeScenario.id : 'N/A'}</div>
+                            <div class="analysis-subvalue">${Math.max(...timePerScenario)} segundos</div>
+                        </div>
+                        
+                        <div class="analysis-card">
+                            <div class="analysis-icon">🚨</div>
+                            <div class="analysis-title">Aciertos en Phishing</div>
+                            <div class="analysis-value">${phishingCorrect}/${totalPhishing}</div>
+                            <div class="analysis-subvalue">${Math.round((phishingCorrect/totalPhishing)*100)}% precisión</div>
+                        </div>
+                        
+                        <div class="analysis-card">
+                            <div class="analysis-icon">✅</div>
+                            <div class="analysis-title">Aciertos en Legítimo</div>
+                            <div class="analysis-value">${legitCorrect}/${totalLegit}</div>
+                            <div class="analysis-subvalue">${Math.round((legitCorrect/totalLegit)*100)}% precisión</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Navegación
+        prevBtn.addEventListener('click', function() {
+            if (currentScenario > 0) {
+                currentScenario--;
+                renderScenario(currentScenario);
+            }
+        });
+
+        nextBtn.addEventListener('click', function() {
+            if (currentScenario < scenarios.length - 1) {
+                currentScenario++;
+                renderScenario(currentScenario);
+            }
+        });
+
+        // Reiniciar quiz
+        resetQuizBtn.addEventListener('click', function() {
+            stopTimer();
+            currentScenario = 0;
+            userAnswers = new Array(scenarios.length).fill(null);
+            timePerScenario = new Array(scenarios.length).fill(0);
+            timerDisplay.textContent = '00:00';
+            
+            resultsSection.classList.remove('active');
+            consentSection.style.display = 'block';
+            consentCheck.checked = false;
+            startQuizBtn.disabled = true;
+            userName.value = '';
+        });
+    </script>
+</body>
+</html>
