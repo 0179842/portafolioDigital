@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Intrusiones con el Modelo de Diamante</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    
+    <nav>
+        <a href="../index.html">Inicio</a> 
+        <a href="actividades.html">Actividades</a> 
+        <a href="notas.html">Notas</a> 
+        <a href="herramientas.html">Herramientas</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="certificaciones.html">Certificaciones</a>
+        <a href="roadtohall.html">Road to Hall Of Fame</a>
+        <a href="quizPhising.html">Quiz de Phishing</a>
+    </nav>
+
+    <main class="container">
+        
+        <div>
+            <h1>Análisis de Intrusiones con el Modelo de Diamante</h1>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/DUcam93uvHk?si=1T7cjBTQrHeHwBwY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        
+        <p>La ciberseguridad moderna enfrenta un panorama de amenazas en constante evolución, donde los ataques dirigidos ya no pueden analizarse como eventos aislados[cite: 175]. La sofisticación de los grupos de amenazas persistentes avanzadas (APT) exige marcos analíticos que permitan correlacionar evidencia técnica, comprender la intención del adversario y anticipar patrones de comportamiento futuros[cite: 176]. En este contexto, el Modelo Diamante de Análisis de Intrusiones emerge como una herramienta fundamental para los equipos de respuesta a incidentes y los analistas de inteligencia de amenazas[cite: 177].</p>
+        
+        <p>Propuesto por Caltagirone, Pendergast y Betz en 2013, el Modelo Diamante ofrece una estructura conceptual que descompone cualquier evento de intrusión en cuatro elementos interrelacionados: el adversario, la capacidad técnica empleada, la infraestructura utilizada y la víctima objetivo[cite: 178]. Esta representación no sólo facilita el análisis forense de un incidente individual, sino que también permite construir hilos de actividad que revelan campañas coordinadas, pivoting entre víctimas y el modus operandi del atacante a lo largo del tiempo[cite: 179].</p>
+        
+        <h2>Contexto del material</h2>
+        <p>Este conjunto de ejercicios está diseñado para reforzar conceptos fundamentales como:</p>
+        <ul>
+            <li>El axioma central del Modelo Diamante y cómo traslada el análisis desde la simple detección de indicadores de compromiso (IoC) hacia la comprensión profunda del comportamiento del atacante[cite: 184, 188].</li>
+            <li>La caracterización técnica de los cuatro vértices del diamante: <strong>Adversario</strong>, <strong>Capacidad</strong>, <strong>Infraestructura</strong> y <strong>Víctima</strong>[cite: 194].</li>
+            <li>La integración metodológica con la <strong>Cyber Kill Chain</strong> de Lockheed Martin y el framework de matrices conceptuales de <strong>MITRE ATT&CK</strong>[cite: 220, 225].</li>
+            <li>El análisis procedimental de técnicas de evasión perimetral complejas como el <strong>Pivoting</strong> y el <strong>Movimiento Lateral</strong> en campañas coordinadas de grupos APT[cite: 228, 229, 231].</li>
+        </ul>
+
+        <h2>1. Elementos del Modelo Diamante</h2>
+        <p>A continuación se presenta la matriz conceptual detallada con las descripciones y ejemplos prácticos de cada uno de los cuatro vértices clave del modelo[cite: 241, 242]:</p>
+        
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Vértice / Elemento</th>
+                    <th>Descripción Conceptual</th>
+                    <th>Ejemplo Práctico Analizado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Adversario</strong></td>
+                    <td>Actor malicioso que lleva a cabo el ataque (puede ser un individuo o un grupo APT estructurado)[cite: 242].</td>
+                    <td>Grupo APT28 (Fancy Bear), atacante con patrocinio o perfil de estado-nación[cite: 242].</td>
+                </tr>
+                <tr>
+                    <td><strong>Capacidad</strong></td>
+                    <td>Herramientas, técnicas y procedimientos (TTPs) y el arsenal técnico completo desplegado por el atacante[cite: 242].</td>
+                    <td>Malware de tipo troyano de acceso remoto (RAT) o exploit de vulnerabilidad zero-day en Microsoft Office[cite: 242].</td>
+                </tr>
+                <tr>
+                    <td><strong>Infraestructura</strong></td>
+                    <td>Recursos físicos o lógicos utilizados de forma directa o indirecta para sostener y ejecutar el ataque[cite: 242].</td>
+                    <td>Dominio malicioso (e.g., <code>update-srv.net</code>) o un servidor VPS localizado externamente[cite: 242].</td>
+                </tr>
+                <tr>
+                    <td><strong>Víctima</strong></td>
+                    <td>La entidad u organización objetivo del ataque; abarca tanto al personal (target) como a los sistemas/activos (assets)[cite: 204, 242].</td>
+                    <td>Empresa u organización de infraestructura crítica; hosts o estaciones de trabajo Windows de empleados[cite: 242].</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <img src="diamante.jpg" 
+        alt="Estructura y Metacaracterísticas del Evento"
+        style="width:60%; height:auto; border-radius: 0 !important; object-fit: contain; align-self: center;">
+
+        <h2>2. Desglose Forense y Metacaracterísticas del Evento</h2>
+        <p>El enriquecimiento analítico del incidente se detalla mediante las metacaracterísticas que estructuran el registro del evento en la red interna de la organización[cite: 243, 244]:</p>
+        <ul>
+            <li><strong>Marca del tiempo (Timestamp):</strong> Momento preciso en que los registros de auditoría (logs) detectan e identifican conexiones salientes persistentes hacia direcciones IP externas controladas por el C2[cite: 244].</li>
+            <li><strong>Fase de la Cadena de Ataque:</strong> Ubicación dentro de la fase 6 (Comando y Control) de la Cyber Kill Chain; el código malicioso ya fue depositado e instalado para establecer comunicación directa de control continuo con el atacante[cite: 244].</li>
+            <li><strong>Resultado Técnico:</strong> Múltiples hosts comprometidos dentro de la red corporativa, canal C2 plenamente activo, con indicios claros de exfiltración de información y movimiento lateral en progreso[cite: 244].</li>
+            <li><strong>Dirección del Flujo:</strong> Flujo interactivo estructurado como: Adversario &rarr; Infraestructura (Servidor C2) &rarr; Víctima (Entorno de red interna comprometido)[cite: 244].</li>
+            <li><strong>Metodología de Intrusión:</strong> Despliegue de malware con cadenas de dominio C2 embebidas; peticiones de resolución DNS anómalas hacia el exterior; técnicas avanzadas de pivoting desde hosts previamente infectados hacia nuevos objetivos[cite: 244].</li>
+            <li><strong>Recursos Operativos Utilizados:</strong> Dominios maliciosos de C2, IPs externas asignadas a servidores virtuales privados (VPS), registros WHOIS, logs perimetrales de tráfico de red y herramientas de auditoría DNS[cite: 244].</li>
+        </ul>
+
+        <h2>3. Relación de Eventos y Alineación con la Cyber Kill Chain</h2>
+        <p>Para mapear temporalmente la intrusión y determinar las ventanas de mitigación oportunas, se correlacionan los hitos técnicos observados con las fases secuenciales de la Cyber Kill Chain corporativa[cite: 220, 222, 257, 258]:</p>
+        
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Evento Técnico Detectado</th>
+                    <th>Fase Correspondiente de la Cyber Kill Chain</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Envío y recepción del vector de Phishing</td>
+                    <td>Fase 2: Armamentización / Fase 3: Entrega. Uso de correo malicioso como el punto de entrada inicial[cite: 258].</td>
+                </tr>
+                <tr>
+                    <td>Detección del archivo ejecutable de malware</td>
+                    <td>Fase 5: Instalación. El código malicioso ha sido exitosamente depositado y ejecutado en el host víctima[cite: 258].</td>
+                </tr>
+                <tr>
+                    <td>Conexión persistente hacia el exterior</td>
+                    <td>Fase 6: Comando y Control (C2). Establecimiento exitoso del canal interactivo de comunicación remota[cite: 258].</td>
+                </tr>
+                <tr>
+                    <td>Ejecución operativa remota del malware</td>
+                    <td>Fase 6: Comando y Control (C2). Control de sesión remota por el atacante que da pie a las acciones sobre objetivos[cite: 258].</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>4. Grafos de Actividad e Hilos de Campaña (Pivoting)</h2>
+        <p>A través de la correlación cruzada de eventos dispersos en la infraestructura, se reconstruyó el grafo de actividad que evidencia la ejecución del pivoting a nivel de red[cite: 211, 233, 264, 293]:</p>
+
+        <p><strong>Descripción analítica del flujo:</strong> En el <strong>Hilo 1</strong>, el adversario compromete una cuenta administrativa vía phishing; el malware establece la baliza hacia el C2 y convierte este host en un puente o "proxy proxy" interno[cite: 294]. Esto da paso al <strong>Hilo 2</strong>, donde el atacante utiliza esa confianza implícita del tráfico interno para evadir la inspección perimetral del firewall, saltar hacia una segunda zona de la red (Víctima 2), explotar vulnerabilidades locales y perpetrar la exfiltración de activos confidenciales[cite: 295, 296, 309].</p>
+        <img src="hilos.png" 
+        alt="Estructura y Metacaracterísticas del Evento"
+        style="width:60%; height:auto; border-radius: 0 !important; object-fit: contain; align-self: center;">
+        <h1>Conclusión y reflexión técnica</h1>
+        <p>Desde una perspectiva técnica, el análisis del escenario presentado demuestra con claridad la utilidad operacional del Modelo Diamante como marco de inteligencia de amenazas[cite: 304]. La detección inicial del malware no constituye el fin del proceso analítico, sino su punto de partida[cite: 305]. Al descomponer el incidente en sus cuatro vértices (adversario, capacidad, infraestructura y víctima) y enriquecerlo con las seis metacaracterísticas, el analista obtiene una representación estructurada que trasciende el indicador de compromiso individual y revela la arquitectura completa de la campaña maliciosa[cite: 306].</p>
+        <p>El concepto de pivoting, central en la construcción del segundo hilo de actividad, ilustra una limitación crítica de las defensas perimetrales convencionales: una vez que el adversario opera desde el interior de la red, la confianza implícita en el tráfico interno se convierte en un vector de propagación destructivo[cite: 309]. Este hallazgo refuerza la necesidad urgente de migrar hacia arquitecturas de seguridad robustas basadas en el principio de mínimo privilegio y confianza cero (Zero Trust), en las cuales ningún segmento de red es considerado inherentemente seguro[cite: 310]. El Modelo Diamante transforma la evidencia forense en inteligencia accionable, permitiendo anticipar los próximos movimientos del adversario antes de que estos se materialicen[cite: 312, 313].</p>
+
+        <div class="fila-boton" style="text-align:center;">
+            <a href="act18-Equipo02.pdf" download>
+                <button>Descargar PDF Original</button>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 Universidad Politécnica de San Luis Potosí | Seguridad Informática | Equipo 02
+    </footer>
+</body>
+</html>
