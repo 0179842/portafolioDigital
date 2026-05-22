@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta SGSI – Robert Bosch México</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html">Inicio</a> 
+        <a href="actividades.html">Actividades</a> 
+        <a href="notas.html">Notas</a> 
+        <a href="herramientas.html">Herramientas</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="certificaciones.html">Certificaciones</a>
+        <a href="roadtohall.html">Road to Hall Of Fame</a>
+        <a href="quizPhising.html">Quiz de Phishing</a>
+    </nav>
+
+    <main class="container">
+
+        <h1>Propuesta de SGSI – Robert Bosch México</h1>
+
+        <div style="text-align: justify;">
+            <p>
+                <strong>¿Qué tan seguro es el software que desarrollas hoy?</strong>
+                En entornos de desarrollo ágil como OutSystems, cada despliegue sin un marco de control es una puerta entreabierta para amenazas complejas. Este documento presenta la propuesta de un <strong>Sistema de Gestión de Seguridad de la Información (SGSI)</strong> basado en el <strong>Anexo SL de las normas ISO/IEC</strong>, diseñado específicamente para el departamento <strong>Easy.Go</strong> del área de Intercambio Electrónico de Datos <strong>(EDI/4)</strong> de la planta Robert Bosch San Luis Potosí.
+            </p>
+
+            <!-- Imagen banner del proyecto -->
+            <img src="bosch.png"
+                 alt="Propuesta SGSI Robert Bosch"
+                 style="width:80%; height:auto; border-radius: 0 !important; display: block; margin: 16px auto;">
+
+            <p>
+                El objetivo central es salvaguardar los pilares de la seguridad de la información (Confidencialidad, Integridad y Disponibilidad) a lo largo del ciclo de vida del desarrollo de software ejecutado en la plataforma de alta productividad <strong>OutSystems (Low-Code)</strong>, mitigando amenazas complejas derivadas de despliegues ágiles, control de accesos lógicos y dependencias críticas de arquitecturas de terceros.
+            </p>
+        </div>
+
+        <hr>
+
+        <!-- ─── 1. ALCANCE ─── -->
+        <h2>1. Alcance</h2>
+
+        <h3>1.1. Nombre de la empresa</h3>
+        <p style="text-align:justify;">Robert Bosch México Sistemas Automotrices, S.A. de C.V.</p>
+
+        <h3>1.2. Dirección de la empresa</h3>
+        <p style="text-align:justify;">Eje Central 245, Zona Industrial, 78395 San Luis Potosí, S.L.P., México.</p>
+
+        <h3>1.3. Misión, visión y valores de la empresa</h3>
+
+        <h4>1.3.1. Misión de Bosch</h4>
+        <p style="text-align:justify;">
+            La misión de Bosch se basa en ofrecer soluciones tecnológicas a los retos actuales de la humanidad, incluyendo la preservación del medio ambiente y los recursos naturales, con un enfoque en la innovación, la seguridad y la eficiencia. La empresa busca armonizar sus intereses con los de la sociedad y el planeta, promoviendo un equilibrio social y ecológico que asegure el éxito a largo plazo. Además, Bosch fomenta la participación y desarrollo de sus empleados, incentivando la formación continua y la transferencia de conocimientos a nivel global.
+        </p>
+
+        <h4>1.3.2. Visión de Bosch</h4>
+        <p style="text-align:justify;">
+            La visión de Bosch se centra en la creación de valor y la sostenibilidad, guiada por principios como la credibilidad, la responsabilidad social y la innovación. La estrategia de sostenibilidad, denominada <strong>"New Dimensions"</strong>, define áreas clave de acción para mejorar la movilidad, la eficiencia energética y la protección del medio ambiente, con metas concretas a mediano y largo plazo. Bosch aspira a ser un socio confiable en la sociedad, promoviendo productos ecológicos y soluciones que beneficien tanto a las generaciones presentes como futuras.
+        </p>
+
+        <h4>1.3.3. Valores y principios de Bosch</h4>
+        <p style="text-align:justify;">Bosch integra en su misión y visión los siguientes valores fundamentales:</p>
+        <ul>
+            <li>Orientación al cliente y calidad de los productos.</li>
+            <li>Innovación tecnológica y eficiencia.</li>
+            <li>Responsabilidad social y ambiental.</li>
+            <li>Credibilidad y ética profesional.</li>
+            <li>Desarrollo y valorización de los empleados.</li>
+        </ul>
+
+        <h3>1.4. Área de alcance</h3>
+        <p>Electronic Data Interchange (EDI/4).</p>
+
+        <h3>1.5. Propuesta de SGSI</h3>
+        <p style="text-align:justify;">
+            El presente Sistema de Gestión de Seguridad de la Información (SGSI) tiene como alcance el departamento Easy.Go del área EDI número 4 de Robert Bosch, ubicado en San Luis Potosí, donde se desarrollan aplicaciones mediante la plataforma OutSystems. Su finalidad es establecer, implementar, mantener y mejorar continuamente un marco de protección de la información conforme a los lineamientos de la familia ISO 27000, particularmente ISO/IEC 27001 e ISO/IEC 27002, con el objetivo de salvaguardar la confidencialidad, integridad y disponibilidad de los activos de información involucrados en el ciclo de vida del desarrollo de software.
+        </p>
+        <p style="text-align:justify;">
+            Este SGSI contempla la identificación y tratamiento de riesgos asociados a vulnerabilidades como accesos no autorizados, exposición de datos sensibles, errores en configuraciones de la plataforma, fallos en la gestión de identidades y controles de acceso, dependencias de terceros, así como amenazas derivadas del desarrollo ágil y despliegues continuos. Asimismo, busca fortalecer los controles organizacionales, técnicos y operativos para asegurar el cumplimiento normativo, la protección de la propiedad intelectual y la resiliencia de los servicios digitales desarrollados.
+        </p>
+
+        <h4>1.5.1. Activos considerados para el alcance</h4>
+        <ul>
+            <li>Aplicaciones desarrolladas mediante la plataforma OutSystems.</li>
+            <li>Plataforma de desarrollo de aplicaciones OutSystems.</li>
+            <li>Bases de datos relacionales/no relacionales utilizadas para la gestión de información de las aplicaciones.</li>
+            <li>Personal de desarrollo en el departamento.</li>
+            <li>Equipos de cómputo.</li>
+            <li>Dispositivos móviles del personal.</li>
+            <li>Dispositivos de almacenamiento físicos.</li>
+            <li>Sistemas de almacenamiento en la nube.</li>
+            <li>Plataformas y aplicaciones de control de versiones.</li>
+            <li>Respaldos de información.</li>
+            <li>Controles de acceso al departamento.</li>
+            <li>Controles de acceso al software.</li>
+        </ul>
+
+        <h3>1.6. Organigrama de la empresa</h3>
+        <!-- Espacio para imagen del organigrama -->
+        <div style="text-align: center;">
+            <img src="organigrama.png"
+                 alt="Organigrama de BOSCH México"
+                 style="width:80%; height:auto; border-radius: 0 !important; display: inline-block;">
+        </div>
+
+        <hr>
+
+        <!-- ─── 2. REFERENCIAS NORMATIVAS ─── -->
+        <h2>2. Referencias normativas</h2>
+        <p style="text-align:justify;">Para la correcta aplicación, implementación e interpretación de este SGSI se utiliza y hace referencia a las siguientes normas:</p>
+
+        <div class="teoria-grid">
+            <div class="teoria-card">
+                <h4>ISO/IEC 27000</h4>
+                <p>Establece los principios, conceptos y definiciones fundamentales que sirven como base para la implementación y comprensión de los requisitos del SGSI.</p>
+            </div>
+            <div class="teoria-card">
+                <h4>ISO/IEC 27001:2022</h4>
+                <p>Norma central que especifica los requisitos para establecer, implementar, mantener y mejorar continuamente el SGSI. Marco de evaluación de conformidad para Easy.Go.</p>
+            </div>
+            <div class="teoria-card">
+                <h4>ISO/IEC 27002:2022</h4>
+                <p>Guía de referencia para la selección e implementación de controles de seguridad, esencial para abordar vulnerabilidades en control de accesos y gestión de identidades en EDI/4.</p>
+            </div>
+            <div class="teoria-card">
+                <h4>ISO/IEC 27034</h4>
+                <p>Proporciona un marco para integrar la seguridad en todas las fases del ciclo de vida de desarrollo de software, asegurando que las aplicaciones OutSystems sean seguras por diseño.</p>
+            </div>
+            <div class="teoria-card">
+                <h4>ISO/IEC 27005</h4>
+                <p>Directrices para el proceso de identificación, análisis y tratamiento de riesgos de seguridad, sustentando la metodología para evaluar amenazas del desarrollo ágil.</p>
+            </div>
+            <div class="teoria-card">
+                <h4>ISO/IEC 27031</h4>
+                <p>Apoya el objetivo de resiliencia de los servicios digitales, ofreciendo un marco para asegurar que la infraestructura del departamento pueda responder ante incidentes graves.</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- ─── 3. TÉRMINOS Y CONDICIONES ─── -->
+        <h2>3. Términos y condiciones</h2>
+        <p style="text-align:justify;">Para los propósitos de este documento y la correcta interpretación del SGSI en el departamento Easy.Go de Robert Bosch México, se aplican las siguientes definiciones basadas en la norma <strong>ISO/IEC 27000</strong>:</p>
+        <ul style="text-align:justify;">
+            <li><strong>Activo de Información:</strong> Cualquier conocimiento o dato que tiene valor para el área de EDI/4, incluyendo código fuente en OutSystems, bases de datos de clientes, documentación técnica y credenciales de acceso.</li>
+            <li><strong>Confidencialidad:</strong> Propiedad de la información de no estar disponible ni ser revelada a individuos, entidades o procesos no autorizados durante el ciclo de vida del desarrollo de software.</li>
+            <li><strong>Integridad:</strong> Propiedad de salvaguardar la exactitud y completitud de las aplicaciones desarrolladas y los datos procesados en la plataforma.</li>
+            <li><strong>Disponibilidad:</strong> Propiedad de que la información y los servicios de las aplicaciones Easy.Go sean accesibles y utilizables cuando el departamento o el usuario final lo requieran.</li>
+            <li><strong>Riesgo de Seguridad de la Información:</strong> El efecto de la incertidumbre sobre los objetivos de seguridad. Se mide en términos de la probabilidad de que una amenaza explote una vulnerabilidad.</li>
+            <li><strong>Amenaza:</strong> Causa potencial de un incidente no deseado que puede resultar en daño a los sistemas de desarrollo o a los activos de la empresa.</li>
+            <li><strong>Vulnerabilidad:</strong> Debilidad de un activo o control que puede ser aprovechada por una o más amenazas (ej. una configuración incorrecta en el Service Center de OutSystems).</li>
+            <li><strong>Gestión de Riesgos:</strong> Actividades coordinadas para dirigir y controlar el departamento Easy.Go con respecto al riesgo de seguridad, incluyendo identificación, análisis, evaluación y tratamiento.</li>
+            <li><strong>Declaración de Aplicabilidad (SoA):</strong> Documento que detalla los controles de la norma ISO/IEC 27001 seleccionados para el alcance de EDI/4, justificando su inclusión o exclusión.</li>
+            <li><strong>Parte Interesada:</strong> Persona u organización que puede afectar, verse afectada o percibirse como afectada por una decisión del SGSI (ej. desarrolladores, gerencia de Bosch, clientes finales).</li>
+            <li><strong>OutSystems (Low-Code):</strong> Plataforma de desarrollo de aplicaciones de alta productividad que constituye el entorno tecnológico principal del alcance de este sistema.</li>
+            <li><strong>Anexo SL:</strong> Estructura de alto nivel utilizada por ISO para armonizar las normas de sistemas de gestión, facilitando la integración del SGSI con otros marcos de trabajo.</li>
+        </ul>
+
+        <hr>
+
+        <!-- ─── 4. CONTEXTO DE LA ORGANIZACIÓN ─── -->
+        <h2>4. Contexto de la organización</h2>
+
+        <h3>Activos internos</h3>
+        <ol>
+            <li>Personal de departamento EDI</li>
+            <li>Laptops del personal EDI</li>
+            <li>Teléfonos móviles del personal full-time del departamento EDI</li>
+            <li>Gestor de base de datos híbridas</li>
+            <li>Información contenida en las bases de datos</li>
+            <li>Aplicaciones desarrolladas mediante la plataforma OutSystems</li>
+            <li>Plataforma de desarrollo de aplicaciones Outsystems</li>
+            <li>Dispositivos de almacenamiento físico</li>
+            <li>Sistemas de almacenamiento en la nube</li>
+            <li>Plataformas y aplicaciones de control de versiones</li>
+            <li>Respaldos de información</li>
+            <li>Controles de acceso al departamento</li>
+            <li>Controles de acceso al software</li>
+            <li>Router Cisco</li>
+            <li>Sistema de videovigilancia</li>
+            <li>Switches Cisco</li>
+            <li>Impresoras</li>
+            <li>VPN Cisco</li>
+            <li>Firewall Cisco</li>
+            <li>Servidores físicos locales Cisco</li>
+            <li>Access Point (puntos de acceso wifi Cisco)</li>
+        </ol>
+
+        <h3>Activos externos</h3>
+        <ol>
+            <li>Proveedores de servicios en la nube (SaaS, IaaS, PaaS de terceros)</li>
+            <li>Redes de Valor Añadido (VAN) para transacciones EDI</li>
+            <li>APIs y Webhooks de servicios externos</li>
+            <li>Consultores, contratistas y auditores externos</li>
+            <li>Redes de socios de negocio (Conexiones B2B / VPNs Site-to-Site)</li>
+            <li>Proveedores de Servicios de Seguridad Administrada (MSSP / SOC externo)</li>
+            <li>Proveedores de servicios de Internet (ISPs) y enlaces de telecomunicaciones</li>
+            <li>Servicios de DNS externos y registro de dominios</li>
+            <li>Herramientas de soporte y mantenimiento remoto de terceros</li>
+            <li>Bibliotecas de software y dependencias de terceros (Open Source)</li>
+            <li>Proveedores de almacenamiento físico externo (Custodia de respaldos off-site)</li>
+            <li>Proveedores de Identidad Externos (IdP / SSO en la nube)</li>
+            <li>Plataformas de entrega de contenido (CDNs) y mitigación DDoS externa</li>
+            <li>Plataformas de comunicación y colaboración en la nube</li>
+            <li>Sistemas de integración logística de terceros (3PL)</li>
+            <li>Repositorios de código fuente externos o públicos</li>
+            <li>Clientes o usuarios finales externos del portal EDI</li>
+            <li>Plataformas externas de capacitación o certificación</li>
+            <li>Fuentes de Inteligencia de Amenazas externas (Threat Intelligence Feeds)</li>
+            <li>Servicios externos de envío de correo transaccional</li>
+        </ol>
+
+        <hr>
+
+        <!-- ─── 5. LIDERAZGO ─── -->
+        <h2>5. Liderazgo</h2>
+
+        <h3>Activos internos seleccionados</h3>
+        <ul>
+            <li>Personal de departamento EDI</li>
+            <li>Información contenida en las bases de datos</li>
+            <li>Respaldos de información</li>
+            <li>Sistemas de almacenamiento en la nube</li>
+            <li>Dispositivos de almacenamiento físico</li>
+            <li>Servidores físicos locales</li>
+            <li>Laptops del personal EDI</li>
+            <li>Teléfonos móviles del personal full-time</li>
+            <li>Plataformas y aplicaciones de control de versiones</li>
+            <li>VPN Cisco</li>
+            <li>Políticas activas internos</li>
+        </ul>
+
+        <h3>Política General de Protección, Acceso y Tránsito de la Información</h3>
+        <p style="text-align:justify;"><strong>Objetivo:</strong> Garantizar la confidencialidad, integridad y disponibilidad de la información corporativa en todos sus estados a través de la infraestructura del departamento EDI/4 de la compañía Robert Bosch Sistemas Automotrices S.A. de C.V.</p>
+
+        <h4>1. Información contenida en las bases de datos</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> Se debe garantizar la confidencialidad de la información crítica del negocio en todo momento y estado.</li>
+            <li><strong>Estándar:</strong> Toda la información clasificada como "Confidencial" debe estar cifrada tanto en reposo como en tránsito.</li>
+            <li><strong>Directriz:</strong> Se recomienda a los administradores utilizar herramientas automatizadas para el descubrimiento y etiquetado de nuevos datos sensibles.</li>
+            <li><strong>Procedimiento:</strong> Para clasificar un nuevo set de datos, el propietario debe: 1) Evaluar el nivel de impacto, 2) Asignar la etiqueta correspondiente en el sistema, 3) Aplicar el cifrado si es "Confidencial" o "Restringido".</li>
+            <li><strong>Línea base:</strong> El cifrado mínimo aceptable por defecto para datos en reposo es el algoritmo <strong>AES-256</strong>.</li>
+        </ul>
+
+        <h4>2. Gestor de bases de datos híbridas (DBMS)</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> El acceso lógico a las bases de datos debe estar estrictamente controlado, autenticado y auditado.</li>
+            <li><strong>Estándar:</strong> Todos los administradores y desarrolladores deben utilizar Autenticación Multifactor (MFA) para acceder al DBMS.</li>
+            <li><strong>Directriz:</strong> Los gerentes de área deben revisar y depurar los permisos de acceso de sus equipos de forma trimestral.</li>
+            <li><strong>Procedimiento:</strong> Para solicitar acceso al DBMS: 1) Llenar el formato de solicitud de accesos, 2) Obtener aprobación del gerente del departamento EDI, 3) TI crea el usuario asignando el rol correspondiente.</li>
+            <li><strong>Línea base:</strong> La configuración del DBMS por defecto debe tener deshabilitados los puertos de acceso público y habilitados los <em>logs</em> de auditoría transaccional.</li>
+        </ul>
+
+        <h4>3. Servidores físicos locales</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> Se debe proveer un entorno físico y lógico seguro para el procesamiento de la información corporativa.</li>
+            <li><strong>Estándar:</strong> Los servidores deben ubicarse en un centro de datos o cuarto de comunicaciones con control de acceso restringido.</li>
+            <li><strong>Directriz:</strong> Se recomienda mantener un monitoreo constante de temperatura y humedad en el cuarto de servidores mediante sensores automatizados.</li>
+            <li><strong>Procedimiento:</strong> Para que un ingeniero ingrese al site de servidores debe: 1) Registrar el motivo de la visita en la bitácora, 2) Escanear su gafete o huella biométrica, 3) Asegurarse de cerrar la puerta herméticamente al salir.</li>
+            <li><strong>Línea base:</strong> El sistema operativo de los servidores debe instalarse por defecto en su versión "Core" (sin interfaz gráfica) y con el firewall nativo encendido.</li>
+        </ul>
+
+        <h4>4. Sistemas de almacenamiento en la nube</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> La información almacenada en entornos de nube debe estar protegida contra exposición pública y accesos no autorizados.</li>
+            <li><strong>Estándar:</strong> Todos los <em>buckets</em> o contenedores de almacenamiento deben ser privados y no accesibles desde internet público.</li>
+            <li><strong>Directriz:</strong> Se aconseja al área de TI activar alertas de facturación para detectar anomalías o picos de transferencia que sugieran extracción de datos.</li>
+            <li><strong>Procedimiento:</strong> Para crear un nuevo contenedor en la nube: 1) Ejecutar la plantilla de Infraestructura como Código (IaC) autorizada, 2) Asignar el grupo de IAM, 3) Desplegar el recurso.</li>
+            <li><strong>Línea base:</strong> La política de identidad base debe tener la opción "Bloquear todo el acceso público" activada a nivel de cuenta.</li>
+        </ul>
+
+        <h4>5. Respaldos de información (Backups)</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> Se debe asegurar la disponibilidad y rápida recuperación de la información ante cualquier incidente, falla o desastre.</li>
+            <li><strong>Estándar:</strong> Se debe cumplir estrictamente con la regla de respaldo <strong>3-2-1</strong> para toda la información crítica del negocio.</li>
+            <li><strong>Directriz:</strong> Se recomienda que el personal técnico rote en la ejecución de las pruebas de restauración para democratizar el conocimiento del plan de recuperación.</li>
+            <li><strong>Procedimiento:</strong> Para realizar una prueba de restauración semestral: 1) Seleccionar un backup aleatorio del servidor de producción, 2) Restaurarlo en un entorno aislado, 3) Validar la integridad de los datos, 4) Documentar el tiempo de recuperación.</li>
+            <li><strong>Línea base:</strong> La retención mínima por defecto para los respaldos diarios de bases de datos se establecerá en 30 días, con la inmutabilidad activada.</li>
+        </ul>
+
+        <h4>6. Dispositivos de almacenamiento físico (USBs, discos externos)</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> Se debe prevenir la fuga de información o la introducción de malware a través de medios extraíbles portátiles.</li>
+            <li><strong>Estándar:</strong> Queda estrictamente prohibido el uso de dispositivos USB personales; solo se permiten los provistos e inventariados por la empresa.</li>
+            <li><strong>Directriz:</strong> Se recomienda al personal evitar sacar los discos externos o USBs corporativas de las instalaciones a menos que sea indispensable.</li>
+            <li><strong>Procedimiento:</strong> Para utilizar una USB corporativa: 1) Levantar un ticket justificando la necesidad, 2) TI entrega el dispositivo, 3) El usuario conecta la USB e ingresa la contraseña de descifrado cuando el sistema lo solicite.</li>
+            <li><strong>Línea base:</strong> La configuración mediante GPO en los equipos debe establecer los puertos USB en modo "Solo lectura" por defecto para dispositivos no registrados.</li>
+        </ul>
+
+        <h4>7. Laptops del personal EDI</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> Los equipos de cómputo portátiles deben mantenerse protegidos contra software malicioso, accesos no autorizados y robos.</li>
+            <li><strong>Estándar:</strong> Todas las laptops deben contar con el disco duro cifrado y la solución EDR (Endpoint Detection and Response) instalada.</li>
+            <li><strong>Directriz:</strong> Los usuarios de laptops deben atender anualmente a una sesión <em>online</em> de formación sobre la identificación de correos de <em>phishing</em>.</li>
+            <li><strong>Procedimiento:</strong> En caso de robo de la laptop, el usuario debe: 1) Notificar a TI en la primera hora del incidente, 2) TI ejecuta el bloqueo/borrado remoto, 3) El usuario levanta el acta correspondiente ante las autoridades.</li>
+            <li><strong>Línea base:</strong> La configuración de energía y seguridad por defecto debe bloquear la sesión del usuario tras 5 minutos de inactividad de teclado/mouse.</li>
+        </ul>
+
+        <h4>8. Teléfonos móviles del personal full-time</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> Los dispositivos móviles que procesen o accedan a datos del departamento EDI deben ser gestionados de manera segura.</li>
+            <li><strong>Estándar:</strong> Todo dispositivo móvil que reciba correo corporativo debe estar enrolado en la plataforma MDM (Mobile Device Management).</li>
+            <li><strong>Directriz:</strong> Se aconseja a los usuarios mantener apagadas las conexiones Bluetooth y Wi-Fi de sus equipos cuando no las estén utilizando.</li>
+            <li><strong>Procedimiento:</strong> Para configurar el acceso corporativo en el móvil: 1) Descargar la app del MDM, 2) Iniciar sesión con credenciales de la empresa, 3) Aceptar la creación del "Perfil de Trabajo" para aislar las apps laborales de las personales.</li>
+            <li><strong>Línea base:</strong> La política del MDM forzará un código de desbloqueo (PIN) mínimo de 6 dígitos numéricos o autenticación biométrica de forma predeterminada.</li>
+        </ul>
+
+        <h4>9. Plataformas y aplicaciones de control de versiones (OutSystems / Git)</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> El ciclo de desarrollo de software debe integrar controles de seguridad para proteger la integridad del código fuente corporativo.</li>
+            <li><strong>Estándar:</strong> Ningún desarrollador puede hacer <em>commits</em> directos a la rama principal de producción sin una revisión aprobatoria.</li>
+            <li><strong>Directriz:</strong> Se recomienda que los desarrolladores ejecuten escáneres de código estático en sus estaciones de trabajo antes de subir cualquier cambio.</li>
+            <li><strong>Procedimiento:</strong> Para integrar código nuevo: 1) Crear una rama de desarrollo, 2) Programar y hacer <em>commit</em>, 3) Crear un <em>Pull Request</em>, 4) Obtener la aprobación de un ingeniero par, 5) Fusionar el código (<em>Merge</em>).</li>
+            <li><strong>Línea base:</strong> Los repositorios de control de versiones deben estar configurados por defecto para rechazar la subida de archivos con extensiones críticas (como <code>.pem</code>, <code>.key</code> o <code>.env</code>).</li>
+        </ul>
+
+        <h4>10. VPN Cisco (Seguridad de comunicaciones)</h4>
+        <ul style="text-align:justify;">
+            <li><strong>Política:</strong> Las comunicaciones remotas hacia la infraestructura interna de la organización deben realizarse exclusivamente a través de canales cifrados.</li>
+            <li><strong>Estándar:</strong> Todo acceso desde el exterior debe utilizar el cliente VPN de Cisco y requerirá de Autenticación Multifactor.</li>
+            <li><strong>Directriz:</strong> Se aconseja a los empleados desconectarse de la VPN al finalizar su jornada laboral para evitar saturación del ancho de banda institucional.</li>
+            <li><strong>Procedimiento:</strong> Para conectarse a la red interna: 1) Abrir el cliente Cisco AnyConnect, 2) Ingresar credenciales, 3) Aprobar el inicio de sesión desde la aplicación autenticadora en el teléfono móvil, 4) Esperar el mensaje de "Conectado".</li>
+            <li><strong>Línea base:</strong> El perfil de la VPN se configurará por defecto para bloquear el "túnel dividido", forzando todo el tráfico de internet de la laptop a pasar por el firewall corporativo.</li>
+        </ul>
+
+        <blockquote style="border-left: 4px solid #c00; padding: 12px 16px; margin: 20px 0;">
+            <strong>Cláusula de Cumplimiento:</strong> El incumplimiento de estas políticas se considera una violación a las directrices de Seguridad de la Información (ISO 27001) y puede resultar en la revocación inmediata de accesos, sanciones disciplinarias, y en casos de negligencia grave, el despido justificado y acciones legales pertinentes.
+        </blockquote>
+
+        <hr>
+
+        <!-- Activos externos - políticas -->
+        <h3>Activos externos seleccionados</h3>
+        <ul>
+            <li>Proveedores de servicios en la nube de terceros</li>
+            <li>Redes de Valor Añadido (VAN) para transacciones EDI</li>
+            <li>APIs y Webhooks de servicios externos</li>
+            <li>Redes de socios de negocio (Conexiones B2B)</li>
+            <li>Consultores, contratistas y auditores externos</li>
+            <li>Proveedores de Servicios de Seguridad Administrada (MSSP)</li>
+            <li>Herramientas de soporte y mantenimiento remoto de terceros</li>
+            <li>Bibliotecas de software y dependencias de terceros</li>
+            <li>Proveedores de almacenamiento físico externo</li>
+            <li>Proveedores de Identidad Externos (IdP)</li>
+        </ul>
+
+        <h3>Política General de Gestión y Enlace con Activos Externos</h3>
+        <p style="text-align:justify;"><strong>Objetivo:</strong> Mitigar los riesgos asociados a la cadena de suministro y garantizar la seguridad, confidencialidad y disponibilidad de la información al interactuar con entidades, plataformas y servicios fuera del perímetro de la infraestructura del departamento EDI.</p>
+
+        <!-- Tabla de gestión de terceros -->
+        <p style="text-align:justify;">Esquema de la matriz de interconexión perimetral y gestión segura con entidades externas:</p>
+
+        <br>
+
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Activo Externo Evaluado</th>
+                    <th>Control Operativo Estandarizado (ISO 27001)</th>
+                    <th>Mecanismo de Verificación Técnica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Proveedores Cloud</strong></td>
+                    <td>Validación contractual obligatoria de cumplimiento de seguridad de la infraestructura.</td>
+                    <td>Exigencia de certificaciones vigentes <strong>SOC 2 Tipo II</strong> o <strong>ISO/IEC 27001</strong> antes de firmar contratos.</td>
+                </tr>
+                <tr>
+                    <td><strong>Redes VAN (EDI)</strong></td>
+                    <td>Uso de gateways altamente seguros para el intercambio automatizado de transacciones.</td>
+                    <td>Configuración forzosa de protocolos <strong>AS2</strong> o <strong>SFTP</strong> con cifrado en tránsito mínimo de <strong>TLS 1.2</strong>.</td>
+                </tr>
+                <tr>
+                    <td><strong>APIs y Webhooks</strong></td>
+                    <td>Mitigación del riesgo de exposición de credenciales o accesos duros en entornos de desarrollo.</td>
+                    <td>Prohibición de incrustar API Keys en texto plano; almacenamiento mandatorio en una bóveda criptográfica (Secret Vault).</td>
+                </tr>
+                <tr>
+                    <td><strong>Consultores Externos</strong></td>
+                    <td>Control estricto del ciclo de vida de los accesos otorgados a personal ajeno al departamento EDI/4.</td>
+                    <td>Cuentas basadas en el principio de menor privilegio con fechas de expiración automáticas y firma obligatoria de NDA.</td>
+                </tr>
+                <tr>
+                    <td><strong>Librerías Open Source</strong></td>
+                    <td>Prevención de introducción de fallos conocidos a través de dependencias de software de terceros.</td>
+                    <td>Análisis automatizado de composición de software (SCA). Bloqueo si incorporan fallos con severidad <strong>CVSS v3 &gt; 7.0</strong>.</td>
+                </tr>
+                <tr>
+                    <td><strong>MSSP / SOC Externo</strong></td>
+                    <td>La externalización del monitoreo no debe comprometer la privacidad ni la soberanía de los datos internos.</td>
+                    <td>Los logs enviados al SOC externo deben enmascarar información PII. Canal cifrado mediante <strong>mTLS</strong>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Soporte Remoto Terceros</strong></td>
+                    <td>El soporte remoto a infraestructura crítica debe ser explícitamente autorizado, documentado y registrado.</td>
+                    <td>Sesiones exclusivamente a través de la plataforma <strong>PAM</strong> corporativa; grabación en video para auditoría.</td>
+                </tr>
+                <tr>
+                    <td><strong>Proveedores de Identidad (IdP)</strong></td>
+                    <td>La validación de identidades delegada a la nube debe asegurar que solo usuarios verificados accedan a las aplicaciones corporativas.</td>
+                    <td>Integración únicamente con protocolos <strong>SAML 2.0</strong> u <strong>OpenID Connect (OIDC)</strong>. Geo-blocking habilitado por defecto.</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+
+        <blockquote style="border-left: 4px solid #c00; padding: 12px 16px; margin: 20px 0;">
+            <strong>Cláusula de Cumplimiento:</strong> El uso no autorizado de servicios externos o plataformas de terceros para procesar código o datos corporativos (<em>Shadow IT</em>), así como la omisión de las políticas aquí descritas, constituye una violación grave que resultará en la revocación de accesos, el inicio de investigaciones de seguridad y las consecuentes acciones disciplinarias o legales aplicables.
+        </blockquote>
+
+        <hr>
+
+        <!-- Matriz RACI -->
+        <h3>Matriz de RACI de políticas de seguridad</h3>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Política</th>
+                    <th>Project Manager</th>
+                    <th>Team Lead</th>
+                    <th>Developer</th>
+                    <th>Tester</th>
+                    <th>Stakeholder</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="6" style="background:#eee; font-weight:bold; text-align:center;">Políticas Internas</td></tr>
+                <tr><td>Información contenida en las bases de datos</td><td>A</td><td>R</td><td>C</td><td>I</td><td>I</td></tr>
+                <tr><td>Gestor de bases de datos híbridas (DBMS)</td><td>I</td><td>A</td><td>I</td><td>I</td><td>I</td></tr>
+                <tr><td>Servidores físicos locales</td><td>A</td><td>R</td><td>C</td><td>I</td><td>I</td></tr>
+                <tr><td>Sistemas de almacenamiento en la nube</td><td>I</td><td>A</td><td>I</td><td>I</td><td>I</td></tr>
+                <tr><td>Respaldos de información (Backups)</td><td>A</td><td>R</td><td>I</td><td>I</td><td>I</td></tr>
+                <tr><td>Dispositivos de almacenamiento físico (USBs)</td><td>I</td><td>A</td><td>R</td><td>R</td><td>I</td></tr>
+                <tr><td>Laptops del personal EDI</td><td>I</td><td>A</td><td>I</td><td>I</td><td>I</td></tr>
+                <tr><td>Teléfonos móviles del personal full-time</td><td>A</td><td>R</td><td>C</td><td>I</td><td>I</td></tr>
+                <tr><td>Plataformas de control de versiones (OutSystems / Git)</td><td>I</td><td>A</td><td>I</td><td>I</td><td>I</td></tr>
+                <tr><td>VPN Cisco (Seguridad de comunicaciones)</td><td>A</td><td>R</td><td>C</td><td>I</td><td>I</td></tr>
+                <tr><td colspan="6" style="background:#eee; font-weight:bold; text-align:center;">Políticas Externas</td></tr>
+                <tr><td>Proveedores de servicios en la nube de terceros</td><td>A</td><td>C</td><td>I</td><td>I</td><td>R</td></tr>
+                <tr><td>Redes de Valor Añadido (VAN) para transacciones EDI</td><td>I</td><td>A</td><td>R</td><td>C</td><td>I</td></tr>
+                <tr><td>APIs y Webhooks de servicios externos</td><td>I</td><td>A</td><td>R</td><td>R</td><td>I</td></tr>
+                <tr><td>Redes de socios de negocio (Conexiones B2B)</td><td>A</td><td>C</td><td>R</td><td>I</td><td>C</td></tr>
+                <tr><td>Consultores, contratistas y auditores externos</td><td>R</td><td>I</td><td>I</td><td>I</td><td>A</td></tr>
+                <tr><td>Proveedores de Servicios de Seguridad Administrada (MSSP)</td><td>A</td><td>R</td><td>I</td><td>I</td><td>I</td></tr>
+                <tr><td>Herramientas de soporte y mantenimiento remoto</td><td>A</td><td>R</td><td>I</td><td>I</td><td>C</td></tr>
+                <tr><td>Bibliotecas de software y dependencias de terceros</td><td>I</td><td>A</td><td>R</td><td>C</td><td>I</td></tr>
+                <tr><td>Proveedores de almacenamiento físico externo (off-site)</td><td>A</td><td>C</td><td>I</td><td>I</td><td>R</td></tr>
+                <tr><td>Proveedores de Identidad Externos (IdP)</td><td>A</td><td>R</td><td>C</td><td>I</td><td>C</td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Leyenda:</strong> R = Responsable &nbsp;|&nbsp; A = Aprobador &nbsp;|&nbsp; C = Consultado &nbsp;|&nbsp; I = Informado</p>
+
+        <hr>
+
+        <!-- ─── 6. PLANIFICACIÓN ─── -->
+        <h2>6. Planificación</h2>
+        <p style="text-align:justify;">En la siguiente matriz de riesgos, se han identificado los niveles de riesgo de cada una de las políticas basados en los 10 activos internos y 10 activos externos propuestos para este SGSI.</p>
+
+        <!-- Espacio para imagen de la matriz de riesgo -->
+        <div style="text-align: center;">
+            <img src="matriz de Riesgo.png"
+                 alt="Matriz de Riesgo SGSI EDI/4"
+                 style="width:80%; height:auto; border-radius: 0 !important; display: inline-block;">
+        </div>
+        <br>
+
+        <h3>Tabla de detalle</h3>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Política</th>
+                    <th>Riesgo a prevenir</th>
+                    <th>Probabilidad</th>
+                    <th>Impacto</th>
+                    <th>Nivel de Riesgo</th>
+                    <th>Acción de la Política</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>INT-1</td><td>Bases de datos</td><td>Fuga o robo de información confidencial en texto plano.</td><td>04 – Probable</td><td>05 – Severo</td><td><strong>20 (Extremo)</strong></td><td>Mitigar (Cifrado AES-256 y clasificación)</td></tr>
+                <tr><td>INT-2</td><td>Gestor de BD (DBMS)</td><td>Accesos no autorizados que comprometan la integridad de los datos.</td><td>03 – Moderado</td><td>05 – Severo</td><td><strong>15 (Muy Alto)</strong></td><td>Mitigar (MFA, auditoría y control de roles)</td></tr>
+                <tr><td>INT-3</td><td>Servidores físicos</td><td>Daño físico, robo o sabotaje directo a la infraestructura central.</td><td>02 – Poco Probable</td><td>04 – Mayor</td><td><strong>08 (Medio)</strong></td><td>Mitigar (Control biométrico y sensores)</td></tr>
+                <tr><td>INT-4</td><td>Almacenamiento en Nube</td><td>Exposición accidental de datos corporativos a internet público.</td><td>04 – Probable</td><td>05 – Severo</td><td><strong>20 (Extremo)</strong></td><td>Mitigar (Bloqueo público e IaC)</td></tr>
+                <tr><td>INT-5</td><td>Respaldos (Backups)</td><td>Pérdida irrecuperable de datos por ransomware o desastres.</td><td>04 – Probable</td><td>05 – Severo</td><td><strong>20 (Extremo)</strong></td><td>Mitigar (Regla 3-2-1 e inmutabilidad)</td></tr>
+                <tr><td>INT-6</td><td>Almacenamiento físico (USBs)</td><td>Infección por malware e infiltración/exfiltración de datos.</td><td>04 – Probable</td><td>04 – Mayor</td><td><strong>16 (Muy Alto)</strong></td><td>Mitigar (GPO de solo lectura, USBs cifradas)</td></tr>
+                <tr><td>INT-7</td><td>Laptops del personal</td><td>Robo de equipo portátil resultando en fuga de datos e intrusión.</td><td>03 – Moderado</td><td>04 – Mayor</td><td><strong>12 (Alto)</strong></td><td>Mitigar (Cifrado de disco, EDR, bloqueo remoto)</td></tr>
+                <tr><td>INT-8</td><td>Teléfonos móviles</td><td>Pérdida del dispositivo y acceso a correos/sistemas corporativos.</td><td>03 – Moderado</td><td>03 – Significativo</td><td><strong>09 (Medio)</strong></td><td>Mitigar (MDM, Perfil de trabajo, PIN biométrico)</td></tr>
+                <tr><td>INT-9</td><td>Control de versiones (Git)</td><td>Inyección de código malicioso o exposición de llaves/secretos.</td><td>03 – Moderado</td><td>04 – Mayor</td><td><strong>12 (Alto)</strong></td><td>Mitigar (Pull requests, escáner de código)</td></tr>
+                <tr><td>INT-10</td><td>VPN Cisco</td><td>Interceptación de tráfico remoto o acceso no autorizado a red.</td><td>04 – Probable</td><td>04 – Mayor</td><td><strong>16 (Muy Alto)</strong></td><td>Mitigar (Túnel cifrado sin división, MFA)</td></tr>
+                <tr><td>EXT-1</td><td>Proveedores Cloud</td><td>Brecha de seguridad derivada de infraestructura de terceros.</td><td>03 – Moderado</td><td>05 – Severo</td><td><strong>15 (Muy Alto)</strong></td><td>Transferir / Mitigar (Exigir SOC 2 / ISO 27001)</td></tr>
+                <tr><td>EXT-2</td><td>Redes VAN para EDI</td><td>Interceptación de datos logísticos/financieros en tránsito B2B.</td><td>02 – Poco Probable</td><td>04 – Mayor</td><td><strong>08 (Medio)</strong></td><td>Mitigar (Cifrado TLS 1.2+, AS2/SFTP)</td></tr>
+                <tr><td>EXT-3</td><td>APIs y Webhooks</td><td>Abuso de consumo, ataques de denegación de servicio (DDoS).</td><td>04 – Probable</td><td>04 – Mayor</td><td><strong>16 (Muy Alto)</strong></td><td>Mitigar (Rate limiting, bóveda de secretos)</td></tr>
+                <tr><td>EXT-4</td><td>Redes B2B</td><td>Movimiento lateral hacia la red interna desde un socio vulnerado.</td><td>03 – Moderado</td><td>05 – Severo</td><td><strong>15 (Muy Alto)</strong></td><td>Mitigar (Túneles en DMZ, ACLs, IPsec)</td></tr>
+                <tr><td>EXT-5</td><td>Consultores externos</td><td>Abuso de privilegios o persistencia no autorizada en sistemas.</td><td>03 – Moderado</td><td>04 – Mayor</td><td><strong>12 (Alto)</strong></td><td>Mitigar (Cuentas con expiración, mínimo privilegio)</td></tr>
+                <tr><td>EXT-6</td><td>Proveedores MSSP</td><td>Fuga de datos personales (PII) a través de bitácoras exportadas.</td><td>02 – Poco Probable</td><td>04 – Mayor</td><td><strong>08 (Medio)</strong></td><td>Mitigar (Enmascaramiento de logs, mTLS)</td></tr>
+                <tr><td>EXT-7</td><td>Soporte de terceros</td><td>Cambios críticos no autorizados o instalación de puertas traseras.</td><td>02 – Poco Probable</td><td>05 – Severo</td><td><strong>10 (Alto)</strong></td><td>Mitigar (PAM, sesiones grabadas, supervisión)</td></tr>
+                <tr><td>EXT-8</td><td>Dependencias/Software</td><td>Explotación de vulnerabilidades heredadas (ataques de cadena de suministro).</td><td>04 – Probable</td><td>05 – Severo</td><td><strong>20 (Extremo)</strong></td><td>Mitigar (Análisis SCA, bloqueo por CVSS &gt; 7.0)</td></tr>
+                <tr><td>EXT-9</td><td>Custodia Off-site</td><td>Robo o extravío de cintas magnéticas durante el traslado físico.</td><td>02 – Poco Probable</td><td>04 – Mayor</td><td><strong>08 (Medio)</strong></td><td>Mitigar (Cifrado LTO AES-256, cadena de custodia)</td></tr>
+                <tr><td>EXT-10</td><td>Proveedores IdP</td><td>Suplantación de identidad desde ubicaciones geográficas anómalas.</td><td>03 – Moderado</td><td>05 – Severo</td><td><strong>15 (Muy Alto)</strong></td><td>Mitigar (SAML/OIDC, Geo-blocking, MFA)</td></tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <!-- ─── 7. SOPORTE ─── -->
+        <h2>7. Soporte</h2>
+        <h3>7.1 Minuta de Concientización en Seguridad de la Información</h3>
+
+        <table border="1" cellpadding="5" cellspacing="0" style="width:100%;">
+            <tbody>
+                <tr><td><strong>Empresa:</strong></td><td>Robert Bosch Sistemas Automotrices</td></tr>
+                <tr><td><strong>Departamento:</strong></td><td>Easy.Go – EDI/4</td></tr>
+                <tr><td><strong>Tema:</strong></td><td>Concientización sobre Seguridad de la Información y SGSI</td></tr>
+                <tr><td><strong>Fecha:</strong></td><td>15 de mayo de 2026</td></tr>
+                <tr><td><strong>Hora:</strong></td><td>10:00 AM – 10:46 AM</td></tr>
+                <tr><td><strong>Lugar:</strong></td><td>Sala de juntas EDI/4 / Microsoft Teams</td></tr>
+                <tr><td><strong>Responsable:</strong></td><td>Departamento de Ciberseguridad UPSLP</td></tr>
+                <tr><td><strong>Moderadores:</strong></td><td>Diego López Castro, Hazel Mario Ávalos Rangel</td></tr>
+            </tbody>
+        </table>
+        <br>
+
+        <h4>Objetivo de la reunión</h4>
+        <p style="text-align:justify;">Concientizar al personal del departamento EDI/4 sobre la importancia del Sistema de Gestión de Seguridad de la Información (SGSI), así como reforzar buenas prácticas de seguridad para proteger la confidencialidad, integridad y disponibilidad de la información corporativa.</p>
+
+        <h4>Participantes</h4>
+        <ul>
+            <li>Project Manager</li>
+            <li>Team Lead</li>
+            <li>Developers</li>
+            <li>Testers</li>
+            <li>Personal de TI</li>
+            <li>Contratistas autorizados</li>
+        </ul>
+
+        <h4>Temas tratados</h4>
+
+        <h5>1. Introducción al SGSI</h5>
+        <ul>
+            <li>Definición de SGSI.</li>
+            <li>Importancia de ISO/IEC 27001.</li>
+            <li>Riesgos de seguridad en el desarrollo de software.</li>
+        </ul>
+
+        <h5>2. Políticas de seguridad implementadas</h5>
+        <ul>
+            <li>Uso correcto de VPN Cisco.</li>
+            <li>Manejo seguro de contraseñas.</li>
+            <li>Uso de MFA.</li>
+            <li>Protección de información confidencial.</li>
+            <li>Control de acceso a repositorios y bases de datos.</li>
+        </ul>
+
+        <h5>3. Riesgos comunes identificados</h5>
+        <ul>
+            <li>Phishing.</li>
+            <li>Robo de credenciales.</li>
+            <li>Uso de USB no autorizadas.</li>
+            <li>Fuga de información.</li>
+            <li>Vulnerabilidades en librerías externas.</li>
+        </ul>
+
+        <h5>4. Buenas prácticas</h5>
+        <ul>
+            <li>Bloquear equipos al ausentarse.</li>
+            <li>No compartir accesos.</li>
+            <li>Reportar incidentes inmediatamente.</li>
+            <li>Uso correcto del correo corporativo.</li>
+            <li>Actualización constante de software.</li>
+        </ul>
+
+        <h5>5. Responsabilidades del personal</h5>
+        <ul>
+            <li>Cumplir políticas del SGSI.</li>
+            <li>Participar en capacitaciones.</li>
+            <li>Reportar incidentes y anomalías.</li>
+            <li>Proteger activos de información.</li>
+        </ul>
+
+        <h4>Acuerdos establecidos</h4>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Acuerdo</th>
+                    <th>Responsable</th>
+                    <th>Fecha compromiso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Capacitación anual de phishing</td><td>TI / Seguridad</td><td>Semestral</td></tr>
+                <tr><td>Revisión de accesos</td><td>Team Leads</td><td>Trimestral</td></tr>
+                <tr><td>Validación de MFA</td><td>TI</td><td>Inmediato</td></tr>
+                <tr><td>Simulacros de incidentes</td><td>Seguridad Informática</td><td>Próximo trimestre</td></tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <!-- ─── 8. OPERACIÓN ─── -->
+        <h2>8. Operación</h2>
+
+        <p style="text-align:justify;">
+            Dentro de las 20 políticas establecidas, la política sobre el uso de los teléfonos móviles del personal full-time establece: <em>"Los dispositivos móviles que procesen o accedan a datos del departamento EDI deben ser gestionados de manera segura."</em> Esto debido a que si se llega a hacer un mal uso se puede lograr una escala de privilegios mediante el dispositivo móvil hacia la red del sistema u otros dispositivos de la empresa (activos).
+        </p>
+        <p style="text-align:justify;">
+            La línea base de la política menciona la operación para implementar la política, la cual establece: <em>"La política del MDM forzará un código de desbloqueo (PIN) mínimo de 6 dígitos numéricos o autenticación biométrica de forma predeterminada."</em>
+        </p>
+        <p style="text-align:justify;">Para implementar esta política es necesario contar con un teléfono de la empresa, ser personal full-time de Bosch e implementar la siguiente configuración:</p>
+        <ol>
+            <li>Ingresar a la aplicación de configuración en el dispositivo.</li>
+            <li>Seleccionar la opción <strong>FaceID &amp; Passcode</strong>.</li>
+            <li>Activar el FaceID y realizar la prueba para la configuración del biométrico.</li>
+            <li>Seleccionar la opción de agregar un passcode e ingresar el código de 6 dígitos de preferencia.</li>
+        </ol>
+
+        <!-- Espacio para imágenes de evidencia de configuración -->
+        <div style="text-align: center;">
+            <img src="op1.png"
+                 alt="Evidencia de configuración biométrica – Paso 1 y 2"
+                 style="width:80%; height:auto; border-radius: 0 !important; display: inline-block;">
+            <img src="op2.png"
+                 alt="Evidencia de configuración biométrica – Paso 1 y 2"
+                 style="width:80%; height:auto; border-radius: 0 !important; display: inline-block;">
+        </div>
+        <br>
+
+        <h3>8.1 Planificación y control operacional</h3>
+        <p style="text-align:justify;">El departamento EDI/4 de Robert Bosch Sistemas Automotrices, S.A. de C.V. planifica, implementa, controla, supervisa y revisa los procesos necesarios para cumplir con los requisitos de seguridad de la información establecidos en el SGSI. Para ello, se han definido los siguientes elementos de control operacional:</p>
+        <ul style="text-align:justify;">
+            <li><strong>Criterios para los procesos:</strong> Se han documentado los procedimientos operativos relacionados con el acceso a sistemas, gestión de incidentes, respaldo de información y control de cambios, garantizando que cada proceso cuente con criterios de aceptación y controles definidos.</li>
+            <li><strong>Control de cambios planificados:</strong> Cualquier modificación en la infraestructura tecnológica, plataforma OutSystems o procesos del departamento es gestionada mediante un proceso formal de control de cambios, evaluando el impacto en la seguridad de la información antes de su implementación.</li>
+            <li><strong>Procesos externalizados:</strong> Se identifican y controlan los procesos contratados externamente que afectan la seguridad de la información, como servicios en la nube (AWS S3, SaaS), soporte remoto de terceros y proveedores de VAN para transacciones EDI.</li>
+            <li><strong>Documentación de la información:</strong> Se mantiene información documentada en la medida necesaria para tener confianza en que los procesos se han llevado a cabo según lo planificado. Esto incluye registros de acceso, logs de sistemas SIEM, actas de reuniones y reportes de incidentes.</li>
+        </ul>
+
+        <hr>
+
+        <!-- ─── 9. EVALUACIÓN DEL RENDIMIENTO ─── -->
+        <h2>9. Evaluación del Rendimiento</h2>
+        <h3>Checklist de Auditoría Interna del SGSI</h3>
+        <p style="text-align:justify;">Este documento establece el resultado de la auditoría interna para el Sistema de Gestión de Seguridad de la Información (SGSI) del departamento EDI/4 de Bosch. Se han evaluado 20 políticas y controles clave basados en ISO/IEC 27001 y las guías del INCIBE.</p>
+        <p style="text-align:justify;"><strong>Instrucciones para el Auditor:</strong> Para cada control, evalúe el nivel de cumplimiento indicando "Cumple", "No Cumple" o "Parcial". Es imperativo detallar en la columna de evidencias los documentos revisados, configuraciones comprobadas o entrevistas realizadas que sustenten la evaluación.</p>
+
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Política / Control de Seguridad</th>
+                    <th>Estado</th>
+                    <th>Evidencias / Observaciones (Hallazgos)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Política General de Seguridad: Aprobada y comunicada a todo el personal.</td><td><strong style="color:green;">Cumple</strong></td><td>Documento "Política SGSI V2.0" firmado por el Director de Planta. Comunicado vía boletín interno el 15/01/2026.</td></tr>
+                <tr><td>2</td><td>Revisión de Políticas: Se evalúan y actualizan al menos anualmente.</td><td><strong style="color:red;">No Cumple</strong></td><td>La política de teletrabajo no se ha actualizado desde hace 18 meses. Requiere revisión por RRHH y TI.</td></tr>
+                <tr><td>3</td><td>Roles y Responsabilidades: Definidos y asignados formalmente.</td><td><strong style="color:green;">Cumple</strong></td><td>Matriz RACI de ciberseguridad publicada en la intranet corporativa (Confluence).</td></tr>
+                <tr><td>4</td><td>Seguridad en Proyectos (Security by Design): Integrada desde el inicio.</td><td><strong style="color:orange;">Parcial</strong></td><td>2 de 5 proyectos nuevos de EDI/4 omitieron la fase de evaluación de riesgos inicial. Se levantó no conformidad menor.</td></tr>
+                <tr><td>5</td><td>Inventario de Activos: Actualizado y detallado (hardware y software).</td><td><strong style="color:green;">Cumple</strong></td><td>Revisión de la plataforma GLPI; el escaneo de red coincide en un 98% con el registro documental.</td></tr>
+                <tr><td>6</td><td>Clasificación de la Información: Uso de etiquetas (Pública, Interna, Confidencial).</td><td><strong style="color:red;">No Cumple</strong></td><td>Se encontraron reportes financieros en servidores compartidos sin la etiqueta de "Confidencial".</td></tr>
+                <tr><td>7</td><td>Borrado Seguro y Destrucción: Eliminación certificada de datos en equipos obsoletos.</td><td><strong style="color:green;">Cumple</strong></td><td>Se revisaron actas de destrucción magnética emitidas por proveedor externo (Folio #8472) de 15 laptops.</td></tr>
+                <tr><td>8</td><td>Principio de Mínimo Privilegio: Permisos limitados estrictamente a las funciones del rol.</td><td><strong style="color:green;">Cumple</strong></td><td>Auditoría de Active Directory: No hay usuarios operativos en el grupo de Domain Admins.</td></tr>
+                <tr><td>9</td><td>MFA y VPN: Autenticación multifactor para servicios en la nube y accesos remotos.</td><td><strong style="color:green;">Cumple</strong></td><td>Logs de Microsoft Entra ID verificados; el 100% de accesos VPN Cisco exigen validación de token.</td></tr>
+                <tr><td>10</td><td>Gestión de Altas y Bajas: Retirada inmediata de accesos al cesar labores.</td><td><strong style="color:red;">No Cumple</strong></td><td>Se identificaron 2 cuentas de ex-empleados que permanecieron activas por más de 72 horas después de su salida.</td></tr>
+                <tr><td>11</td><td>Monitoreo de Accesos: Registro de intentos fallidos de autenticación.</td><td><strong style="color:green;">Cumple</strong></td><td>Alertas activas en el SIEM corporativo. Se verificó el bloqueo automático tras 5 intentos fallidos de contraseña.</td></tr>
+                <tr><td>12</td><td>Control de Acceso Físico: Protección en CPD y áreas restringidas.</td><td><strong style="color:green;">Cumple</strong></td><td>Se constató funcionamiento de lectores biométricos y cámaras en la entrada del site principal.</td></tr>
+                <tr><td>13</td><td>Regla de Backup 3-2-1: Copias de seguridad periódicas y descentralizadas.</td><td><strong style="color:green;">Cumple</strong></td><td>Logs de Veeam Backup confirmados. Se almacenan copias inmutables en AWS S3.</td></tr>
+                <tr><td>14</td><td>Pruebas de Restauración (Disaster Recovery): Verificación de integridad de backups.</td><td><strong style="color:red;">No Cumple</strong></td><td>No existe evidencia documentada de un simulacro de restauración de la base de datos principal en el último año.</td></tr>
+                <tr><td>15</td><td>Protección Endpoint (EDR/Antimalware): Software actualizado en todas las estaciones.</td><td><strong style="color:green;">Cumple</strong></td><td>Consola centralizada muestra el 99.5% de los equipos con el agente EDR de CrowdStrike en estado óptimo.</td></tr>
+                <tr><td>16</td><td>Cifrado AES-256: Aplicado en laptops y transferencia de datos sensibles.</td><td><strong style="color:green;">Cumple</strong></td><td>Validación mediante GPO (Políticas de Grupo). BitLocker está activo y no puede ser deshabilitado por el usuario.</td></tr>
+                <tr><td>17</td><td>Gestión de Vulnerabilidades y Parches: Actualizaciones críticas instaladas a tiempo.</td><td><strong style="color:green;">Cumple</strong></td><td>Reporte de escaneo Nessus sin vulnerabilidades de severidad "Crítica". Parches desplegados vía WSUS en la semana 2.</td></tr>
+                <tr><td>18</td><td>Plan de Respuesta a Incidentes: Documentado y con equipo de respuesta designado.</td><td><strong style="color:green;">Cumple</strong></td><td>CSIRT interno conformado. El procedimiento de escalamiento fue actualizado en febrero de 2026.</td></tr>
+                <tr><td>19</td><td>Firma de Acuerdos de Confidencialidad (NDA): Obligatorio previo al acceso a sistemas.</td><td><strong style="color:green;">Cumple</strong></td><td>Muestreo aleatorio de 20 expedientes en RRHH; todos contienen el NDA debidamente firmado.</td></tr>
+                <tr><td>20</td><td>Campañas de Concientización y Phishing: Formación periódica al personal.</td><td><strong style="color:orange;">Parcial</strong></td><td>Se realizó la capacitación, pero la campaña de simulacro de phishing tiene más de un año de atraso.</td></tr>
+            </tbody>
+        </table>
+        <br>
+
+        <h3>Resumen de la Auditoría</h3>
+        <ul>
+            <li><strong>Total de controles evaluados:</strong> 20</li>
+            <li><strong>Controles en cumplimiento:</strong> 14</li>
+            <li><strong>Incumplimientos identificados:</strong> 4</li>
+            <li><strong>Cumplimientos parciales:</strong> 2</li>
+        </ul>
+
+        <h3>Firma y Validación</h3>
+        <table border="1" cellpadding="5" cellspacing="0" style="width:60%;">
+            <tbody>
+                <tr><td><strong>Fecha de la Auditoría:</strong></td><td>13 de Mayo de 2026</td></tr>
+                <tr><td><strong>Auditor Líder:</strong></td><td>Ailton Israel Dominguez Hernandez</td></tr>
+                <tr><td><strong>Responsable del SGSI:</strong></td><td>Diego Lopez Castro</td></tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <!-- ─── 10. MEJORA ─── -->
+        <h2>10. Mejora</h2>
+
+        <h3>10.1 Descripción del Incidente: ¿Qué sucedió?</h3>
+        <p style="text-align:justify;">
+            El día de ayer, un colaborador perteneciente al equipo EDI/4 fue víctima del robo de su equipo de cómputo portátil corporativo mientras laboraba de manera remota en una cafetería pública. El colaborador se encontraba trabajando con el equipo encendido y la sesión iniciada. Al recibir una llamada telefónica personal que requería privacidad, se levantó de su mesa y salió de las oficinas dejando la laptop desbloqueada. Al regresar a su lugar minutos después, el equipo ya no se encontraba en la mesa. Debido a que el equipo fue sustraído mientras estaba en uso, existió una ventana de riesgo crítica en la que un tercero no autorizado pudo haber accedido a información corporativa antes de que la pantalla se bloqueara automáticamente.
+        </p>
+
+        <h3>10.2 Análisis de Causa Raíz: ¿Por qué se materializó la amenaza?</h3>
+        <p style="text-align:justify;">La materialización de este incidente no se debió a una falla en la infraestructura tecnológica, sino a una combinación de negligencia humana y una ventana de vulnerabilidad en la configuración de la línea base. El análisis detalla lo siguiente:</p>
+        <ul style="text-align:justify;">
+            <li><strong>Falla en la Seguridad Física:</strong> El usuario violó los principios básicos de custodia de activos al abandonar un equipo corporativo en un espacio público de alto tránsito. La capacitación actual se enfoca exclusivamente en riesgos digitales (phishing), dejando un vacío en la concientización sobre seguridad física e ingeniería social presencial.</li>
+            <li><strong>Brecha en la Línea Base de Configuración:</strong> La línea base establece un bloqueo de sesión tras 5 minutos de inactividad. Dado que el robo ocurrió escasos minutos después de que el usuario se levantara, el ladrón sustrajo un equipo con la sesión de Windows activa. Esto neutralizó temporalmente la protección de primer nivel que ofrece el cifrado de disco, ya que el sistema operativo estaba desbloqueado en el momento de la sustracción.</li>
+            <li><strong>Efectividad del Procedimiento Reactivo:</strong> Aunque la prevención falló, el diseño del protocolo de respuesta mitigó el impacto. El usuario actuó dentro del margen de la primera hora, permitiendo contener la brecha antes de que el equipo pudiera ser desconectado de la red para extraer datos de forma prolongada.</li>
+        </ul>
+
+        <h3>10.3 Línea Temporal del Incidente (Cronología)</h3>
+        <ul style="text-align:justify;">
+            <li><strong>09:15 a.m.</strong> – El usuario del equipo EDI llega a la cafetería e inicia su jornada laboral de forma remota. El EDR reporta conexión estable y el disco se encuentra correctamente cifrado.</li>
+            <li><strong>10:42 a.m.</strong> – El usuario recibe una llamada telefónica y abandona la mesa, dejando la laptop abierta y con la sesión activa. Comienza a correr el temporizador de 5 minutos de la línea base para el bloqueo por inactividad.</li>
+            <li><strong>10:44 a.m.</strong> – <em>(Estimado según cámaras del local)</em> Un individuo ajeno sustrae el equipo de la mesa y abandona el lugar. La sesión del usuario aún se encuentra activa (minuto 2 de inactividad).</li>
+            <li><strong>10:48 a.m.</strong> – El usuario regresa a la mesa, se percata de la ausencia del equipo y comienza a buscarlo en las instalaciones.</li>
+            <li><strong>11:15 a.m.</strong> – Tras confirmar el robo, el usuario se comunica de inmediato con la mesa de ayuda de TI. <em>(Cumplimiento del Procedimiento Paso 1: Notificación dentro de la primera hora)</em>.</li>
+            <li><strong>11:22 a.m.</strong> – El equipo de Seguridad de TI localiza el dispositivo en la consola del MDM/EDR y ejecuta el comando de bloqueo de pantalla forzado y borrado remoto de nivel militar. <em>(Cumplimiento del Procedimiento Paso 2)</em>.</li>
+            <li><strong>11:25 a.m.</strong> – La consola de TI confirma que el comando de borrado remoto (Wipe) ha sido recibido y ejecutado con éxito. A partir de este momento, entra en rigor la protección del cifrado de disco, imposibilitando la recuperación de la información por métodos forenses de terceros.</li>
+            <li><strong>01:30 p.m.</strong> – El usuario acude al Ministerio Público y levanta el acta por robo, enviando posteriormente la copia digitalizada al departamento de Recursos Humanos y TI. <em>(Cumplimiento del Procedimiento Paso 3)</em>.</li>
+        </ul>
+
+        <h3>10.4 Conclusiones y Plan de Acción</h3>
+        <p style="text-align:justify;">
+            El incidente demuestra que los controles técnicos reactivos (EDR, cifrado y borrado remoto) funcionaron exactamente como fueron diseñados, evitando una fuga de datos masiva. Sin embargo, la brecha inicial confirma la necesidad de ajustar las políticas preventivas.
+        </p>
+        <p><strong>Acciones de Mejora Propuestas:</strong></p>
+        <ol style="text-align:justify;">
+            <li><strong>Actualización de la Línea Base:</strong> Reducir el tiempo de inactividad para el bloqueo de pantalla de 5 minutos a <strong>3 minutos</strong> en todos los equipos del personal EDI, mitigando la ventana de exposición física.</li>
+            <li><strong>Ampliación de la Directriz (Capacitación):</strong> Modificar la formación anual. Además de la identificación de <em>phishing</em>, se debe incluir un módulo obligatorio sobre Seguridad Física de Activos Tecnológicos y la adopción del hábito de bloqueo manual inmediato (atajo <strong>Windows + L</strong> o <strong>Command + Control + Q</strong>) al alejarse del equipo.</li>
+        </ol>
+
+        <hr>
+
+        <!-- ─── CONCLUSIÓN Y REFLEXIÓN ─── -->
+        <section>
+            <h2>Conclusión y reflexión de la propuesta</h2>
+            <p style="text-align:justify;">
+                La estructuración de esta propuesta técnica demuestra que el diseño de un SGSI bajo las directrices de <strong>ISO/IEC 27001</strong> no debe verse como una limitante burocrática, sino como un habilitador tecnológico crítico. Al aterrizar el marco normativo internacional al contexto de la trinchera operativa del área EDI/4, se logra blindar un ecosistema de alta velocidad como es el desarrollo <em>Low-Code</em> en OutSystems sin mermar su agilidad característica.
+            </p>
+            <p style="text-align:justify;">
+                El aprendizaje fundamental de esta entrega radica en que el gobierno corporativo de la seguridad exige una granularidad técnica estricta: desde la inmutabilidad de los logs transaccionales en un DBMS hasta el blindaje de los flujos de control en la cadena de suministro de software externo. La ciberseguridad efectiva no depende de herramientas aisladas, sino de la estricta cohesión entre políticas claras, procedimientos reproducibles y una sólida cultura organizacional de cumplimiento.
+            </p>
+        </section>
+
+        <!-- ─── REFERENCIAS ─── -->
+        <section>
+            <h3>Referencias Bibliográficas</h3>
+            <ul style="font-size: 0.9em; line-height: 1.6;">
+                <li>International Organization for Standardization. (2022). <em>Information security, cybersecurity and privacy protection — ISMS — Requirements</em> (ISO/IEC Standard No. 27001).</li>
+                <li>International Organization for Standardization. (2022). <em>Information security controls</em> (ISO/IEC Standard No. 27002).</li>
+                <li>Robert Bosch Sistemas Automotrices. (2026). <em>Global Directives on Security of Information and Data Protection.</em> Corporate Network Division.</li>
+                <li>OutSystems Platform. (2025). <em>Secure Architecture and Cloud Governance Implementation Guide.</em> Product Security Operations.</li>
+                <li>RocketReach. (s.f.). <em>Bosch México Marketing Department.</em> <a href="https://rocketreach.co/bosch-mexico-marketing-department_b5e1056bf42e6a1a">https://rocketreach.co/bosch-mexico-marketing-department_b5e1056bf42e6a1a</a></li>
+                <li>The Official Board. (2026). <em>Bosch Org Chart + Executive Team.</em> <a href="https://www.theofficialboard.com/org-chart/bosch-1">https://www.theofficialboard.com/org-chart/bosch-1</a></li>
+            </ul>
+        </section>
+        <br>
+
+        <div class="fila-boton" style="text-align:center;">
+            <a href="PR03-Equipo02.pdf" download>
+                <button>Descargar PDF Original</button>
+            </a>
+        </div>
+
+    </main>
+
+    <footer>
+        © 2026 Universidad Politécnica de San Luis Potosí | Seguridad Informática | Equipo 02
+    </footer>
+
+</body>
+</html>
