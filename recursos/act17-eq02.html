@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Vulnerabilidades con CVSS v3.1</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    
+    <nav>
+        <a href="../index.html">Inicio</a> 
+        <a href="actividades.html">Actividades</a> 
+        <a href="notas.html">Notas</a> 
+        <a href="herramientas.html">Herramientas</a>
+        <a href="proyectos.html">Proyectos</a>
+        <a href="certificaciones.html">Certificaciones</a>
+        <a href="roadtohall.html">Road to Hall Of Fame</a>
+        <a href="quizPhising.html">Quiz de Phishing</a>
+    </nav>
+
+    <main class="container">
+        
+        <div>
+            <h1>Evaluación de Vulnerabilidades con CVSS v3.1</h1>
+            <img src="cvssBueno.png" 
+            alt="Análisis de Vulnerabilidades"
+            style="width:80%; height:auto; border-radius: 0 !important; object-fit: contain; align-self: center;">
+        </div>
+        
+        <p>La evaluación de vulnerabilidades es una actividad esencial dentro de la gestión de riesgos, ya que permite traducir hallazgos técnicos en criterios claros de prioridad para la toma de decisiones. En ese proceso, el Common Vulnerability Scoring System versión 3.1 (CVSS v3.1) funciona como un marco estandarizado para describir la severidad de una vulnerabilidad mediante métricas comparables entre distintos productos, entornos y organizaciones.</p>
+        
+        <p>Su principal valor consiste en ofrecer una puntuación base reproducible y una representación compacta en forma de vector. A diferencia de una valoración meramente intuitiva, CVSS v3.1 separa las características intrínsecas de la vulnerabilidad en tres grupos de métricas: Base, Temporal y Ambiental. Para esta actividad se trabaja principalmente con el grupo Base, porque el escenario proporciona la información necesaria para construir el vector y obtener la puntuación inicial. A partir de esa puntuación es posible interpretar la gravedad del caso, ubicarlo en una categoría cualitativa y justificar qué tan urgente debe ser su mitigación dentro de una organización.</p>
+        
+        <h2>Contexto del material</h2>
+        <p>Este conjunto de ejercicios está diseñado para reforzar conceptos fundamentales como:</p>
+        <ul>
+            <li>La importancia de CVSS como marco abierto para comunicar las características y la severidad de vulnerabilidades de software, hardware y firmware.</li>
+            <li>La diferenciación de los tres pilares: métricas <strong>Base</strong> (intrínsecas y constantes), <strong>Temporales</strong> (cambiantes en el tiempo) y <strong>Ambientales</strong> (contexto de la organización).</li>
+            <li>La anatomía y desglose de una cadena vector y su traducción a la escala cualitativa oficial.</li>
+            <li>El uso práctico de la calculadora oficial para la toma de decisiones y priorización operativa.</li>
+        </ul>
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/KKK6MMS6_w4?si=Ih-TBLBkhp76jWgK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+        <h2>1. Métricas base utilizadas en la actividad</h2>
+        <p>A continuación se describen las métricas del grupo Base evaluadas en el escenario técnico:</p>
+        
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Métrica Base</th>
+                    <th>Valor Asignado</th>
+                    <th>Descripción Técnica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Attack Vector (AV)</strong></td>
+                    <td>Network (N)</td>
+                    <td>Indica que la vulnerabilidad puede explotarse a través de la red, sin requerir acceso físico al equipo vulnerable.</td>
+                </tr>
+                <tr>
+                    <td><strong>Attack Complexity (AC)</strong></td>
+                    <td>Low (L)</td>
+                    <td>Significa que la explotación no exige condiciones especiales o pasos excepcionales; el ataque es relativamente sencillo.</td>
+                </tr>
+                <tr>
+                    <td><strong>Privileges Required (PR)</strong></td>
+                    <td>High (H)</td>
+                    <td>Indica que el atacante necesita privilegios elevados antes de explotar la vulnerabilidad, reduciendo la facilidad del ataque.</td>
+                </tr>
+                <tr>
+                    <td><strong>User Interaction (UI)</strong></td>
+                    <td>None (N)</td>
+                    <td>Señala que no se requiere interacción del usuario para que la explotación tenga éxito.</td>
+                </tr>
+                <tr>
+                    <td><strong>Scope (S)</strong></td>
+                    <td>Unchanged (U)</td>
+                    <td>Indica que el impacto permanece dentro del mismo ámbito de seguridad del componente vulnerable.</td>
+                </tr>
+                <tr>
+                    <td><strong>Confidentiality (C)</strong></td>
+                    <td>Low (L)</td>
+                    <td>Representa un impacto bajo o afectación parcial sobre la confidencialidad de la información.</td>
+                </tr>
+                <tr>
+                    <td><strong>Integrity (I)</strong></td>
+                    <td>Low (L)</td>
+                    <td>Representa un impacto bajo o afectación limitada sobre la integridad de los datos.</td>
+                </tr>
+                <tr>
+                    <td><strong>Availability (A)</strong></td>
+                    <td>Low (L)</td>
+                    <td>Representa un impacto bajo o pequeñas interrupciones del servicio sobre la disponibilidad del sistema.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        
+        <h2>2. Escenario Evaluado</h2>
+        <p>Una organización detecta una vulnerabilidad en un sistema web interno con las siguientes características extraídas del análisis:</p>
+        <ul>
+            <li>1. Puede explotarse a través de la red.</li>
+            <li>2. La explotación requiere baja complejidad.</li>
+            <li>3. Se necesitan privilegios elevados.</li>
+            <li>4. No requiere interacción del usuario.</li>
+            <li>5. No cambia el alcance.</li>
+            <li>6. El impacto en Confidencialidad, Integridad y Disponibilidad es <strong>Bajo</strong>.</li>
+        </ul>
+
+        <h2>3. Cadena Vector Construida</h2>
+        <p>Con base en la información proporcionada y con ayuda de la calculadora oficial, se generó la siguiente cadena estructurada:</p>
+        <pre>CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L</pre>
+
+        <h2>4. Interpretación Técnica</h2>
+        <p>A pesar de que la vulnerabilidad requiere privilegios elevados (PR:H), continúa siendo relevante porque puede explotarse remotamente a través de la red (AV:N) y con baja complejidad (AC:L), lo que significa que un atacante que ya haya obtenido acceso privilegiado mediante robo de credenciales, escalamiento previo o cuentas comprometidas podría explotarla fácilmente sin necesidad de interacción del usuario (UI:N).</p>
+        <p>Esto incrementa el riesgo dentro de entornos corporativos donde existen múltiples cuentas administrativas o donde un atacante ya logró una intrusión inicial. El tipo de atacante que podría explotarla corresponde principalmente a un actor con conocimientos técnicos intermedios o avanzados, como ciberdelincuentes organizados, insiders maliciosos o grupos APT que ya posean acceso privilegiado dentro de la infraestructura.</p>
+        <p>El hecho de que el alcance permanezca sin cambios (S:U) indica que la vulnerabilidad sólo afecta recursos dentro del mismo ámbito de seguridad comprometido y no permite expandir privilegios hacia otros dominios o sistemas externos. Finalmente, que el impacto sea bajo (C:L/I:L/A:L) significa que la explotación produce afectaciones limitadas: el atacante podría acceder parcialmente a información o modificar algunos datos, pero sin comprometer completamente el sistema.</p>
+
+        <h2>5. Cálculo de Puntuación y Escala Cualitativa</h2>
+        <p>Al procesar el vector anterior dentro de la plataforma oficial, se obtienen los siguientes resultados analíticos:</p>
+        <ul>
+            <li><strong>Puntuación Base del Escenario:</strong> 4.7</li>
+            <li><strong>Categoría de Severidad:</strong> MEDIA</li>
+        </ul>
+        <p>Según la especificación CVSS v3.1, la escala oficial se distribuye de la siguiente manera: Baja (0.1-3.9), Media (4.0-6.9), Alta (7.0-8.9) y Crítica (9.0-10.0).</p>
+
+        <h1>Conclusión y reflexión técnica</h1>
+        <p>El uso de CVSS v3.1 en este escenario permite transformar una descripción técnica de la vulnerabilidad en un criterio de severidad claro y comparable. La construcción del vector mostró que, aunque el impacto sobre confidencialidad, integridad y disponibilidad es bajo, la explotación remota y la ausencia de interacción del usuario representan condiciones que siguen justificando atención prioritaria. El requisito de privilegios elevados reduce el potencial de explotación, pero no elimina el riesgo.</p>
+        <p>La puntuación base obtenida, 4.7, ubica la vulnerabilidad en la categoría Media, por lo que su corrección no debería postergarse indefinidamente, especialmente si afecta un sistema web interno con valor operativo para la organización. En términos de gestión, este resultado demuestra que CVSS no sólo sirve para clasificar vulnerabilidades, sino también para sustentar decisiones de mitigación con un lenguaje técnico estandarizado. Para una priorización más precisa, la valoración base debe complementarse con métricas temporales y ambientales que reflejen las condiciones reales del entorno.</p>
+
+        <div class="fila-boton" style="text-align:center;">
+            <a href="act17-Equipo02.pdf" download>
+                <button>Descargar PDF Original</button>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 Universidad Politécnica de San Luis Potosí | Seguridad Informática | Equipo 02
+    </footer>
+</body>
+</html>
